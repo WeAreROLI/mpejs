@@ -17,14 +17,13 @@ export function midiMessage(midiEvent, currentStateCallback) {
 function overrideBaseType(baseType, dataBytes) {
   switch (baseType) {
     case types.NOTE_ON:
-      // A NOTE_ON with velocity 0 behaves as a NOTE_OFF
+      // A NOTE_ON with velocity 0 is a NOTE_OFF
       if (dataBytes[1] === 0) return types.NOTE_OFF;
     case types.CONTROL_CHANGE:
       // CC 74 is used for TIMBRE
       if (dataBytes[0] === 74) return types.TIMBRE;
-    default:
-      return baseType;
   }
+  return baseType;
 }
 
 function deriveTypeSpecificData(baseData, dataBytes, currentStateCallback) {

@@ -35,10 +35,9 @@ export const dataBytesToUint14 = (midiDataBytes) => {
     case 2:
       // With two 7-bit values, combine to make one 14-bit integer
       return (midiDataByteContents[0] << 7) + midiDataByteContents[1];
-    default:
-      throw new Error(
-        `midiDataToMpeValue takes one or two 8-bit integers.\n` +
-        `midiDataToMpeValue(${midiDataBytes}) is invalid.`
-      );
   }
+  throw new Error(
+    `midiDataToMpeValue takes one or two 8-bit integers.\n` +
+    `midiDataToMpeValue(${midiDataBytes}) is invalid.`
+  );
 };
