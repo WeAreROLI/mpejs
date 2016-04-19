@@ -8,10 +8,11 @@ export default class MpeInstrument {
     this.output = midiOutput;
     this.store = createStore(rootReducer);
     this.input.onmidimessage = (event) =>
-      this.store.dispatch(midiMessage(event, this.store.getState()));
+      this.store.dispatch(midiMessage(event, () => this.store.getState()));
       this.store.subscribe(
         () => {
-          this.store.getState().activeNotes.map((n) => {
+          const state = this.store.getState();
+          state.activeNotes.map((n) => {
             const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
             console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
           })

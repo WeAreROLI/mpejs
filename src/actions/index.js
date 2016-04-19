@@ -2,6 +2,18 @@ import { statusByteClassifier, statusByteToChannel } from '../utils/statusByteUt
 import * as types from '../constants/actionTypes';
 import { dataBytesToUint14 } from '../utils/dataByteUtils';
 
+export function midiMessage(midiEvent, currentStateCallback) {
+  const channel = statusByteToChannel(midiEvent.data[0]);
+  const dataBytes = midiEvent.data.slice(1);
+
+  const baseType = statusByteClassifier(midiEvent.data[0]);
+  const type = overrideBaseType(baseType, dataBytes);
+  const baseData = { type, channel };
+  const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, currentStateCallback);
+
+  return Object.assign({}, baseData, typeSpecificData);
+}
+
 function overrideBaseType(baseType, dataBytes) {
   switch (baseType) {
     case types.NOTE_ON:
@@ -15,30 +27,20 @@ function overrideBaseType(baseType, dataBytes) {
   }
 }
 
-function deriveTypeSpecificData(baseData, dataBytes, channelScope) {
+function deriveTypeSpecificData(baseData, dataBytes, currentStateCallback) {
   switch (baseData.type) {
     case types.NOTE_ON:
-      return { channelScope, noteNumber: dataBytes[0], noteOnVelocity: dataBytes[1] }
+      // Note On messages bundle channelScope to set expression values at creation.
+      const channelScope = currentStateCallback().channelScopes[baseData.channel];
+      return { noteNumber: dataBytes[0], noteOnVelocity: dataBytes[1], channelScope };
     case types.NOTE_OFF:
-      return { noteNumber: dataBytes[0], noteOffVelocity: dataBytes[1] }
+      return { noteNumber: dataBytes[0], noteOffVelocity: dataBytes[1] };
     case types.PITCH_BEND:
-      return { pitchBend: dataBytesToUint14(dataBytes.reverse()) }
+      // This Control Change message's data bytes are ordered [LSB, MSB].
+      return { pitchBend: dataBytesToUint14(dataBytes.reverse()) };
     case types.TIMBRE:
-      return { timbre: dataBytesToUint14(dataBytes.slice(1)) }
+      return { timbre: dataBytesToUint14([dataBytes[1]]) };
     case types.CHANNEL_PRESSURE:
-      return { pressure: dataBytesToUint14(dataBytes) }
+      return { pressure: dataBytesToUint14(dataBytes) };
   }
-}
-
-export function midiMessage(midiEvent, currentState) {
-  const channel = statusByteToChannel(midiEvent.data[0]);
-  const dataBytes = midiEvent.data.slice(1);
-
-  const baseType = statusByteClassifier(midiEvent.data[0]);
-  const type = overrideBaseType(baseType, dataBytes);
-  const baseData = { type, channel };
-  const channelScope = currentState.channelScopes[channel];
-  const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, channelScope);
-
-  return Object.assign({}, baseData, typeSpecificData);
 }
