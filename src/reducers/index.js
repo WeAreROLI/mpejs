@@ -26,7 +26,7 @@ function channelScope(state = {}, action) {
   return state;
 }
 
-function noteScopes(state = [], action) {
+function activeNotes(state = [], action) {
   if (!types[action.type]) {
     return state;
   }
@@ -34,16 +34,16 @@ function noteScopes(state = [], action) {
   state = state.filter((activeNote) => activeNote.noteState !== noteStates.OFF);
   switch(action.type) {
     case types.NOTE_ON:
-      return [...state, noteScope({}, action)];
+      return [...state, activeNote({}, action)];
     case types.NOTE_OFF:
       const noteIndex = findActiveNoteIndex(state, action);
-      return [...state.slice(0, noteIndex), noteScope(state[noteIndex], action), ...state.slice(noteIndex + 1)];
+      return [...state.slice(0, noteIndex), activeNote(state[noteIndex], action), ...state.slice(noteIndex + 1)];
     case types.PITCH_BEND:
     case types.CHANNEL_PRESSURE:
     case types.TIMBRE:
       const noteIndexes = findActiveNoteIndexesByChannel(state, action);
       noteIndexes.forEach((noteIndex) => {
-        state = [...state.slice(0, noteIndex), noteScope(state[noteIndex], action), ...state.slice(noteIndex + 1)]
+        state = [...state.slice(0, noteIndex), activeNote(state[noteIndex], action), ...state.slice(noteIndex + 1)]
       });
       return state;
   }
@@ -51,7 +51,7 @@ function noteScopes(state = [], action) {
   return state;
 }
 
-function noteScope(state = {}, action) {
+function activeNote(state = {}, action) {
   const { noteNumber, channel } = action;
   switch(action.type) {
     case types.NOTE_ON:
@@ -75,7 +75,7 @@ function noteScope(state = {}, action) {
 
 const rootReducer = combineReducers({
   channelScopes,
-  noteScopes,
+  activeNotes,
 });
 
 export default rootReducer;

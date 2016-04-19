@@ -11,7 +11,7 @@ export default class MpeInstrument {
       this.store.dispatch(midiMessage(event, this.store.getState()));
       this.store.subscribe(
         () => {
-          this.store.getState().noteScopes.map((n) => {
+          this.store.getState().activeNotes.map((n) => {
             const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
             console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
           })
