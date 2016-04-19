@@ -40,9 +40,5 @@ export function midiMessage(midiEvent, currentState) {
   const channelScope = currentState.channelScopes[channel];
   const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, channelScope);
 
-  return Object.assign(
-    {},
-    baseData,
-    typeSpecificData
-  );
+  return Object.assign({}, baseData, typeSpecificData);
 }
