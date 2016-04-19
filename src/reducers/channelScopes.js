@@ -4,9 +4,8 @@ export default function channelScopes(state = {}, action) {
   if (!types[action.type]) {
     return state;
   }
-  let channelSubtree = [];
-  channelSubtree[action.channel] = channelScope(state[action.channel], action);
-  return Object.assign(state, channelSubtree);
+  const { channel } = action;
+  return Object.assign(state, { [channel]: channelScope(state[channel], action) });
 }
 
 function channelScope(state = {}, action) {
