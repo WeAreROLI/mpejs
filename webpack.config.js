@@ -13,7 +13,10 @@ module.exports = {
         loaders: [
             {
               test: path.join(__dirname, 'src'),
-              loader: 'babel-loader'
+              loader: 'babel-loader',
+              query: {
+                  presets: [require.resolve('babel-preset-es2015')]
+              }
             }
         ]
     },
