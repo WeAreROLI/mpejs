@@ -1,6 +1,6 @@
 # ROLI Web MIDI Utils
 
-A toolkit to handle MIDI in the browser.
+A JavaScript toolkit to handle MIDI data.
 
 ```
 ......................
