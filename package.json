@@ -1,7 +1,7 @@
 {
   "name": "web-midi-utils",
   "version": "0.0.1",
-  "description": "A toolkit to handle MIDI in the browser.",
+  "description": "A JavaScript toolkit to handle MIDI data.",
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && npm run compile",
