@@ -9,15 +9,16 @@ export class MpeInstrument {
     this.store = createStore(rootReducer);
     this.input.onmidimessage = (event) =>
       this.store.dispatch(midiMessage(event, () => this.store.getState()));
-      this.store.subscribe(
-        () => {
-          const state = this.store.getState();
-          state.activeNotes.map((n) => {
-            const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
-            console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
-          })
-          console.log('-');
-        }
-      );
+  }
+
+  debug() {
+    this.store.subscribe(() => {
+      const state = this.store.getState();
+      state.activeNotes.map((n) => {
+        const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
+        console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
+      })
+      console.log('-');
+    });
   }
 }

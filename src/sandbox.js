@@ -1,4 +1,4 @@
-import MpeInstrument from './mpe';
+import { MpeInstrument } from './mpe';
 
 if (navigator.requestMIDIAccess) {
   console.log('\nWelcome to Web MIDI Sandbox\n\n');
@@ -9,10 +9,11 @@ if (navigator.requestMIDIAccess) {
       console.log(Array.from(x.inputs.values()));
       console.log('MIDI outputs:');
       console.log(Array.from(x.outputs.values()));
-      new MpeInstrument(
+      const instrument = new MpeInstrument(
         x.inputs.values().next().value,
         x.outputs.values().next().value
       );
+      instrument.debug();
     },
     function(error) {
       console.log('requestMIDIAccess failed.');
