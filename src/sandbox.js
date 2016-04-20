@@ -1,4 +1,4 @@
-import MpeInstrument from './index';
+import MpeInstrument from './mpe';
 
 if (navigator.requestMIDIAccess) {
   console.log('\nWelcome to Web MIDI Sandbox\n\n');

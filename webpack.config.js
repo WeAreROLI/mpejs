@@ -2,6 +2,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 module.exports = {
     entry: {
+        index: './src/index.js',
         sandbox: './src/sandbox.js'
     },
     output: {
