@@ -2,7 +2,7 @@ import { createStore } from 'redux'
 import { midiMessage } from './actions'
 import rootReducer from './reducers'
 
-export default class MpeInstrument {
+export class MpeInstrument {
   constructor(midiInput, midiOutput) {
     this.input = midiInput;
     this.output = midiOutput;
