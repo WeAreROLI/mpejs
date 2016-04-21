@@ -21,4 +21,8 @@ export class MpeInstrument {
       console.log('-');
     });
   }
+
+  subscribe(callback) {
+    this.store.subscribe(() => callback(this.store.getState().activeNotes));
+  }
 }
