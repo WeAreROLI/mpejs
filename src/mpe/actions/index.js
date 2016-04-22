@@ -2,7 +2,7 @@ import { statusByteClassifier, statusByteToChannel } from '../utils/statusByteUt
 import * as types from '../constants/actionTypes';
 import { dataBytesToUint14 } from '../utils/dataByteUtils';
 
-export function midiMessage(midiEvent, currentStateCallback) {
+export function generateMidiActions(midiEvent, currentStateCallback) {
   const channel = statusByteToChannel(midiEvent.data[0]);
   const dataBytes = midiEvent.data.slice(1);
 
@@ -10,8 +10,11 @@ export function midiMessage(midiEvent, currentStateCallback) {
   const type = overrideBaseType(baseType, dataBytes);
   const baseData = { type, channel };
   const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, currentStateCallback);
-
-  return Object.assign({}, baseData, typeSpecificData);
+  const mainAction = Object.assign({}, baseData, typeSpecificData);
+  if (type === types.NOTE_OFF) {
+    return [mainAction, { type: types.NOTE_RELEASED }];
+  }
+  return [mainAction];
 }
 
 function overrideBaseType(baseType, dataBytes) {

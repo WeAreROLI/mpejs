@@ -7,8 +7,6 @@ export default function activeNotes(state = [], action) {
   if (!types[action.type]) {
     return state;
   }
-  // Remove released notes
-  state = state.filter((activeNote) => activeNote.noteState !== noteStates.OFF);
   switch(action.type) {
     case types.NOTE_ON:
       return [...state, activeNote({}, action)];
@@ -23,6 +21,8 @@ export default function activeNotes(state = [], action) {
         state = [...state.slice(0, noteIndex), activeNote(state[noteIndex], action), ...state.slice(noteIndex + 1)]
       });
       return state;
+    case types.NOTE_RELEASED:
+      return state.filter((activeNote) => activeNote.noteState !== noteStates.OFF);
   }
   console.log(action);
   return state;

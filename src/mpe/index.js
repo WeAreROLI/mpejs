@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import { midiMessage } from './actions'
+import { generateMidiActions } from './actions'
 import rootReducer from './reducers'
 
 export class MpeInstrument {
@@ -7,8 +7,10 @@ export class MpeInstrument {
     this.input = midiInput;
     this.output = midiOutput;
     this.store = createStore(rootReducer);
-    this.input.onmidimessage = (event) =>
-      this.store.dispatch(midiMessage(event, () => this.store.getState()));
+    this.input.onmidimessage = (event) => {
+      const actions = generateMidiActions(event, () => this.store.getState());
+      actions.forEach(this.store.dispatch);
+    }
   }
 
   debug() {
@@ -18,7 +20,7 @@ export class MpeInstrument {
         const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
         console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
       })
-      console.log('-');
+      console.log(`${state.activeNotes.length} active note(s)`);
     });
   }
 
