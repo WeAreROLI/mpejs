@@ -1,1 +1,3 @@
-export * from './mpe';
+import { MpeInstrument } from './mpe';
+
+window.MpeInstrument = MpeInstrument;
