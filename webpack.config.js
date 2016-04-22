@@ -2,8 +2,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 module.exports = {
     entry: {
-        index: './src/index.js',
-        sandbox: './src/sandbox.js'
+        sandbox: './src/sandbox.js',
+        mpeInstrument: './src/mpeInstrument.js'
     },
     output: {
         path: path.join(__dirname, 'lib'),
