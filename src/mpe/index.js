@@ -7,10 +7,10 @@ export class MpeInstrument {
     this.input = midiInput;
     this.output = midiOutput;
     this.store = createStore(rootReducer);
-    this.input.onmidimessage = (event) => {
+    this.input.addEventListener('midimessage', (event) => {
       const actions = generateMidiActions(event, () => this.store.getState());
       actions.forEach(this.store.dispatch);
-    }
+    });
   }
 
   debug() {
