@@ -21,6 +21,7 @@ export class MpeInstrument {
         console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
       })
       console.log(`${state.activeNotes.length} active note(s)`);
+      console.log('-');
     });
   }
 

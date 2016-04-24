@@ -5,7 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && npm run compile",
-    "compile": "webpack",
+    "buildDev": "npm run clean && npm run compileDev",
+    "compile": "WEBPACK_ENV=build webpack",
+    "compileDev": "WEBPACK_ENV=dev webpack",
     "clean": "rm -rf lib/*",
     "prepublish": "npm run build",
     "serve": "python -m SimpleHTTPServer 8002"

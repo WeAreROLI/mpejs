@@ -1,33 +1,106 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
-module.exports = {
-    entry: {
-        sandbox: './src/sandbox.js',
-        mpeInstrument: './src/mpeInstrument.js'
-    },
-    output: {
-        path: path.join(__dirname, 'lib'),
-        filename: '[name].js'
-    },
-    module: {
-        loaders: [
-            {
-              test: path.join(__dirname, 'src'),
-              loader: 'babel-loader',
-              query: {
-                  presets: [require.resolve('babel-preset-es2015')]
-              }
-            }
-        ]
-    },
-    plugins: [new HtmlWebpackPlugin({
-      files: {
-        js: [
-          'lib/sandbox.js'
-        ]
-      },
-      filename: 'sandbox.html',
-      title: 'Web MIDI Sandbox',
-      templateContent: 'Open the developer console to begin.'
-    })]
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var LIBRARY_NAME = 'WebMidiUtils';
+
+// Plugins
+var htmlPlugin = new HtmlWebpackPlugin({
+	filename: 'sandbox.html',
+	title: 'Web MIDI Sandbox',
+	template: './src/sandbox.html',
+});
+var nodeProductionEnvPlugin = new webpack.DefinePlugin({
+	'process.env.NODE_ENV': '"production"'
+});
+var uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
+	compress: {
+		warnings: false,
+	}
+})
+
+// Loaders
+var babelLoader = {
+	test: /\.js$/,
+	loader: 'babel-loader',
+	query: {
+		// Using require.resolve to fix dependency issues when using `npm link`
+		presets: [require.resolve('babel-preset-es2015')]
+	}
 };
+
+// Env-specific options
+var env = process.env.WEBPACK_ENV;
+
+if (env === 'dev') {
+	var webpackConfig =	{
+		name: 'global',
+		devtool: 'source-map',
+		entry: {
+			WebMidiUtils: './src/global.js',
+			sandbox: './src/sandbox.js',
+		},
+		output: {
+			path: path.join(__dirname, 'lib'),
+			filename: '[name].js',
+			libraryTarget: 'var',
+			library: LIBRARY_NAME,
+		},
+		module: {
+			loaders: [babelLoader],
+		},
+		plugins: [htmlPlugin],
+	};
+}
+if (env === 'build') {
+	var webpackConfig = [
+		{
+			name: 'umd',
+			entry: { index: './src' },
+			output: {
+				path: path.join(__dirname, 'lib'),
+				filename: '[name].js',
+				libraryTarget: 'umd',
+				library: LIBRARY_NAME,
+				umdNamedDefine: true,
+			},
+			module: {
+				loaders: [babelLoader],
+			},
+			plugins: [nodeProductionEnvPlugin],
+		},
+		{
+			name: 'global',
+			entry: {
+				WebMidiUtils: './src/global.js',
+				sandbox: './src/sandbox.js',
+			},
+			output: {
+				path: path.join(__dirname, 'lib'),
+				filename: '[name].js',
+				libraryTarget: 'var',
+				library: LIBRARY_NAME,
+			},
+			module: {
+				loaders: [babelLoader],
+			},
+			plugins: [htmlPlugin, nodeProductionEnvPlugin],
+		},
+		{
+			name: 'globalMinified',
+			entry: { WebMidiUtils: './src/global.js' },
+			output: {
+				path: path.join(__dirname, 'lib'),
+				filename: '[name].min.js',
+				libraryTarget: 'var',
+				library: LIBRARY_NAME,
+			},
+			module: {
+				loaders: [babelLoader],
+			},
+			plugins: [uglifyPlugin, nodeProductionEnvPlugin],
+		}
+	]
+}
+
+module.exports = webpackConfig;

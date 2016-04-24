@@ -9,11 +9,11 @@ if (navigator.requestMIDIAccess) {
       console.log(inputs);
       console.log('MIDI outputs:');
       console.log(outputs);
-      const instrument = new MpeInstrument(inputs[0], outputs[0]);
+      const instrument = new WebMidiUtils.MpeInstrument(inputs[0], outputs[0]);
       instrument.debug();
 
-      const recorder = new MidiRecorder(inputs[0]);
-      recorder.debug();
+			const recorder = new WebMidiUtils.MidiRecorder(inputs[0]);
+			recorder.debug();
     },
     function(error) {
       console.log('requestMIDIAccess failed.');
