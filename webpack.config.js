@@ -64,6 +64,7 @@ if (env === 'build') {
 				library: LIBRARY_NAME,
 				umdNamedDefine: true,
 			},
+			target: 'node',
 			module: {
 				loaders: [babelLoader],
 			},
