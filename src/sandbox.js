@@ -1,21 +1,18 @@
-import { MpeInstrument } from './mpe';
-import { MidiRecorder } from './recorder';
-
 if (navigator.requestMIDIAccess) {
   console.log('\nWelcome to Web MIDI Sandbox\n\n');
 
   navigator.requestMIDIAccess({ sysex: true }).then(
     function(x){
+      const inputs = Array.from(x.inputs.values());
+      const outputs = Array.from(x.outputs.values());
       console.log('MIDI inputs:');
-      console.log(Array.from(x.inputs.values()));
+      console.log(inputs);
       console.log('MIDI outputs:');
-      console.log(Array.from(x.outputs.values()));
-      const input = x.inputs.values().next().value;
-      const output = x.outputs.values().next().value;
-      const instrument = new MpeInstrument(input, output);
+      console.log(outputs);
+      const instrument = new MpeInstrument(inputs[0], outputs[0]);
       instrument.debug();
 
-      const recorder = new MidiRecorder(input);
+      const recorder = new MidiRecorder(inputs[0]);
       recorder.debug();
     },
     function(error) {
