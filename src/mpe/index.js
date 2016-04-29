@@ -7,12 +7,32 @@ export class MpeInstrument {
     this.input = midiInput;
     this.output = midiOutput;
     this.store = createStore(rootReducer);
-    this.input.addEventListener('midimessage', (event) => {
-      const actions = generateMidiActions(event, () => this.store.getState());
-      actions.forEach(this.store.dispatch);
-    });
   }
 
+  /**
+   * Currently active notes.
+   *
+   * @param {Uint8Array} midiMessage
+   */
+  processMidiMessage(midiMessage) {
+    const actions = generateMidiActions(midiMessage, () => this.store.getState());
+    actions.forEach(this.store.dispatch);
+  }
+
+  /**
+   * Process a MIDI message.
+   *
+   * @returns {Array} An array of note objects representing active notes.
+   */
+  activeNotes() {
+    return this.store.getState().activeNotes;
+  }
+
+  /**
+   * Print all incoming messages and state changes to the developer console.
+   *
+   * @returns {undefined}
+   */
   debug() {
     this.store.subscribe(() => {
       const state = this.store.getState();
@@ -26,6 +46,6 @@ export class MpeInstrument {
   }
 
   subscribe(callback) {
-    this.store.subscribe(() => callback(this.store.getState().activeNotes));
+    this.store.subscribe(() => callback(this.activeNotes()));
   }
 }
