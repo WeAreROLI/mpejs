@@ -14,7 +14,7 @@ if (navigator.requestMIDIAccess) {
       }
       const instrument = new WebMidiUtils.MpeInstrument(inputs[0], outputs[0]);
       inputs[0].addEventListener('midimessage', ({ data }) =>
-	instrument.processMidiMessage(data);
+		instrument.processMidiMessage(data)
       );
       instrument.debug();
     },
