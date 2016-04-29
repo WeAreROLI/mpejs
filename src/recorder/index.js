@@ -6,6 +6,7 @@ export class MidiRecorder {
   debug() {
     this.input.addEventListener('midimessage', ({ receivedTime, data }) => {
       console.log(receivedTime, data);
+      console.log('-');
     });
   }
 }
