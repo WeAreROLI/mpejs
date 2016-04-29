@@ -9,11 +9,14 @@ if (navigator.requestMIDIAccess) {
       console.log(inputs);
       console.log('MIDI outputs:');
       console.log(outputs);
+      if (!inputs) {
+	return 'No MIDI devices not found.';
+      }
       const instrument = new WebMidiUtils.MpeInstrument(inputs[0], outputs[0]);
+      inputs[0].addEventListener('midimessage', ({ data }) =>
+	instrument.processMidiMessage(data);
+      );
       instrument.debug();
-
-			const recorder = new WebMidiUtils.MidiRecorder(inputs[0]);
-			recorder.debug();
     },
     function(error) {
       console.log('requestMIDIAccess failed.');
