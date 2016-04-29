@@ -2,11 +2,11 @@ import { statusByteClassifier, statusByteToChannel } from '../utils/statusByteUt
 import * as types from '../constants/actionTypes';
 import { dataBytesToUint14 } from '../utils/dataByteUtils';
 
-export function generateMidiActions(midiEvent, currentStateCallback) {
-  const channel = statusByteToChannel(midiEvent.data[0]);
-  const dataBytes = midiEvent.data.slice(1);
+export function generateMidiActions(midiMessage, currentStateCallback) {
+  const channel = statusByteToChannel(midiMessage[0]);
+  const dataBytes = midiMessage.slice(1);
 
-  const baseType = statusByteClassifier(midiEvent.data[0]);
+  const baseType = statusByteClassifier(midiMessage[0]);
   const type = overrideBaseType(baseType, dataBytes);
   const baseData = { type, channel };
   const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, currentStateCallback);
