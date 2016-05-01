@@ -1,3 +1,4 @@
+/* eslint no-console: 1 */
 import { createStore } from 'redux';
 import { generateMidiActions } from './actions';
 import rootReducer from './reducers';
@@ -29,7 +30,6 @@ export class MpeInstrument {
     return this.store.getState().activeNotes;
   }
 
-  /* eslint-disable no-console */
   /**
    * Prints all incoming messages and state changes to the developer console.
    *
@@ -45,7 +45,6 @@ export class MpeInstrument {
       console.log(`${state.activeNotes.length} active note(s)`);
     });
   }
-  /* eslint-enable no-console */
 
   subscribe(callback) {
     this.store.subscribe(() => callback(this.activeNotes()));

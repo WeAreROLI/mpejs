@@ -1,3 +1,4 @@
+/* eslint no-console: 1 */
 export class MidiRecorder {
   constructor(midiInput) {
     this.input = midiInput;
