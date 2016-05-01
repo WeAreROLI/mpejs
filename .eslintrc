@@ -2,37 +2,38 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "mocha": true,
   },
   "extends": "eslint:recommended",
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
   },
   "rules": {
     "comma-dangle": [
       "error",
-      "always-multiline"
+      "always-multiline",
     ],
     "indent": [
       "error",
       2,
-      { "SwitchCase": 1 }
+      { "SwitchCase": 1 },
     ],
     "linebreak-style": [
       "error",
-      "unix"
+      "unix",
     ],
     "no-fallthrough": 0,
     "quotes": [
       "error",
-      "single"
+      "single",
     ],
     "valid-jsdoc": [
-      "error"
+      "error",
     ],
     "semi": [
       "error",
-      "always"
+      "always",
     ]
   }
 }
