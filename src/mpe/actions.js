@@ -11,7 +11,6 @@ export function generateMidiActions(midiMessage, currentStateCallback) {
   const baseData = { type, channel };
   const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, currentStateCallback);
   const mainAction = Object.assign({}, baseData, typeSpecificData);
-  console.log(type);
   if (type === types.NOTE_OFF) {
     return [mainAction, { type: types.NOTE_RELEASED }];
   }
@@ -32,10 +31,11 @@ function overrideBaseType(baseType, dataBytes) {
 
 function deriveTypeSpecificData(baseData, dataBytes, currentStateCallback) {
   switch (baseData.type) {
-    case types.NOTE_ON:
+    case types.NOTE_ON: {
       // Note On messages bundle channelScope to set expression values at creation.
       const channelScope = currentStateCallback().channelScopes[baseData.channel];
       return { noteNumber: dataBytes[0], noteOnVelocity: dataBytes[1], channelScope };
+    }
     case types.NOTE_OFF:
       return { noteNumber: dataBytes[0], noteOffVelocity: dataBytes[1] };
     case types.PITCH_BEND:

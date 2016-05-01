@@ -11,12 +11,14 @@
   "rules": {
     "indent": [
       "error",
-      2
+      2,
+      { "SwitchCase": 1 }
     ],
     "linebreak-style": [
       "error",
       "unix"
     ],
+    "no-fallthrough": 0,
     "quotes": [
       "error",
       "single"
