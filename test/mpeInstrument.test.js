@@ -1,17 +1,16 @@
 import { expect } from 'chai';
 import { MpeInstrument } from '../lib';
-import "chai";
+import 'chai';
 
 
 const NOTE_ON_1 = new Uint8Array([145, 60, 127]);
 const NOTE_ON_2 = new Uint8Array([146, 62, 127]);
-const NOTE_OFF_1 = new Uint8Array([129, 60, 127]);
+// const NOTE_OFF_1 = new Uint8Array([129, 60, 127]);
 const NOTE_OFF_2 = new Uint8Array([130, 62, 127]);
 const ZERO_VELOCITY_NOTE_OFF_1 = new Uint8Array([145, 60, 0]);
 
 describe('MpeInstrument', () => {
   let mpeInstrument;
-  let states;
   describe('#activeNotes()', () => {
     beforeEach(() => {
       mpeInstrument = new MpeInstrument();
@@ -34,7 +33,7 @@ describe('MpeInstrument', () => {
       const stateAfterNoteOne = mpeInstrument.activeNotes();
       mpeInstrument.processMidiMessage(NOTE_ON_2);
       mpeInstrument.processMidiMessage(NOTE_OFF_2);
-      expect(mpeInstrument.activeNotes().length).to.equal(1);
+      expect(mpeInstrument.activeNotes()).to.deep.equal(stateAfterNoteOne);
     });
     it('returns an two active notes receiving two note ons', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
