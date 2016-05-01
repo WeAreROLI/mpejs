@@ -11,6 +11,7 @@ export function generateMidiActions(midiMessage, currentStateCallback) {
   const baseData = { type, channel };
   const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, currentStateCallback);
   const mainAction = Object.assign({}, baseData, typeSpecificData);
+  console.log(type);
   if (type === types.NOTE_OFF) {
     return [mainAction, { type: types.NOTE_RELEASED }];
   }
