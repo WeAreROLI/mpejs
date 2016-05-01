@@ -1,6 +1,6 @@
-import { statusByteClassifier, statusByteToChannel } from '../utils/statusByteUtils';
-import * as types from '../constants/actionTypes';
-import { dataBytesToUint14 } from '../utils/dataByteUtils';
+import { statusByteClassifier, statusByteToChannel } from './utils/statusByteUtils';
+import * as types from './constants/actionTypes';
+import { dataBytesToUint14 } from './utils/dataByteUtils';
 
 export function generateMidiActions(midiMessage, currentStateCallback) {
   const channel = statusByteToChannel(midiMessage[0]);

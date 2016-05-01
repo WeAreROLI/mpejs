@@ -1,4 +1,4 @@
-import * as noteStates from './noteStates'
+import * as noteStates from './noteStates';
 
 export const NOTE_ON_VELOCITY = 64;
 export const PITCH_BEND = 8192;
@@ -13,4 +13,4 @@ export const ACTIVE_NOTE = {
   pressure: PRESSURE,
   timbre: TIMBRE,
   noteState: NOTE_STATE,
-}
+};

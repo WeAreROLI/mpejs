@@ -1,6 +1,6 @@
-import { createStore } from 'redux'
-import { generateMidiActions } from './actions'
-import rootReducer from './reducers'
+import { createStore } from 'redux';
+import { generateMidiActions } from './actions';
+import rootReducer from './reducers';
 
 export class MpeInstrument {
   constructor(midiInput, midiOutput) {
@@ -10,9 +10,10 @@ export class MpeInstrument {
   }
 
   /**
-   * Currently active notes.
+   * Triggers the processing of a MIDI message.
    *
-   * @param {Uint8Array} midiMessage
+   * @param {Uint8Array} midiMessage A MIDI message.
+   * @returns {undefined}
    */
   processMidiMessage(midiMessage) {
     const actions = generateMidiActions(midiMessage, () => this.store.getState());
@@ -20,7 +21,7 @@ export class MpeInstrument {
   }
 
   /**
-   * Process a MIDI message.
+   * Lists current active notes.
    *
    * @returns {Array} An array of note objects representing active notes.
    */
@@ -28,8 +29,9 @@ export class MpeInstrument {
     return this.store.getState().activeNotes;
   }
 
+  /* eslint-disable no-console */
   /**
-   * Print all incoming messages and state changes to the developer console.
+   * Prints all incoming messages and state changes to the developer console.
    *
    * @returns {undefined}
    */
@@ -39,10 +41,11 @@ export class MpeInstrument {
       state.activeNotes.map((n) => {
         const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
         console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
-      })
+      });
       console.log(`${state.activeNotes.length} active note(s)`);
     });
   }
+  /* eslint-enable no-console */
 
   subscribe(callback) {
     this.store.subscribe(() => callback(this.activeNotes()));
