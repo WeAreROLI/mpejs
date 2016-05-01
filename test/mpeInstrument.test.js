@@ -19,11 +19,17 @@ describe('MpeInstrument', () => {
       expect(mpeInstrument.activeNotes()).to.be.instanceof(Array);
       expect(mpeInstrument.activeNotes()).to.be.empty;
     });
-    it('returns an active note receiving a note on', () => {
+  });
+  describe('#processMidiMessage()', () => {
+    beforeEach(() => {
+      mpeInstrument = new MpeInstrument();
+    });
+    it('creates an active note given a note on', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
       expect(mpeInstrument.activeNotes().length).to.equal(1);
     });
-    it('treats a zero velocity note on as a middle velocity note off', () => {
+    it('treats a zero velocity note on as a note off', () => {
+      // TODO: check noteOffVelocity.
       mpeInstrument.processMidiMessage(NOTE_ON_1);
       mpeInstrument.processMidiMessage(ZERO_VELOCITY_NOTE_OFF_1);
       expect(mpeInstrument.activeNotes().length).to.equal(0);
