@@ -29,8 +29,10 @@ const TIMBRE = new Uint8Array([0xb2, 74, 127]);
 const PRESSURE = new Uint8Array([0xd2, 127, 127]);
 const channelScopeMessages = { PITCH_BEND, TIMBRE, PRESSURE };
 
+let mpeInstrument;
+let states;
+
 describe('MpeInstrument', () => {
-  let mpeInstrument;
   describe('#activeNotes()', () => {
     beforeEach(() => {
       mpeInstrument = new MpeInstrument();
@@ -180,6 +182,35 @@ describe('MpeInstrument', () => {
       expect(mpeInstrument.activeNotes().length).to.equal(2);
       mpeInstrument.processMidiMessage(ALL_NOTES_OFF_NOTE_CHANNEL);
       expect(mpeInstrument.activeNotes().length).to.equal(2);
+    });
+  });
+  describe('#subscribe()', () => {
+    beforeEach(() => {
+      mpeInstrument = new MpeInstrument();
+      states = [];
+      mpeInstrument.subscribe((newState) => states = [...states, newState]);
+    });
+    it('is triggered by note on and off messages', () => {
+      mpeInstrument.processMidiMessage(NOTE_ON_1);
+      mpeInstrument.processMidiMessage(NOTE_OFF_1);
+      expect(states.length).to.equal(3);
+    });
+    it('is triggered by channel scope messages with effects', () => {
+      mpeInstrument.processMidiMessage(NOTE_ON_2);
+      mpeInstrument.processMidiMessage(PITCH_BEND);
+      mpeInstrument.processMidiMessage(TIMBRE);
+      mpeInstrument.processMidiMessage(PRESSURE);
+      expect(states.length).to.equal(4);
+    });
+    it('ignores channel scope messages with no effect', () => {
+      for (const message in channelScopeMessages) {
+        mpeInstrument.processMidiMessage(message);
+      }
+      expect(states.length).to.equal(1);
+    });
+    it('ignores note off messages with no effect', () => {
+      mpeInstrument.processMidiMessage(NOTE_OFF_1);
+      expect(states.length).to.equal(1);
     });
   });
 });

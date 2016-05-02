@@ -26,7 +26,9 @@ export default function activeNotes(state = [], action) {
       return state;
     }
     case types.NOTE_RELEASED:
-      return state.filter((activeNote) => activeNote.noteState !== noteStates.OFF);
+      return state.length ?
+        state.filter((activeNote) => activeNote.noteState !== noteStates.OFF) :
+        state;
     case types.ALL_NOTES_OFF:
       return [];
   }

@@ -31,22 +31,33 @@ export class MpeInstrument {
   }
 
   /**
-   * Prints all incoming messages and state changes to the developer console.
+   * Prints changes to the developer console.
    *
    * @returns {undefined}
    */
   debug() {
-    this.store.subscribe(() => {
-      const state = this.store.getState();
-      state.activeNotes.map((n) => {
+    this.subscribe((activeNotes) => {
+      activeNotes.forEach((n) => {
         const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
         console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
       });
-      console.log(`${state.activeNotes.length} active note(s)`);
+      console.log(`${activeNotes.length} active note(s)`);
     });
   }
 
+  /**
+   * @param {function} callback A callback to be updated will all current active
+   * notes in response to any note changes.
+   * @returns {function} A function to unsubscribe the given callback.
+   */
   subscribe(callback) {
-    this.store.subscribe(() => callback(this.activeNotes()));
+    let currentActiveNotes;
+    return this.store.subscribe(() => {
+      let previousActiveNotes = currentActiveNotes;
+      currentActiveNotes = this.activeNotes();
+      if (currentActiveNotes !== previousActiveNotes) {
+        callback(this.activeNotes());
+      }
+    });
   }
 }
