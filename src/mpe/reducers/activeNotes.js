@@ -34,15 +34,15 @@ function activeNote(state = defaults.ACTIVE_NOTE, action) {
     pitchBend, pressure, timbre } = action;
   switch(action.type) {
     case types.NOTE_ON:
-      return Object.assign(state, { noteNumber, channel, noteOnVelocity }, channelScope);
+      return Object.assign({}, state, { noteNumber, channel, noteOnVelocity }, channelScope);
     case types.NOTE_OFF:
-      return Object.assign(state, { noteOffVelocity, noteState: noteStates.OFF });
+      return Object.assign({}, state, { noteOffVelocity, noteState: noteStates.OFF });
     case types.PITCH_BEND:
-      return Object.assign(state, { pitchBend });
+      return Object.assign({}, state, { pitchBend });
     case types.CHANNEL_PRESSURE:
-      return Object.assign(state, { pressure });
+      return Object.assign({}, state, { pressure });
     case types.TIMBRE:
-      return Object.assign(state, { timbre });
+      return Object.assign({}, state, { timbre });
   }
   return state;
 }

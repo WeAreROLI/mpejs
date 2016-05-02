@@ -5,7 +5,7 @@ export default function channelScopes(state = {}, action) {
     return state;
   }
   const { channel } = action;
-  return Object.assign(state, { [channel]: channelScope(state[channel], action) });
+  return Object.assign({}, state, { [channel]: channelScope(state[channel], action) });
 }
 
 function channelScope(state = {}, action) {
