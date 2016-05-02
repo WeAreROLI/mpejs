@@ -3,20 +3,30 @@ import { MpeInstrument } from '../lib';
 import 'chai';
 
 
+// A c' note on, max velocity, on channel 2.
 const NOTE_ON_1 = new Uint8Array([0x91, 60, 127]);
+// A note off for NOTE_ON_1.
 const NOTE_OFF_1 = new Uint8Array([0x81, 60, 127]);
+// A note off for NOTE_ON_1, using a zero velocity note on.
 const NOTE_OFF_1_ZERO_VELOCITY = new Uint8Array([0x91, 60, 0]);
+// A d' note on, max velocity, on channel 3.
 const NOTE_ON_2 = new Uint8Array([0x92, 62, 127]);
+// A copy of NOTE_ON_2, but on channel 4.
 const NOTE_ON_2_SAME_NOTE_NUMBER = new Uint8Array([0x93, 62, 127]);
+// A e' note on, max velocity, on the same channel as NOTE_ON_2.
 const NOTE_ON_2_SAME_CHANNEL = new Uint8Array([0x92, 64, 127]);
+// A note off for NOTE_ON_2.
 const NOTE_OFF_2 = new Uint8Array([0x82, 62, 127]);
+// An all notes off message.
 const ALL_NOTES_OFF = new Uint8Array([0xb0, 123, 0]);
-const ALL_NOTES_OFF_WRONG_CHANNEL = new Uint8Array([0xb1, 123, 0]);
-
+// An all notes off message, sent erroneously on a note channel.
+const ALL_NOTES_OFF_NOTE_CHANNEL = new Uint8Array([0xb1, 123, 0]);
+// A pitch bend message, max value, on channel 3.
 const PITCH_BEND = new Uint8Array([0xe2, 127, 127]);
+// A timbre message, max value, on channel 3.
 const TIMBRE = new Uint8Array([0xb2, 74, 127]);
+// A pressure message, max value, on channel 3.
 const PRESSURE = new Uint8Array([0xd2, 127, 127]);
-
 const channelScopeMessages = { PITCH_BEND, TIMBRE, PRESSURE };
 
 describe('MpeInstrument', () => {
@@ -120,6 +130,19 @@ describe('MpeInstrument', () => {
         expect(state2).not.to.deep.equal(state1);
       });
     }
+    it('resets channel scope after a note on on the same channel', () => {
+      mpeInstrument.processMidiMessage(PITCH_BEND);
+      mpeInstrument.processMidiMessage(TIMBRE);
+      mpeInstrument.processMidiMessage(PRESSURE);
+      mpeInstrument.processMidiMessage(NOTE_ON_2);
+      mpeInstrument.processMidiMessage(NOTE_ON_2_SAME_CHANNEL);
+      mpeInstrument.processMidiMessage(NOTE_OFF_2);
+      const state = mpeInstrument.activeNotes();
+      expect(state[0].noteNumber).to.equal(NOTE_ON_2_SAME_CHANNEL[1]);
+      expect(state[0].pitchBend).to.equal(8192);
+      expect(state[0].timbre).to.equal(8192);
+      expect(state[0].pressure).to.equal(0);
+    });
     it('doesn\'t reset channel scope after a note on another channel', () => {
       mpeInstrument.processMidiMessage(PITCH_BEND);
       mpeInstrument.processMidiMessage(TIMBRE);
@@ -132,20 +155,6 @@ describe('MpeInstrument', () => {
       expect(state[0].timbre).not.to.equal(8192);
       expect(state[0].pressure).not.to.equal(0);
     });
-    it('resets channel scope after a note on the same channel', () => {
-      mpeInstrument.processMidiMessage(PITCH_BEND);
-      mpeInstrument.processMidiMessage(TIMBRE);
-      mpeInstrument.processMidiMessage(PRESSURE);
-      mpeInstrument.processMidiMessage(NOTE_ON_2);
-      const state1 = mpeInstrument.activeNotes();
-      mpeInstrument.processMidiMessage(NOTE_OFF_2);
-      mpeInstrument.processMidiMessage(NOTE_ON_2);
-      const state2 = mpeInstrument.activeNotes();
-      expect(state2).not.to.deep.equal(state1);
-      expect(state2[0].pitchBend).to.equal(8192);
-      expect(state2[0].timbre).to.equal(8192);
-      expect(state2[0].pressure).to.equal(0);
-    });
     it('applies all notes off messages', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
       mpeInstrument.processMidiMessage(NOTE_ON_2);
@@ -157,7 +166,7 @@ describe('MpeInstrument', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
       mpeInstrument.processMidiMessage(NOTE_ON_2);
       expect(mpeInstrument.activeNotes().length).to.equal(2);
-      mpeInstrument.processMidiMessage(ALL_NOTES_OFF_WRONG_CHANNEL);
+      mpeInstrument.processMidiMessage(ALL_NOTES_OFF_NOTE_CHANNEL);
       expect(mpeInstrument.activeNotes().length).to.equal(2);
     });
   });
