@@ -120,6 +120,32 @@ describe('MpeInstrument', () => {
         expect(state2).not.to.deep.equal(state1);
       });
     }
+    it('doesn\'t reset channel scope after a note on another channel', () => {
+      mpeInstrument.processMidiMessage(PITCH_BEND);
+      mpeInstrument.processMidiMessage(TIMBRE);
+      mpeInstrument.processMidiMessage(PRESSURE);
+      mpeInstrument.processMidiMessage(NOTE_ON_1);
+      mpeInstrument.processMidiMessage(NOTE_OFF_1);
+      mpeInstrument.processMidiMessage(NOTE_ON_2);
+      const state = mpeInstrument.activeNotes();
+      expect(state[0].pitchBend).not.to.equal(8192);
+      expect(state[0].timbre).not.to.equal(8192);
+      expect(state[0].pressure).not.to.equal(0);
+    });
+    it('resets channel scope after a note on the same channel', () => {
+      mpeInstrument.processMidiMessage(PITCH_BEND);
+      mpeInstrument.processMidiMessage(TIMBRE);
+      mpeInstrument.processMidiMessage(PRESSURE);
+      mpeInstrument.processMidiMessage(NOTE_ON_2);
+      const state1 = mpeInstrument.activeNotes();
+      mpeInstrument.processMidiMessage(NOTE_OFF_2);
+      mpeInstrument.processMidiMessage(NOTE_ON_2);
+      const state2 = mpeInstrument.activeNotes();
+      expect(state2).not.to.deep.equal(state1);
+      expect(state2[0].pitchBend).to.equal(8192);
+      expect(state2[0].timbre).to.equal(8192);
+      expect(state2[0].pressure).to.equal(0);
+    });
     it('applies all notes off messages', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
       mpeInstrument.processMidiMessage(NOTE_ON_2);

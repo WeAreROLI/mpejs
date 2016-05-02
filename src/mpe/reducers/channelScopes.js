@@ -17,6 +17,8 @@ function channelScope(state, action) {
       return Object.assign({}, state, { pressure: action.pressure });
     case types.TIMBRE:
       return Object.assign({}, state, { timbre: action.timbre });
+    case types.NOTE_ON:
+      return defaults.CHANNEL_SCOPE;
   }
   return state;
 }
