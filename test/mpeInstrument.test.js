@@ -143,6 +143,18 @@ describe('MpeInstrument', () => {
       expect(state[0].timbre).to.equal(8192);
       expect(state[0].pressure).to.equal(0);
     });
+    it('resets channel scope after a note off', () => {
+      mpeInstrument.processMidiMessage(NOTE_ON_2);
+      mpeInstrument.processMidiMessage(PITCH_BEND);
+      mpeInstrument.processMidiMessage(TIMBRE);
+      mpeInstrument.processMidiMessage(PRESSURE);
+      mpeInstrument.processMidiMessage(NOTE_OFF_2);
+      mpeInstrument.processMidiMessage(NOTE_ON_2_SAME_CHANNEL);
+      const state = mpeInstrument.activeNotes();
+      expect(state[0].pitchBend).to.equal(8192);
+      expect(state[0].timbre).to.equal(8192);
+      expect(state[0].pressure).to.equal(0);
+    });
     it('doesn\'t reset channel scope after a note on another channel', () => {
       mpeInstrument.processMidiMessage(PITCH_BEND);
       mpeInstrument.processMidiMessage(TIMBRE);
