@@ -17,7 +17,7 @@ export class MpeInstrument {
    * @returns {undefined}
    */
   processMidiMessage(midiMessage) {
-    const actions = generateMidiActions(midiMessage, () => this.store.getState());
+    const actions = generateMidiActions(midiMessage, this.store.getState);
     actions.forEach(this.store.dispatch);
   }
 
