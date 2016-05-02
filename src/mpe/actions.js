@@ -8,7 +8,7 @@ export function generateMidiActions(midiMessage, currentStateCallback) {
   const dataBytes = midiMessage.slice(1);
 
   const midiMessageType = statusByteClassifier(midiMessage[0]);
-  const type = deriveActionType(midiMessageType, dataBytes);
+  const type = deriveActionType(midiMessageType, channel, dataBytes);
   const baseData = { type, midiMessageType, channel, dataBytes };
   const typeSpecificData = deriveTypeSpecificData(baseData, currentStateCallback);
   const mainAction = Object.assign({}, baseData, typeSpecificData);
@@ -18,7 +18,7 @@ export function generateMidiActions(midiMessage, currentStateCallback) {
   return [mainAction];
 }
 
-function deriveActionType(midiMessageType, dataBytes) {
+function deriveActionType(midiMessageType, channel, dataBytes) {
   switch (midiMessageType) {
     case types.NOTE_ON:
       // A note on with velocity 0 is a treated as a note off
@@ -26,6 +26,8 @@ function deriveActionType(midiMessageType, dataBytes) {
     case types.CONTROL_CHANGE:
       // CC 74 is used for timbre messages
       if (dataBytes[0] === 74) return types.TIMBRE;
+      // CC 123 on the master channel is an all notes off message
+      if (dataBytes[0] === 123 && channel === 1) return types.ALL_NOTES_OFF;
   }
   return midiMessageType;
 }
