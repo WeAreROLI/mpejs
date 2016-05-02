@@ -1,4 +1,5 @@
 import { statusByteClassifier, statusByteToChannel } from './utils/statusByteUtils';
+import * as defaults from './constants/defaults';
 import * as types from './constants/actionTypes';
 import { dataBytesToUint14 } from './utils/dataByteUtils';
 
@@ -6,10 +7,10 @@ export function generateMidiActions(midiMessage, currentStateCallback) {
   const channel = statusByteToChannel(midiMessage[0]);
   const dataBytes = midiMessage.slice(1);
 
-  const baseType = statusByteClassifier(midiMessage[0]);
-  const type = overrideBaseType(baseType, dataBytes);
-  const baseData = { type, channel };
-  const typeSpecificData = deriveTypeSpecificData(baseData, dataBytes, currentStateCallback);
+  const midiMessageType = statusByteClassifier(midiMessage[0]);
+  const type = deriveActionType(midiMessageType, dataBytes);
+  const baseData = { type, midiMessageType, channel, dataBytes };
+  const typeSpecificData = deriveTypeSpecificData(baseData, currentStateCallback);
   const mainAction = Object.assign({}, baseData, typeSpecificData);
   if (type === types.NOTE_OFF) {
     return [mainAction, { type: types.NOTE_RELEASED }];
@@ -17,27 +18,31 @@ export function generateMidiActions(midiMessage, currentStateCallback) {
   return [mainAction];
 }
 
-function overrideBaseType(baseType, dataBytes) {
-  switch (baseType) {
+function deriveActionType(midiMessageType, dataBytes) {
+  switch (midiMessageType) {
     case types.NOTE_ON:
-      // A NOTE_ON with velocity 0 is a NOTE_OFF
+      // A note on with velocity 0 is a treated as a note off
       if (dataBytes[1] === 0) return types.NOTE_OFF;
     case types.CONTROL_CHANGE:
-      // CC 74 is used for TIMBRE
+      // CC 74 is used for timbre messages
       if (dataBytes[0] === 74) return types.TIMBRE;
   }
-  return baseType;
+  return midiMessageType;
 }
 
-function deriveTypeSpecificData(baseData, dataBytes, currentStateCallback) {
-  switch (baseData.type) {
+function deriveTypeSpecificData(baseData, currentStateCallback) {
+  const { type, midiMessageType, channel, dataBytes } = baseData;
+  switch (type) {
     case types.NOTE_ON: {
       // Note On messages bundle channelScope to set expression values at creation.
-      const channelScope = currentStateCallback().channelScopes[baseData.channel];
+      const channelScope = currentStateCallback().channelScopes[channel];
       return { noteNumber: dataBytes[0], noteOnVelocity: dataBytes[1], channelScope };
     }
     case types.NOTE_OFF:
-      return { noteNumber: dataBytes[0], noteOffVelocity: dataBytes[1] };
+      // A note on with velocity 0 is treated as a note off with velocity 64
+      return midiMessageType === types.NOTE_ON ?
+        { noteNumber: dataBytes[0], noteOffVelocity: defaults.NOTE_OFF_VELOCITY } :
+        { noteNumber: dataBytes[0], noteOffVelocity: dataBytes[1] };
     case types.PITCH_BEND:
       // This Control Change message's data bytes are ordered [LSB, MSB].
       return { pitchBend: dataBytesToUint14(dataBytes.reverse()) };

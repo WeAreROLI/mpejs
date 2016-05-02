@@ -12,9 +12,9 @@ export default function activeNotes(state = [], action) {
       return [...state, activeNote({}, action)];
     case types.NOTE_OFF: {
       const noteIndex = findActiveNoteIndex(state, action);
-      return noteIndex === -1 ?
-        state :
-        [...state.slice(0, noteIndex), activeNote(state[noteIndex], action), ...state.slice(noteIndex + 1)];
+      return (noteIndex >= 0) ?
+        [...state.slice(0, noteIndex), activeNote(state[noteIndex], action), ...state.slice(noteIndex + 1)] :
+        state;
     }
     case types.PITCH_BEND:
     case types.CHANNEL_PRESSURE:
