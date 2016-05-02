@@ -1,2 +1,2 @@
-export * from './mpe';
-export * from './recorder';
+export * from './MpeInstrument';
+export * from './MidiRecorder';

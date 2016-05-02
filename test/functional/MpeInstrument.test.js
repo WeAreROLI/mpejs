@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { MpeInstrument } from '../lib';
+import { MpeInstrument } from '../../lib';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';

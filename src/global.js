@@ -1,3 +1,3 @@
-import * as webMidiUtils from '.';
+import * as WebMidiUtils from '.';
 
-module.exports = webMidiUtils;
+module.exports = WebMidiUtils;
