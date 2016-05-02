@@ -1,7 +1,9 @@
 import { expect } from 'chai';
 import { MpeInstrument } from '../lib';
-import 'chai';
-
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+chai.use(sinonChai);
 
 // A c' note on, max velocity, on channel 2.
 const NOTE_ON_1 = new Uint8Array([0x91, 60, 127]);
@@ -206,11 +208,34 @@ describe('MpeInstrument', () => {
       for (const message in channelScopeMessages) {
         mpeInstrument.processMidiMessage(message);
       }
-      expect(states.length).to.equal(1);
+      expect(states.length).to.equal(0);
     });
     it('ignores note off messages with no effect', () => {
       mpeInstrument.processMidiMessage(NOTE_OFF_1);
-      expect(states.length).to.equal(1);
+      expect(states.length).to.equal(0);
     });
   });
+  /* eslint-disable no-console */
+  describe('#debug()', () => {
+    beforeEach(() => {
+      mpeInstrument = new MpeInstrument();
+      sinon.stub(console, 'log');
+      mpeInstrument.debug();
+    });
+    it('calls console.log on state changes', () => {
+      mpeInstrument.processMidiMessage(NOTE_ON_1);
+      expect(console.log).to.be.called;
+      // Moving this line to afterEach mutes test output.
+      console.log.restore();
+    });
+    it('doesn\'t call console.log unless messages change activeNotes', () => {
+      mpeInstrument.processMidiMessage(NOTE_OFF_1);
+      mpeInstrument.processMidiMessage(PITCH_BEND);
+      mpeInstrument.processMidiMessage(TIMBRE);
+      mpeInstrument.processMidiMessage(PRESSURE);
+      expect(console.log).not.to.be.called;
+      console.log.restore();
+    });
+  });
+  /* eslint-enable no-console */
 });

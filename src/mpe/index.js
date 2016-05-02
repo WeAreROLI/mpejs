@@ -1,4 +1,3 @@
-/* eslint no-console: 1 */
 import { createStore } from 'redux';
 import { generateMidiActions } from './actions';
 import rootReducer from './reducers';
@@ -31,6 +30,23 @@ export class MpeInstrument {
   }
 
   /**
+   * @param {function} callback A callback to be updated will all current active
+   * notes in response to any note changes.
+   * @returns {function} A function to unsubscribe the given callback.
+   */
+  subscribe(callback) {
+    let currentActiveNotes = this.activeNotes();
+    return this.store.subscribe(() => {
+      let previousActiveNotes = currentActiveNotes;
+      currentActiveNotes = this.activeNotes();
+      if (currentActiveNotes !== previousActiveNotes) {
+        callback(this.activeNotes());
+      }
+    });
+  }
+
+  /* eslint-disable no-console */
+  /**
    * Prints changes to the developer console.
    *
    * @returns {undefined}
@@ -44,20 +60,6 @@ export class MpeInstrument {
       console.log(`${activeNotes.length} active note(s)`);
     });
   }
+  /* eslint-enable no-console */
 
-  /**
-   * @param {function} callback A callback to be updated will all current active
-   * notes in response to any note changes.
-   * @returns {function} A function to unsubscribe the given callback.
-   */
-  subscribe(callback) {
-    let currentActiveNotes;
-    return this.store.subscribe(() => {
-      let previousActiveNotes = currentActiveNotes;
-      currentActiveNotes = this.activeNotes();
-      if (currentActiveNotes !== previousActiveNotes) {
-        callback(this.activeNotes());
-      }
-    });
-  }
 }

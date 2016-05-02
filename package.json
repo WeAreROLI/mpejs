@@ -41,6 +41,8 @@
     "eslint": "^2.9.0",
     "html-webpack-plugin": "^2.15.0",
     "mocha": "^2.4.5",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0",
     "webpack": "^1.13.0"
   }
 }
