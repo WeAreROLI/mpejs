@@ -38,6 +38,18 @@ describe('MpeInstrument', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
       expect(mpeInstrument.activeNotes().length).to.equal(1);
     });
+    it('defaults note on pitch bend to 8192', () => {
+      mpeInstrument.processMidiMessage(NOTE_ON_1);
+      expect(mpeInstrument.activeNotes()[0].pitchBend).to.equal(8192);
+    });
+    it('defaults note on timbre to 8192', () => {
+      mpeInstrument.processMidiMessage(NOTE_ON_1);
+      expect(mpeInstrument.activeNotes()[0].timbre).to.equal(8192);
+    });
+    it('defaults note on pressure to 0', () => {
+      mpeInstrument.processMidiMessage(NOTE_ON_1);
+      expect(mpeInstrument.activeNotes()[0].pressure).to.equal(0);
+    });
     it('can create two notes on the same channel', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_2);
       mpeInstrument.processMidiMessage(NOTE_ON_2_SAME_CHANNEL);
