@@ -1,0 +1,17 @@
+{
+  "gitbook": "2.x.x",
+  "title": "ROLI Web MIDI Utils",
+  "structure": {
+    "summary": "docs/SUMMARY.md"
+  },
+  "plugins": ["edit-link"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/WeAreROLI/web-midi-utils/tree/master",
+      "label": ""
+    },
+    "github": {
+      "url": "https://github.com/WeAreROLI/web-midi-utils/"
+    }
+  }
+}
