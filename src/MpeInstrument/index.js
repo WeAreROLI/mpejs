@@ -12,6 +12,7 @@ import rootReducer from './reducers';
  *
  * To receive updates on changes in the current `activeNotes` state, pass a
  * callback to the `subscribe` method.
+ * @name MpeInstrument
  */
 export class MpeInstrument {
   /**
