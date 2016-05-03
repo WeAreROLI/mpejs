@@ -1,11 +1,8 @@
 /* eslint no-console: 1 */
-/**
- * Hello, world!
- * @name MidiRecorder
- */
 export class MidiRecorder {
   /**
    * Creates a MidiRecorder instance.
+   * 
    * @param {MIDIInput} midiInput A Web MIDI API `MIDIInput` instance to process
    * data from.
    * @returns {undefined}

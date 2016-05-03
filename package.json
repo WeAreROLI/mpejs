@@ -5,16 +5,17 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && npm run compile",
-    "build:dev": "npm run clean && npm run compile:dev",
+    "build:sandbox": "npm run clean && npm run compile:dev",
     "compile": "WEBPACK_ENV=build webpack",
     "compile:dev": "WEBPACK_ENV=dev webpack",
-    "docs:build": "gitbook build docs",
-    "docs:serve": "gitbook serve docs",
+    "docs:jsdoc": "jsdoc2md src/MpeInstrument/index.js > docs/api/MpeInstrument.md",
+    "docs:build": "gitbook install && npm run docs:jsdoc && gitbook build docs",
+    "docs:serve": "npm run docs:build && gitbook serve docs",
     "clean": "rm -rf lib/*",
     "lint": "eslint src/",
     "prepublish": "npm run build",
     "test": "mocha --compilers js:babel-core/register test/**/*.test.js",
-    "serve": "python -m SimpleHTTPServer 8002"
+    "serve": "python -m SimpleHTTPServer 8000"
   },
   "repository": {
     "type": "git",
