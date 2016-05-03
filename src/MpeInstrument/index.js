@@ -2,15 +2,34 @@ import { createStore } from 'redux';
 import { generateMidiActions } from './actions';
 import rootReducer from './reducers';
 
+/**
+ * A class to represent an MPE MIDI instrument.
+ *
+ * To trigger and modulate notes, pass MIDI data to the `processMidiMessage`
+ * method of an instance.
+ *
+ * `activeNotes` returns an array of the current active notes.
+ *
+ * To receive updates on changes in the current `activeNotes` state, pass a
+ * callback to the `subscribe` method.
+ */
 export class MpeInstrument {
-  constructor(midiInput, midiOutput) {
-    this.input = midiInput;
-    this.output = midiOutput;
+  /**
+   * Create an MpeInstrument instance.
+   *
+   * Handles note messages on channels 1–16 as a single MPE zone.
+   *
+   * Channel 1 – the zone master channel – currently only has special behaviour
+   * in the case of all notes off messages.
+   *
+   * @returns {undefined}
+   */
+  constructor() {
     this.store = createStore(rootReducer);
   }
 
   /**
-   * Triggers the processing of a MIDI message.
+   * Reads MIDI message data and updates MpeInstrument state accordingly.
    *
    * @param {Uint8Array} midiMessage A MIDI message.
    * @returns {undefined}
@@ -30,6 +49,8 @@ export class MpeInstrument {
   }
 
   /**
+   * Subscribe to changes to activeNotes state.
+   *
    * @param {function} callback A callback to be updated will all current active
    * notes in response to any note changes.
    * @returns {function} A function to unsubscribe the given callback.
