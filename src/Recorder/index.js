@@ -1,20 +1,15 @@
 import * as actions from './actions';
 import rootReducer from './reducers';
 import { createStore } from 'redux';
-import { isRecordingStored } from './utils/recorderStateUtils';
+import { isRecordingStored } from './utils/recorderUtils';
 
 /* eslint no-console: 1 */
 export function createRecorder() {
 
   const store = createStore(rootReducer);
 
-  function processMessage(message, time = performance.now()) {
-    store.dispatch(actions.processMessage(message, time));
-  }
-
-  function record() {
-    store.dispatch(actions.startRecording());
-    return () => store.dispatch(actions.stopRecording());
+  function record(message, time) {
+    store.dispatch(actions.recordMessage(message, time));
   }
 
   function play() {
@@ -25,7 +20,7 @@ export function createRecorder() {
   }
 
   function dump() {
-    return store.getState().recording.recordedMessages;
+    return store.getState().recordedMessages.sort((a, b) => a.time > b.time);
   }
 
   /* eslint-disable no-console */
@@ -35,7 +30,6 @@ export function createRecorder() {
   /* eslint-enable no-console */
 
   return {
-    processMessage,
     debug,
     record,
     play,

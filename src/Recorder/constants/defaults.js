@@ -1,1 +1,1 @@
-export const RECORDER_STATE = { recording: {}, playback: {} };
+export const RECORDER_STATE = { recordedMessages: [] };
