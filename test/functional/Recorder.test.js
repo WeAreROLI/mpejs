@@ -1,10 +1,41 @@
 import { expect } from 'chai';
 import { createRecorder } from '../../lib';
 import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+chai.use(sinonChai);
 
 let recorder;
 
 describe('Recorder', () => {
+  /* eslint-disable no-console */
+  describe('initialization options', () => {
+    describe('default', () => {
+      before(() => {
+        recorder = createRecorder({ logc: true });
+        sinon.stub(console, 'log');
+      });
+      it('doesn\'t log a record call by default', () => {
+        recorder.record('hello', 0);
+        expect(console.log).not.to.be.called;
+        // Moving this line to `afterEach` mutes test output.
+        console.log.restore();
+      });
+    });
+    describe('log', () => {
+      before(() => {
+        recorder = createRecorder({ log: true });
+        sinon.stub(console, 'log');
+      });
+      it('logs a record call with log set to true', () => {
+        recorder.record('hello', 0);
+        expect(console.log).to.be.called;
+        // Moving this line to `afterEach` mutes test output.
+        console.log.restore();
+      });
+    });
+  });
+  /* eslint-enable no-console */
   describe('#record()', () => {
     beforeEach(() => {
       recorder = createRecorder();
