@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { MpeInstrument } from '../../lib';
+import { createMpeInstrument } from '../../lib';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -37,7 +37,7 @@ let states;
 describe('MpeInstrument', () => {
   describe('#activeNotes()', () => {
     beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
+      mpeInstrument = createMpeInstrument();
     });
     it('returns an empty array on initialization', () => {
       expect(mpeInstrument.activeNotes()).to.be.instanceof(Array);
@@ -46,7 +46,7 @@ describe('MpeInstrument', () => {
   });
   describe('#processMidiMessage()', () => {
     beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
+      mpeInstrument = createMpeInstrument();
     });
     it('creates an active note given a note on', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
@@ -188,7 +188,7 @@ describe('MpeInstrument', () => {
   });
   describe('#subscribe()', () => {
     beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
+      mpeInstrument = createMpeInstrument();
       states = [];
       mpeInstrument.subscribe((newState) => states = [...states, newState]);
     });
@@ -218,7 +218,7 @@ describe('MpeInstrument', () => {
   /* eslint-disable no-console */
   describe('#debug()', () => {
     beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
+      mpeInstrument = createMpeInstrument();
       sinon.stub(console, 'log');
       mpeInstrument.debug();
     });
