@@ -1,9 +1,6 @@
 import { expect } from 'chai';
 import { createRecorder } from '../../lib';
 import chai from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-chai.use(sinonChai);
 
 let recorder;
 
