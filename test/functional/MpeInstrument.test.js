@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { MpeInstrument } from '../../lib';
+import { createMpeInstrument } from '../../lib';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -35,9 +35,55 @@ let mpeInstrument;
 let states;
 
 describe('MpeInstrument', () => {
+  /* eslint-disable no-console */
+  describe('initialization options', () => {
+    describe('default', () => {
+      beforeEach(() => {
+        mpeInstrument = createMpeInstrument();
+        sinon.stub(console, 'log');
+      });
+      it('doesn\'t log a note creation event by default', () => {
+        try {
+          mpeInstrument.processMidiMessage(NOTE_ON_1);
+          expect(console.log).not.to.be.called;
+        } finally {
+          // Moving this line to `afterEach` mutes test output.
+          console.log.restore();
+        }
+      });
+    });
+    describe('log', () => {
+      beforeEach(() => {
+        mpeInstrument = createMpeInstrument({ log: true });
+        sinon.stub(console, 'log');
+      });
+      it('logs a note creation event', () => {
+        try {
+          mpeInstrument.processMidiMessage(NOTE_ON_1);
+          expect(console.log).to.have.callCount(1);
+        } finally {
+          // Moving this line to `afterEach` mutes test output.
+          console.log.restore();
+        }
+      });
+      it('doesn\'t log messages that don\'t change activeNotes', () => {
+        try {
+          mpeInstrument.processMidiMessage(NOTE_OFF_1);
+          mpeInstrument.processMidiMessage(PITCH_BEND);
+          mpeInstrument.processMidiMessage(TIMBRE);
+          mpeInstrument.processMidiMessage(PRESSURE);
+          expect(console.log).to.have.callCount(1);
+        } finally {
+          // Moving this line to `afterEach` mutes test output.
+          console.log.restore();
+        }
+      });
+    });
+  });
+  /* eslint-enable no-console */
   describe('#activeNotes()', () => {
     beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
+      mpeInstrument = createMpeInstrument();
     });
     it('returns an empty array on initialization', () => {
       expect(mpeInstrument.activeNotes()).to.be.instanceof(Array);
@@ -46,7 +92,7 @@ describe('MpeInstrument', () => {
   });
   describe('#processMidiMessage()', () => {
     beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
+      mpeInstrument = createMpeInstrument();
     });
     it('creates an active note given a note on', () => {
       mpeInstrument.processMidiMessage(NOTE_ON_1);
@@ -188,7 +234,7 @@ describe('MpeInstrument', () => {
   });
   describe('#subscribe()', () => {
     beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
+      mpeInstrument = createMpeInstrument();
       states = [];
       mpeInstrument.subscribe((newState) => states = [...states, newState]);
     });
@@ -215,27 +261,4 @@ describe('MpeInstrument', () => {
       expect(states.length).to.equal(0);
     });
   });
-  /* eslint-disable no-console */
-  describe('#debug()', () => {
-    beforeEach(() => {
-      mpeInstrument = new MpeInstrument();
-      sinon.stub(console, 'log');
-      mpeInstrument.debug();
-    });
-    it('calls console.log on state changes', () => {
-      mpeInstrument.processMidiMessage(NOTE_ON_1);
-      expect(console.log).to.be.called;
-      // Moving this line to afterEach mutes test output.
-      console.log.restore();
-    });
-    it('doesn\'t call console.log unless messages change activeNotes', () => {
-      mpeInstrument.processMidiMessage(NOTE_OFF_1);
-      mpeInstrument.processMidiMessage(PITCH_BEND);
-      mpeInstrument.processMidiMessage(TIMBRE);
-      mpeInstrument.processMidiMessage(PRESSURE);
-      expect(console.log).not.to.be.called;
-      console.log.restore();
-    });
-  });
-  /* eslint-enable no-console */
 });

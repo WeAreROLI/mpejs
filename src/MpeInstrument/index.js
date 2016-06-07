@@ -1,40 +1,39 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { generateMidiActions } from './actions';
+import { logger } from './middlewares';
 import rootReducer from './reducers';
 
-export class MpeInstrument {
-  /**
-   * Create an MpeInstrument instance.
-   *
-   * Handles note messages on channels 1–16 as a single MPE zone.
-   *
-   * Channel 1 – the zone master channel – currently only has special behaviour
-   * in the case of all notes off messages.
-   *
-   * @classdesc
-   * A class to represent an MPE MIDI instrument.
-   *
-   * To trigger and modulate notes, pass MIDI messages to the `processMidiMessage`
-   * method of an instance.
-   *
-   * `activeNotes` returns an array of the current active notes.
-   *
-   * To receive updates on changes in the current `activeNotes` state, pass a
-   * callback to the `subscribe` method.
-   */
-  constructor() {
-    this.store = createStore(rootReducer);
-  }
+/**
+  * @summary Creates an MpeInstrument instance.
+  *
+  * MPE MIDI implementation details:
+  *
+  * Handles note messages on channels 1–16 as a single MPE zone.
+  *
+  * Channel 1 only implements "zone master channel" behaviour in the case of
+  * all notes off messages. Other messages types on channel 1 as standard
+  * channel scope messages.
+  *
+  * @param {Boolean} [options={ log: false }] Options to configure the recorder.
+  * @returns {MpeInstrument} A class to represent an MPE MIDI instrument.
+  */
+export function createMpeInstrument(options = { log: false }) {
+  
+  const store = options.log ?
+    createStore(rootReducer, applyMiddleware(logger)) :
+    createStore(rootReducer);
 
   /**
-   * Reads MIDI message data and updates MpeInstrument state accordingly.
+   * Reads MIDI message data and updates the instrument state accordingly.
+   *
+   * Processed MIDI messages trigger changes or modulations in `activeNotes`.
    *
    * @param {Uint8Array} midiMessage A MIDI message.
    * @returns {undefined}
    */
-  processMidiMessage(midiMessage) {
-    const actions = generateMidiActions(midiMessage, this.store.getState);
-    actions.forEach(this.store.dispatch);
+  function processMidiMessage(midiMessage) {
+    const actions = generateMidiActions(midiMessage, store.getState);
+    actions.forEach(store.dispatch);
   }
 
   /**
@@ -42,20 +41,23 @@ export class MpeInstrument {
    *
    * @returns {Array} An array of note objects representing active notes.
    */
-  activeNotes() {
-    return this.store.getState().activeNotes;
+  function activeNotes() {
+    return store.getState().activeNotes;
   }
 
   /**
-   * Subscribe to changes to activeNotes state.
+   * Subscribe to changes to the instrument's active notes.
+   *
+   * All changes or modulations affecting the instrument's active notes trigger
+   * the provided callback, and pass the new state as the function argument.
    *
    * @param {function} callback A callback to be updated will all current active
    * notes in response to any note changes.
    * @returns {function} A function to unsubscribe the given callback.
    */
-  subscribe(callback) {
+  function subscribe(callback) {
     let currentActiveNotes = this.activeNotes();
-    return this.store.subscribe(() => {
+    return store.subscribe(() => {
       let previousActiveNotes = currentActiveNotes;
       currentActiveNotes = this.activeNotes();
       if (currentActiveNotes !== previousActiveNotes) {
@@ -64,21 +66,9 @@ export class MpeInstrument {
     });
   }
 
-  /* eslint-disable no-console */
-  /**
-   * Prints changes to the developer console.
-   *
-   * @returns {undefined}
-   */
-  debug() {
-    this.subscribe((activeNotes) => {
-      activeNotes.forEach((n) => {
-        const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
-        console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
-      });
-      console.log(`${activeNotes.length} active note(s)`);
-    });
-  }
-  /* eslint-enable no-console */
-
+  return {
+    processMidiMessage,
+    activeNotes,
+    subscribe,
+  };
 }
