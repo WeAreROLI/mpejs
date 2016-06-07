@@ -74,6 +74,7 @@ describe('MpeInstrument', () => {
           mpeInstrument.processMidiMessage(PRESSURE);
           expect(console.log).to.have.callCount(1);
         } finally {
+          // Moving this line to `afterEach` mutes test output.
           console.log.restore();
         }
       });
