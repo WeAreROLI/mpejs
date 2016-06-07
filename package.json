@@ -9,7 +9,7 @@
     "compile": "WEBPACK_ENV=build webpack",
     "compile:dev": "WEBPACK_ENV=dev webpack",
     "docs:clean": "rm -rf docs/**/*",
-    "docs:jsdoc": "$(npm bin)/jsdoc src/*/index.js -d docs",
+    "docs:jsdoc": "jsdoc src/*/index.js -d docs",
     "docs:build": "npm run docs:clean && npm run docs:jsdoc",
     "docs:serve": "npm run docs:build && pushd docs && python -m SimpleHTTPServer 8001 && popd",
     "clean": "rm -rf lib/*",
