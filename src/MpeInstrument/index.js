@@ -1,22 +1,27 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { generateMidiActions } from './actions';
+import { logger } from './middlewares';
 import rootReducer from './reducers';
 
-export function createMpeInstrument() {
-  /**
-   * @summary Creates an MpeInstrument instance.
-   *
-   * MPE MIDI implementation details:
-   *
-   * Handles note messages on channels 1–16 as a single MPE zone.
-   *
-   * Channel 1 only implements "zone master channel" behaviour in the case of
-   * all notes off messages. Other messages types on channel 1 as standard
-   * channel scope messages.
-   *
-   * @returns {MpeInstrument} A class to represent an MPE MIDI instrument.
-   */
-  const store = createStore(rootReducer);
+/**
+  * @summary Creates an MpeInstrument instance.
+  *
+  * MPE MIDI implementation details:
+  *
+  * Handles note messages on channels 1–16 as a single MPE zone.
+  *
+  * Channel 1 only implements "zone master channel" behaviour in the case of
+  * all notes off messages. Other messages types on channel 1 as standard
+  * channel scope messages.
+  *
+  * @param {Boolean} [options={ log: false }] Options to configure the recorder.
+  * @returns {MpeInstrument} A class to represent an MPE MIDI instrument.
+  */
+export function createMpeInstrument(options = { log: false }) {
+  
+  const store = options.log ?
+    createStore(rootReducer, applyMiddleware(logger)) :
+    createStore(rootReducer);
 
   /**
    * Reads MIDI message data and updates the instrument state accordingly.
@@ -61,27 +66,9 @@ export function createMpeInstrument() {
     });
   }
 
-  /* eslint-disable no-console */
-  /**
-   * Prints changes to the developer console.
-   *
-   * @returns {undefined}
-   */
-  function debug() {
-    this.subscribe((activeNotes) => {
-      activeNotes.forEach((n) => {
-        const { noteNumber, pitchBend, pressure, timbre, noteOnVelocity, noteOffVelocity } = n;
-        console.log({ noteNumber, noteOnVelocity, pitchBend, timbre, pressure, noteOffVelocity });
-      });
-      console.log(`${activeNotes.length} active note(s)`);
-    });
-  }
-  /* eslint-enable no-console */
-
   return {
     processMidiMessage,
     activeNotes,
     subscribe,
-    debug,
   };
 }

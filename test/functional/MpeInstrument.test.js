@@ -35,6 +35,51 @@ let mpeInstrument;
 let states;
 
 describe('MpeInstrument', () => {
+  /* eslint-disable no-console */
+  describe('initialization options', () => {
+    describe('default', () => {
+      beforeEach(() => {
+        mpeInstrument = createMpeInstrument();
+        sinon.stub(console, 'log');
+      });
+      it('doesn\'t log a note creation event by default', () => {
+        try {
+          mpeInstrument.processMidiMessage(NOTE_ON_1);
+          expect(console.log).not.to.be.called;
+        } finally {
+          // Moving this line to `afterEach` mutes test output.
+          console.log.restore();
+        }
+      });
+    });
+    describe('log', () => {
+      beforeEach(() => {
+        mpeInstrument = createMpeInstrument({ log: true });
+        sinon.stub(console, 'log');
+      });
+      it('logs a note creation event', () => {
+        try {
+          mpeInstrument.processMidiMessage(NOTE_ON_1);
+          expect(console.log).to.have.callCount(1);
+        } finally {
+          // Moving this line to `afterEach` mutes test output.
+          console.log.restore();
+        }
+      });
+      it('doesn\'t log messages that don\'t change activeNotes', () => {
+        try {
+          mpeInstrument.processMidiMessage(NOTE_OFF_1);
+          mpeInstrument.processMidiMessage(PITCH_BEND);
+          mpeInstrument.processMidiMessage(TIMBRE);
+          mpeInstrument.processMidiMessage(PRESSURE);
+          expect(console.log).to.have.callCount(1);
+        } finally {
+          console.log.restore();
+        }
+      });
+    });
+  });
+  /* eslint-enable no-console */
   describe('#activeNotes()', () => {
     beforeEach(() => {
       mpeInstrument = createMpeInstrument();
@@ -215,27 +260,27 @@ describe('MpeInstrument', () => {
       expect(states.length).to.equal(0);
     });
   });
-  /* eslint-disable no-console */
-  describe('#debug()', () => {
-    beforeEach(() => {
-      mpeInstrument = createMpeInstrument();
-      sinon.stub(console, 'log');
-      mpeInstrument.debug();
-    });
-    it('calls console.log on state changes', () => {
-      mpeInstrument.processMidiMessage(NOTE_ON_1);
-      expect(console.log).to.be.called;
-      // Moving this line to afterEach mutes test output.
-      console.log.restore();
-    });
-    it('doesn\'t call console.log unless messages change activeNotes', () => {
-      mpeInstrument.processMidiMessage(NOTE_OFF_1);
-      mpeInstrument.processMidiMessage(PITCH_BEND);
-      mpeInstrument.processMidiMessage(TIMBRE);
-      mpeInstrument.processMidiMessage(PRESSURE);
-      expect(console.log).not.to.be.called;
-      console.log.restore();
-    });
-  });
-  /* eslint-enable no-console */
+  // /* eslint-disable no-console */
+  // describe('#debug()', () => {
+  //   beforeEach(() => {
+  //     mpeInstrument = createMpeInstrument();
+  //     sinon.stub(console, 'log');
+  //     mpeInstrument.debug();
+  //   });
+  //   it('calls console.log on state changes', () => {
+  //     mpeInstrument.processMidiMessage(NOTE_ON_1);
+  //     expect(console.log).to.be.called;
+  //     // Moving this line to afterEach mutes test output.
+  //     console.log.restore();
+  //   });
+  //   it('doesn\'t call console.log unless messages change activeNotes', () => {
+  //     mpeInstrument.processMidiMessage(NOTE_OFF_1);
+  //     mpeInstrument.processMidiMessage(PITCH_BEND);
+  //     mpeInstrument.processMidiMessage(TIMBRE);
+  //     mpeInstrument.processMidiMessage(PRESSURE);
+  //     expect(console.log).not.to.be.called;
+  //     console.log.restore();
+  //   });
+  // });
+  // /* eslint-enable no-console */
 });
