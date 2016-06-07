@@ -260,27 +260,4 @@ describe('MpeInstrument', () => {
       expect(states.length).to.equal(0);
     });
   });
-  // /* eslint-disable no-console */
-  // describe('#debug()', () => {
-  //   beforeEach(() => {
-  //     mpeInstrument = createMpeInstrument();
-  //     sinon.stub(console, 'log');
-  //     mpeInstrument.debug();
-  //   });
-  //   it('calls console.log on state changes', () => {
-  //     mpeInstrument.processMidiMessage(NOTE_ON_1);
-  //     expect(console.log).to.be.called;
-  //     // Moving this line to afterEach mutes test output.
-  //     console.log.restore();
-  //   });
-  //   it('doesn\'t call console.log unless messages change activeNotes', () => {
-  //     mpeInstrument.processMidiMessage(NOTE_OFF_1);
-  //     mpeInstrument.processMidiMessage(PITCH_BEND);
-  //     mpeInstrument.processMidiMessage(TIMBRE);
-  //     mpeInstrument.processMidiMessage(PRESSURE);
-  //     expect(console.log).not.to.be.called;
-  //     console.log.restore();
-  //   });
-  // });
-  // /* eslint-enable no-console */
 });
