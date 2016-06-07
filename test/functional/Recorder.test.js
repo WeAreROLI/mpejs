@@ -16,10 +16,13 @@ describe('Recorder', () => {
         sinon.stub(console, 'log');
       });
       it('doesn\'t log a record call by default', () => {
-        recorder.record('hello', 0);
-        expect(console.log).not.to.be.called;
-        // Moving this line to `afterEach` mutes test output.
-        console.log.restore();
+        try {
+          recorder.record('hello', 0);
+          expect(console.log).to.have.not.been.called;
+        } finally {
+          // Moving this line to `afterEach` mutes test output.
+          console.log.restore();
+        }
       });
     });
     describe('log', () => {
@@ -28,10 +31,13 @@ describe('Recorder', () => {
         sinon.stub(console, 'log');
       });
       it('logs a record call with log set to true', () => {
-        recorder.record('hello', 0);
-        expect(console.log).to.be.called;
-        // Moving this line to `afterEach` mutes test output.
-        console.log.restore();
+        try {
+          recorder.record('Hi', 0);
+          expect(console.log).to.have.callCount(2);
+        } finally {
+          // Moving this line to `afterEach` mutes test output.
+          console.log.restore();
+        }
       });
     });
   });
