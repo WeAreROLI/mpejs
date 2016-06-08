@@ -4,7 +4,7 @@ import { logger } from './middlewares';
 import rootReducer from './reducers';
 
 /**
- * Creates an MpeInstrument instance.
+ * Creates an mpeInstrument instance.
  *
  * MPE MIDI implementation details:
  *
@@ -17,9 +17,9 @@ import rootReducer from './reducers';
  * @param {Object} options Configuration options.
  * @param {Boolean} [options.log=false] When true, logs active notes to the
  * console.
- * @return {MpeInstrument} An MPE MIDI instrument instance.
+ * @return {mpeInstrument} An MPE MIDI instrument instance.
  */
-export default function MpeInstrument(options = { log: false }) /** @lends MpeInstrument.prototype */ {
+export default function mpeInstrument(options = { log: false }) {
   const store = options.log ?
     createStore(rootReducer, applyMiddleware(logger)) :
     createStore(rootReducer);
@@ -28,6 +28,8 @@ export default function MpeInstrument(options = { log: false }) /** @lends MpeIn
    *
    * Processed MIDI messages trigger changes or modulations in `activeNotes`.
    *
+   * @memberof mpeInstrument
+   * @instance
    * @param {Uint8Array} midiMessage A MIDI message.
    * @return {undefined}
    * @method processMidiMessage
@@ -40,7 +42,10 @@ export default function MpeInstrument(options = { log: false }) /** @lends MpeIn
   /**
    * Lists current active notes.
    *
-   * @returns {Array} An array of note objects representing active notes.
+   * @memberof mpeInstrument
+   * @instance
+   * @return {Array} An array of note objects representing active notes.
+   * @method activeNotes
    */
   function activeNotes() {
     return store.getState().activeNotes;
@@ -52,9 +57,11 @@ export default function MpeInstrument(options = { log: false }) /** @lends MpeIn
    * All changes or modulations affecting the instrument's active notes trigger
    * the provided callback, and pass the new state as the function argument.
    *
+   * @memberof mpeInstrument
+   * @instance
    * @param {function} callback A callback to be updated will all current active
    * notes in response to any note changes.
-   * @returns {function} A function to unsubscribe the given callback.
+   * @return {function} A function to unsubscribe the given callback.
    */
   function subscribe(callback) {
     let currentActiveNotes = this.activeNotes();
