@@ -16,7 +16,7 @@ if (navigator.requestMIDIAccess) {
       if (!inputs && !outputs) {
         return console.log('No MIDI devices not found.');
       }
-      const instrument = new WebMidiUtils.MpeInstrument();
+      const instrument = new WebMidiUtils.mpeInstrument();
       const selectedInput = inputs[0];
       selectedInput.addEventListener(
         'midimessage',
@@ -24,7 +24,7 @@ if (navigator.requestMIDIAccess) {
       );
       instrument.debug();
 
-      const recorder = new WebMidiUtils.MidiRecorder(inputs[0]);
+      const recorder = new WebMidiUtils.recorder();
       recorder.debug();
     },
     (error) => {
