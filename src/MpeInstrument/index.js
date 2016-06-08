@@ -19,7 +19,7 @@ import rootReducer from './reducers';
  * console.
  * @return {mpeInstrument} An MPE MIDI instrument instance.
  */
-export default function mpeInstrument(options = { log: false }) {
+export function mpeInstrument(options = { log: false }) {
   const store = options.log ?
     createStore(rootReducer, applyMiddleware(logger)) :
     createStore(rootReducer);

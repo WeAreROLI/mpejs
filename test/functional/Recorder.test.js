@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { createRecorder } from '../../lib';
+import * as library from '../../lib';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -7,12 +7,12 @@ chai.use(sinonChai);
 
 let recorder;
 
-describe('Recorder', () => {
+describe('recorder', () => {
   /* eslint-disable no-console */
   describe('initialization options', () => {
     describe('default', () => {
       before(() => {
-        recorder = createRecorder({ logc: true });
+        recorder = library.recorder({ logc: true });
         sinon.stub(console, 'log');
       });
       it('doesn\'t log a record call by default', () => {
@@ -27,7 +27,7 @@ describe('Recorder', () => {
     });
     describe('log', () => {
       before(() => {
-        recorder = createRecorder({ log: true });
+        recorder = library.recorder({ log: true });
         sinon.stub(console, 'log');
       });
       it('logs a record call with log set to true', () => {
@@ -44,7 +44,7 @@ describe('Recorder', () => {
   /* eslint-enable no-console */
   describe('#record()', () => {
     beforeEach(() => {
-      recorder = createRecorder();
+      recorder = library.recorder();
     });
     it('records a string passed as input', () => {
       recorder.record('hello', 0);
@@ -72,7 +72,7 @@ describe('Recorder', () => {
   });
   describe('#dump', () => {
     beforeEach(() => {
-      recorder = createRecorder();
+      recorder = library.recorder();
     });
     it('returns messages in time order', () => {
       recorder.record('there!', 1);

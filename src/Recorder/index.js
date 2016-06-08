@@ -12,7 +12,7 @@ import { createStore, applyMiddleware } from 'redux';
  * @returns {recorder} A `recorder` instance. Stores messages and times received
  * to the `record` method.
  */
-export default function recorder(options = { log: false }) {
+export function recorder(options = { log: false }) {
 
   const store = options.log ?
     createStore(rootReducer, applyMiddleware(logger)) :
