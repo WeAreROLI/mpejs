@@ -15,7 +15,7 @@ import rootReducer from './reducers';
   * channel scope messages.
   *
   * @param {Boolean} [options={ log: false }] Options to configure the recorder.
-  * @returns {MpeInstrument} A class to represent an MPE MIDI instrument.
+  * @return {MpeInstrument} An MPE MIDI instrument instance.
   */
 export function createMpeInstrument(options = { log: false }) {
   
