@@ -4,13 +4,15 @@ import { logger } from './middlewares';
 import { createStore, applyMiddleware } from 'redux';
 
 /**
- * @summary Creates a Recorder instance.
+ * Creates a recorder instance.
  *
- * @param {Boolean} [options={ log: false }] Options to configure the recorder.
- * @returns {Recorder} A Recorder instance. Stores messages and times received
+ * @param {Object} options Configuration options.
+ * @param {Boolean} [options.log=false] When `true`, logs changes to the
+ * console.
+ * @returns {recorder} A `recorder` instance. Stores messages and times received
  * to the `record` method.
  */
-export function createRecorder(options = { log: false }) {
+export default function recorder(options = { log: false }) {
 
   const store = options.log ?
     createStore(rootReducer, applyMiddleware(logger)) :
@@ -20,18 +22,22 @@ export function createRecorder(options = { log: false }) {
    * Adds received messages to a time indexed store. Supports all standard
    * JavaScript data types.
    *
+   * @memberof recorder
+   * @instance
    * @param  {any} message A message to store.
    * @param  {Number} time The time to index the received message against.
-   * @returns {undefined}
+   * @return {undefined}
    */
   function record(message, time) {
     store.dispatch(actions.recordMessage(message, time));
   }
 
   /**
-   * Returns all messages stored by the `Recorder` instance. Entries are ordered
+   * Returns all messages stored by the `recorder` instance. Entries are ordered
    * by ascending time values.
    *
+   * @memberof recorder
+   * @instance
    * @return {Array} An array of stored messages.
    */
   function dump() {
