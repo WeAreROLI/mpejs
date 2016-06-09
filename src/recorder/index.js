@@ -7,8 +7,7 @@ import { createStore, applyMiddleware } from 'redux';
  * Creates a recorder instance.
  *
  * @param {Object} options Configuration options.
- * @param {Boolean} [options.log=false] When `true`, logs changes to the
- * console.
+ * @param {Boolean} [options.log=false] When `true` logs changes to the console.
  * @returns {recorder} A `recorder` instance. Stores messages and times received
  * to the `record` method.
  */

@@ -15,7 +15,7 @@ import rootReducer from './reducers';
  * channel scope messages.
  *
  * @param {Object} options Configuration options.
- * @param {Boolean} [options.log=false] When true, logs current active notes to
+ * @param {Boolean} [options.log=false] When `true` logs current active notes to
  * the console.
  * @return {mpeInstrument} An MPE MIDI instrument instance.
  */
@@ -32,7 +32,6 @@ export function mpeInstrument(options) {
    * @instance
    * @param {Uint8Array} midiMessage A MIDI message.
    * @return {undefined}
-   * @method processMidiMessage
    */
   function processMidiMessage(midiMessage) {
     const actions = generateMidiActions(midiMessage, store.getState);
