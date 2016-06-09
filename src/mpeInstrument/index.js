@@ -15,12 +15,12 @@ import rootReducer from './reducers';
  * channel scope messages.
  *
  * @param {Object} options Configuration options.
- * @param {Boolean} [options.log=false] When true, logs active notes to the
- * console.
+ * @param {Boolean} [options.log=false] When true, logs current active notes to
+ * the console.
  * @return {mpeInstrument} An MPE MIDI instrument instance.
  */
-export function mpeInstrument(options = { log: false }) {
-  const store = options.log ?
+export function mpeInstrument(options) {
+  const store = options && options.log ?
     createStore(rootReducer, applyMiddleware(logger)) :
     createStore(rootReducer);
   /**
