@@ -1,0 +1,33 @@
+toc:
+  - name: MPE
+    description:
+      "[MPE](#MPE) (Multidimensional Polyphonic Expression) is a widely adopted
+      iteration upon MIDI 1.0.\n\n
+
+      By assigning conventional note on/off messages into individual “note
+      channels”, the [MPE proposed standard](#MPE) enables continuous control
+      parameters to be attached to each individual active note. These parameters
+      can be used to represent, for example, per-note pitch bend, pressure and
+      timbre changes.\n\n
+
+      The working group is supported by, among others, ROLI, Apple, Bitwig,
+      Moog, Haken and Roger Linn Design. It is currently implemented in ROLI's
+      Equator and NOISE software synthesizers, as well as Logic X, Bitwig Studio
+      and Cubase.\n\n
+
+      The included [`mpeInstrument`](#mpeInstrument) module provides a state
+      container which handles incoming MIDI messages via the
+      [`processMidiMessage`](#mpeInstrument#processMidiMessage) method and
+      maintains the instrument state internally. Current playing notes can be
+      accessed via the [`activeNotes`](#mpeInstrument#activeNotes) method. A
+      [`subscribe`](#mpeInstrument#subscribe) method is also provided, allowing
+      change listeners to be registered."
+
+  - mpeInstrument
+  - name: Utilities
+    description:
+      "Alongside, offering JavaScript support for [MPE](#MPE) MIDI, the library
+      bundles utilities designed to ease the process of building music web
+      apps."
+      
+  - recorder
