@@ -4,16 +4,19 @@
   <meta charset='utf-8' />
   <title><%- options.name %> <%- options.version %> | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
 </head>
 <body class='documentation'>
   <div class='max-width-4 mx-auto'>
+    <nav class='px2'>
+      <img src="assets/roli-monogram.svg" alt="<%- options.name %>" class="px1 logo" />
+    </nav>
     <div class='clearfix md-mxn2'>
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'><%- options.name %></h3>
           <div class='mb1'><code><%- options.version %></code></div>
           <input
             placeholder='Filter'
@@ -24,17 +27,18 @@
             <ul class='list-reset h5 py1-ul'>
               <% docs.forEach(function(doc) { %>
                 <% var hasMembers = doc.members.static.length || doc.members.instance.length %>
-                <li><a
-                  href='#<%=doc.namespace%>'
-                  class="<% if (doc.kind === 'note') { %>h5 bold black caps<% } %><% if (hasMembers) { %> toggle-sibling<% } %>">
-                  <%- doc.name %>
-                  <% if (hasMembers) { %><span class='icon'>▸</span><% } %>
-                </a>
+                <li>
+                  <a
+                    href='#<%=doc.namespace%>'
+                    class="block<% if (doc.kind === 'note') { %>h5 bold black caps<% } %><% if (hasMembers) { %> toggle-sibling<% } %>">
+                    <%- doc.name %>
+                    <% if (hasMembers) { %><span class='icon'>▾</span><% } %>
+                  </a>
                 <% if (hasMembers) { %>
-                <div class='toggle-target display-none'>
+                <div class='toggle-target'>
                   <% if (doc.members.static && doc.members.static.length) { %>
-                  <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
+                  <ul class='list-reset pl2 py1-ul pl1'>
+                    <!-- <li class='h5'><span>Static members</span></li> -->
                     <% doc.members.static.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -45,8 +49,8 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.instance && doc.members.instance.length) { %>
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
+                    <ul class='list-reset pl2 py1-ul pl1'>
+                      <!-- <li class='h5'><span>Instance members</span></li> -->
                       <% doc.members.instance.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -57,7 +61,7 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.events && doc.members.events.length) { %>
-                    <ul class='list-reset py1-ul pl1'>
+                    <ul class='list-reset pl2 py1-ul pl1'>
                       <li class='h5'>Events</li>
                       <% doc.members.events.forEach(function(member) { %>
                         <li><a
@@ -89,7 +93,7 @@
                 renderSectionList: renderSectionList
               }) %>
             <% } else { %>
-              <div class='keyline-top-not py2'><%=renderNote({ note: s })%></div>
+              <div class='mt-top-not py2'><%=renderNote({ note: s })%></div>
             <% } %>
           <% }) %>
         </div>

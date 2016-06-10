@@ -33,7 +33,7 @@ document.getElementById('filter-input')
 
     if (!value.match(/^\s*$/)) {
       match = function (element) {
-        return element.firstChild.innerHTML.toLowerCase().indexOf(value) !== -1;
+        return element.textContent.toLowerCase().indexOf(value) !== -1;
       };
     }
 

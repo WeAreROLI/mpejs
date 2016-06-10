@@ -1,8 +1,8 @@
-<section class='py2 clearfix'>
+<section class='mb2 clearfix'>
 
   <% if (typeof nested === 'undefined') { %>
   <div class='clearfix'>
-    <h2 class='fl' id='<%- section.namespace %>'>
+    <h2 class='fl anchor' id='<%- section.namespace %>'>
       <%- section.name %>
     </h2>
     <% if (section.context && section.context.github) { %>
