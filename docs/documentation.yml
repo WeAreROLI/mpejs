@@ -1,5 +1,5 @@
 toc:
-  - name: MPE
+  - name: MPE Toolkit
     description:
       "[MPE](#MPE) (Multidimensional Polyphonic Expression) is a widely adopted
       iteration upon MIDI 1.0.\n\n
@@ -24,10 +24,10 @@ toc:
       change listeners to be registered."
 
   - mpeInstrument
-  - name: Utilities
+  - name: Other utilities
     description:
       "Alongside, offering JavaScript support for [MPE](#MPE) MIDI, the library
       bundles utilities designed to ease the process of building music web
       apps."
-      
+
   - recorder
