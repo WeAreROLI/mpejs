@@ -14,7 +14,7 @@
 .bold{ font-weight: bold; font-weight: bold }
 .regular{ font-weight:normal }
 .italic{ font-style:italic }
-.caps{ text-transform:uppercase; letter-spacing: .2em; }
+.caps{ text-transform:uppercase; letter-spacing: .1em; }
 
 .left-align{ text-align:left }
 .center{ text-align:center }
@@ -39,7 +39,7 @@
   white-space:nowrap;
 }
 
-.list-reset{
+.list-reset {
   list-style:none;
   padding-left:0;
 }
@@ -86,42 +86,42 @@
 .mx0{ margin-left:0; margin-right:0 }
 .my0{ margin-top:0; margin-bottom:0 }
 
-.m1{ margin: .5rem }
-.mt1{ margin-top: .5rem }
-.mr1{ margin-right: .5rem }
-.mb1{ margin-bottom: .5rem }
-.ml1{ margin-left: .5rem }
-.mx1{ margin-left: .5rem; margin-right: .5rem }
-.my1{ margin-top: .5rem; margin-bottom: .5rem }
+.m1{ margin: .75rem }
+.mt1{ margin-top: .75rem }
+.mr1{ margin-right: .75rem }
+.mb1{ margin-bottom: .75rem }
+.ml1{ margin-left: .75rem }
+.mx1{ margin-left: .75rem; margin-right: .75rem }
+.my1{ margin-top: .75rem; margin-bottom: .75rem }
 
-.m2{ margin: 1rem }
-.mt2{ margin-top: 1rem }
-.mr2{ margin-right: 1rem }
-.mb2{ margin-bottom: 1rem }
-.ml2{ margin-left: 1rem }
-.mx2{ margin-left: 1rem; margin-right: 1rem }
-.my2{ margin-top: 1rem; margin-bottom: 1rem }
+.m2{ margin: 1.5rem }
+.mt2{ margin-top: 1.5rem }
+.mr2{ margin-right: 1.5rem }
+.mb2{ margin-bottom: 1.5rem }
+.ml2{ margin-left: 1.5rem }
+.mx2{ margin-left: 1.5rem; margin-right: 1.5rem }
+.my2{ margin-top: 1.5rem; margin-bottom: 1.5rem }
 
-.m3{ margin: 2rem }
-.mt3{ margin-top: 2rem }
-.mr3{ margin-right: 2rem }
-.mb3{ margin-bottom: 2rem }
-.ml3{ margin-left: 2rem }
-.mx3{ margin-left: 2rem; margin-right: 2rem }
-.my3{ margin-top: 2rem; margin-bottom: 2rem }
+.m3{ margin: 2.25rem }
+.mt3{ margin-top: 2.25rem }
+.mr3{ margin-right: 2.25rem }
+.mb3{ margin-bottom: 2.25rem }
+.ml3{ margin-left: 2.25rem }
+.mx3{ margin-left: 2.25rem; margin-right: 2.25rem }
+.my3{ margin-top: 2.25rem; margin-bottom: 2.25rem }
 
-.m4{ margin: 4rem }
-.mt4{ margin-top: 4rem }
-.mr4{ margin-right: 4rem }
-.mb4{ margin-bottom: 4rem }
-.ml4{ margin-left: 4rem }
-.mx4{ margin-left: 4rem; margin-right: 4rem }
-.my4{ margin-top: 4rem; margin-bottom: 4rem }
+.m4{ margin: 3rem }
+.mt4{ margin-top: 3rem }
+.mr4{ margin-right: 3rem }
+.mb4{ margin-bottom: 3rem }
+.ml4{ margin-left: 3rem }
+.mx4{ margin-left: 3rem; margin-right: 3rem }
+.my4{ margin-top: 3rem; margin-bottom: 3rem }
 
-.mxn1{ margin-left: -.5rem; margin-right: -.5rem; }
-.mxn2{ margin-left: -1rem; margin-right: -1rem; }
-.mxn3{ margin-left: -2rem; margin-right: -2rem; }
-.mxn4{ margin-left: -4rem; margin-right: -4rem; }
+.mxn1{ margin-left: -.75rem; margin-right: -.75rem; }
+.mxn2{ margin-left: -1.5rem; margin-right: -1.5rem; }
+.mxn3{ margin-left: -2.25rem; margin-right: -2.25rem; }
+.mxn4{ margin-left: -3rem; margin-right: -3rem; }
 
 .ml-auto{ margin-left:auto }
 .mr-auto{ margin-right:auto }
@@ -135,37 +135,37 @@
 .px0{ padding-left:0; padding-right:0 }
 .py0{ padding-top:0;  padding-bottom:0 }
 
-.p1{ padding: .5rem }
-.pt1{ padding-top: .5rem }
-.pr1{ padding-right: .5rem }
-.pb1{ padding-bottom: .5rem }
-.pl1{ padding-left: .5rem }
-.py1{ padding-top: .5rem; padding-bottom: .5rem }
-.px1{ padding-left: .5rem; padding-right: .5rem }
+.p1{ padding: .75rem }
+.pt1{ padding-top: .75rem }
+.pr1{ padding-right: .75rem }
+.pb1{ padding-bottom: .75rem }
+.pl1{ padding-left: .75rem }
+.py1{ padding-top: .75rem; padding-bottom: .75rem }
+.px1{ padding-left: .75rem; padding-right: .75rem }
 
-.p2{ padding: 1rem }
-.pt2{ padding-top: 1rem }
-.pr2{ padding-right: 1rem }
-.pb2{ padding-bottom: 1rem }
-.pl2{ padding-left: 1rem }
-.py2{ padding-top: 1rem; padding-bottom: 1rem }
-.px2{ padding-left: 1rem; padding-right: 1rem }
+.p2{ padding: 1.5rem }
+.pt2{ padding-top: 1.5rem }
+.pr2{ padding-right: 1.5rem }
+.pb2{ padding-bottom: 1.5rem }
+.pl2{ padding-left: 1.5rem }
+.py2{ padding-top: 1.5rem; padding-bottom: 1.5rem }
+.px2{ padding-left: 1.5rem; padding-right: 1.5rem }
 
-.p3{ padding: 2rem }
-.pt3{ padding-top: 2rem }
-.pr3{ padding-right: 2rem }
-.pb3{ padding-bottom: 2rem }
-.pl3{ padding-left: 2rem }
-.py3{ padding-top: 2rem; padding-bottom: 2rem }
-.px3{ padding-left: 2rem; padding-right: 2rem }
+.p3{ padding: 2.25rem }
+.pt3{ padding-top: 2.25rem }
+.pr3{ padding-right: 2.25rem }
+.pb3{ padding-bottom: 2.25rem }
+.pl3{ padding-left: 2.25rem }
+.py3{ padding-top: 2.25rem; padding-bottom: 2.25rem }
+.px3{ padding-left: 2.25rem; padding-right: 2.25rem }
 
-.p4{ padding: 4rem }
-.pt4{ padding-top: 4rem }
-.pr4{ padding-right: 4rem }
-.pb4{ padding-bottom: 4rem }
-.pl4{ padding-left: 4rem }
-.py4{ padding-top: 4rem; padding-bottom: 4rem }
-.px4{ padding-left: 4rem; padding-right: 4rem }
+.p4{ padding: 3rem }
+.pt4{ padding-top: 3rem }
+.pr4{ padding-right: 3rem }
+.pb4{ padding-bottom: 3rem }
+.pl4{ padding-left: 3rem }
+.py4{ padding-top: 3rem; padding-bottom: 3rem }
+.px4{ padding-left: 3rem; padding-right: 3rem }
 
 .col{
   float:left;

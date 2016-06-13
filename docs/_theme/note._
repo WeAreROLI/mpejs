@@ -1,6 +1,6 @@
-<section class='py1 clearfix'>
+<section class='mb2 clearfix'>
 
-  <h2 id='<%- note.namespace %>' class='mt0 bold black caps anchor'>
+  <h2 id='<%- note.namespace %>' class='bold black caps anchor'>
     <%- note.name %>
   </h2>
 

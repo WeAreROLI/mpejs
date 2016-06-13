@@ -6,14 +6,29 @@
     margin: 0;
 }
 
+.h1, .h2, .h3, .h4, .h5, .h6,
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  margin: 0 0 0.75rem 0;
+  line-height: 24px;
 }
 
-section section {
-  margin-left: 3rem;
+small, .small {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.xsmall {
+  font-size: 0.75rem;
+}
+
+p {
+  margin: 0 0 0.75rem 0;
+}
+
+.code.strong {
+  font-size: 1rem;
 }
 
 .anchor:before {
@@ -44,12 +59,20 @@ nav::after {
 
 .logo {
   position: fixed;
-  top: 0.6rem;
-  height: 1.5rem;
+  top: 0.5rem;
+  height: 1.8rem;
 }
 
 .black {
   color: #666;
+}
+
+#toc {
+  font-size: 0.875rem;
+}
+
+.blockh5 {
+  margin-top: 0.75rem;
 }
 
 h4 {
@@ -65,7 +88,7 @@ h4 {
 }
 
 .mt-top-not {
-  margin-top: 3rem;
+  margin-top: 2.25rem;
 }
 
 .mt-top-not:first-child {
@@ -91,10 +114,6 @@ a:hover {
 
 .pointer, .pointer:hover {
   cursor: pointer;
-}
-
-.py1-ul li {
-  padding: 5px 0;
 }
 
 .max-height-100 {
@@ -135,11 +154,19 @@ h4:hover .anchorjs-link {
 
 .pre, pre, code, .code {
   font-family: "Fira Mono",Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 0.875em;
+  font-size: 0.975em;
 }
 
 .fill-light {
-  background: #F9F9F9;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.stroke-light {
+  border: 1px solid rgba(0, 0, 0, 0.05)
+}
+
+.fill-white {
+  background: #fff;
 }
 
 .width2 {

@@ -1,18 +1,18 @@
 <div class="clearfix">
   <% members.forEach(function(member) { %>
-    <div class='keyline-bottom anchor' id='<%- member.namespace %>'>
+    <div class='keyline-bottom anchor stroke-light pt1 px1 mb1' id='<%- member.namespace %>'>
       <div class="clearfix small pointer toggle-sibling">
-        <div class="pad1y contain pointer">
-            <a class='icon pin-right pad1y dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'><%= member.name%></span>
-            <span class='quiet code space-right2'><%= shortSignature(member, false) %></span>
+        <div class="pad1y contain pointer h5">
+            <a class='icon right pad1y dark-link caret-right'>▾</a>
+            <span class='code strong truncate'><%= member.name%></span>
+            <span class='quiet code strong space-right2'><%= shortSignature(member, false) %></span>
         </div>
       </div>
       <div class="clearfix hidden toggle-target">
         <%= renderSection({
           section: member,
           renderSection: renderSection,
-	  nested: true
+          nested: true
         }) %>
       </div>
     </div>

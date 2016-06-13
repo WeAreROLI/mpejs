@@ -9,36 +9,33 @@
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
 </head>
-<body class='documentation'>
+<body class='documentation fill-light'>
   <div class='max-width-4 mx-auto'>
     <nav class='px2'>
-      <img src="assets/roli-monogram.svg" alt="<%- options.name %>" class="px1 logo" />
+      <img src="assets/roli-monogram.svg" alt="<%- options.name %>" class="logo" />
     </nav>
-    <div class='clearfix md-mxn2'>
-      <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
-        <div class='py1 px2'>
-          <div class='mb1'><code><%- options.version %></code></div>
+    <div class='clearfix md-mxn2 mt3'>
+      <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
+        <div class='px2'>
           <input
             placeholder='Filter'
             id='filter-input'
-            class='col12 block input'
+            class='block input'
             type='text' />
           <div id='toc'>
-            <ul class='list-reset h5 py1-ul'>
+            <ul class='list-reset h5'>
               <% docs.forEach(function(doc) { %>
                 <% var hasMembers = doc.members.static.length || doc.members.instance.length %>
-                <li>
+                <li class="<% if (doc.kind === 'note') { %>mt1<% } %>">
                   <a
                     href='#<%=doc.namespace%>'
-                    class="block<% if (doc.kind === 'note') { %>h5 bold black caps<% } %><% if (hasMembers) { %> toggle-sibling<% } %>">
+                    class="block<% if (doc.kind === 'note') { %> bold black caps<% } %>">
                     <%- doc.name %>
-                    <% if (hasMembers) { %><span class='icon'>▾</span><% } %>
                   </a>
                 <% if (hasMembers) { %>
-                <div class='toggle-target'>
+                <div>
                   <% if (doc.members.static && doc.members.static.length) { %>
-                  <ul class='list-reset pl2 py1-ul pl1'>
-                    <!-- <li class='h5'><span>Static members</span></li> -->
+                  <ul class='list-reset pl2'>
                     <% doc.members.static.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -49,8 +46,7 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.instance && doc.members.instance.length) { %>
-                    <ul class='list-reset pl2 py1-ul pl1'>
-                      <!-- <li class='h5'><span>Instance members</span></li> -->
+                    <ul class='list-reset pl2'>
                       <% doc.members.instance.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -61,7 +57,7 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.events && doc.members.events.length) { %>
-                    <ul class='list-reset pl2 py1-ul pl1'>
+                    <ul class='list-reset pl2'>
                       <li class='h5'>Events</li>
                       <% doc.members.events.forEach(function(member) { %>
                         <li><a
@@ -78,7 +74,7 @@
               <% }) %>
             </ul>
           </div>
-          <div class='mt1 h6 quiet'>
+          <div class='mt1 quiet xsmall'>
             <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
           </div>
         </div>
@@ -93,7 +89,7 @@
                 renderSectionList: renderSectionList
               }) %>
             <% } else { %>
-              <div class='mt-top-not py2'><%=renderNote({ note: s })%></div>
+              <div class='mt-top-not'><%=renderNote({ note: s })%></div>
             <% } %>
           <% }) %>
         </div>
