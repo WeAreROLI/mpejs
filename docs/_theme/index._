@@ -90,7 +90,7 @@
         <input
           placeholder='Filter'
           id='filter-input'
-          class='input stroke-light rounded mb1'
+          class='input stroke-light rounded'
           type='text' />
       </div>
       <div class='fix-margin-3'>

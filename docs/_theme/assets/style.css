@@ -40,6 +40,10 @@ p {
   font-size: 1rem;
 }
 
+.code.quiet {
+  font-weight: normal;
+}
+
 .anchor:before {
   content: '';
   display: block;
