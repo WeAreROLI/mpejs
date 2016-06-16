@@ -11,11 +11,13 @@
     "docs:clean": "rm -rf docs/dist/*",
     "docs:jsdoc": "jsdoc src/*/index.js -d docs",
     "docs:documentation-js": "documentation build src/*/index.js --config docs/documentation.yml --theme docs/_theme --format html --shallow --github --name mpe.js --output docs/dist",
-    "docs:build": "npm run docs:clean && npm run docs:documentation-js",
+    "docs:build": "npm run docs:clean && npm run docs:documentation-js && cp docs/CNAME docs/dist/",
     "docs:serve": "npm run docs:build && pushd docs/dist && python -m SimpleHTTPServer 8001 && popd",
+    "docs:deploy": "npm run docs:build && git-directory-deploy --directory docs/dist --branch gh-pages",
     "clean": "rm -rf lib/*",
     "lint": "eslint src/",
     "prepublish": "npm run build",
+    "publish": "npm run docs:deploy",
     "test": "mocha --compilers js:babel-core/register test/**/*.test.js",
     "serve": "python -m SimpleHTTPServer 8000"
   },
@@ -45,6 +47,7 @@
     "chai": "^3.5.0",
     "documentation": "^4.0.0-beta5",
     "eslint": "^2.9.0",
+    "git-directory-deploy": "^1.5.0",
     "html-webpack-plugin": "^2.15.0",
     "jsdoc": "^3.4.0",
     "mocha": "^2.4.5",
@@ -53,6 +56,8 @@
     "webpack": "^1.13.0"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   }
 }
