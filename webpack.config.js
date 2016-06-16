@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var LIBRARY_NAME = 'WebMidiUtils';
+var LIBRARY_NAME = 'mpe';
 
 // Plugins
 var htmlPlugin = new HtmlWebpackPlugin({
@@ -37,7 +37,7 @@ if (env === 'dev') {
     name: 'global',
     devtool: 'source-map',
     entry: {
-      WebMidiUtils: './src/global.js',
+      mpe: './src/global.js',
       sandbox: './src/sandbox.js',
     },
     output: {
@@ -73,7 +73,7 @@ if (env === 'build') {
     {
       name: 'global',
       entry: {
-        WebMidiUtils: './src/global.js',
+        mpe: './src/global.js',
         sandbox: './src/sandbox.js',
       },
       output: {
@@ -89,7 +89,7 @@ if (env === 'build') {
     },
     {
       name: 'globalMinified',
-      entry: { WebMidiUtils: './src/global.js' },
+      entry: { mpe: './src/global.js' },
       output: {
         path: path.join(__dirname, 'lib'),
         filename: '[name].min.js',

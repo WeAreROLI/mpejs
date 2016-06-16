@@ -1,6 +1,6 @@
-# ROLI Web MIDI Utils
+# mpe.js
 
-A JavaScript toolkit to handle data from ROLI's SEA interface products.
+A JavaScript toolkit to handle data from MPE compatible MIDI devices.
 
 ```
 ......................
@@ -16,4 +16,4 @@ A JavaScript toolkit to handle data from ROLI's SEA interface products.
           ......................
 ```
 
-Check out the [docs](https://weareroli.github.io/web-midi-utils) for more information.
+Check out the [docs](https://weareroli.github.io/mpejs) for more information.

@@ -1,5 +1,5 @@
 {
-  "name": "web-midi-utils",
+  "name": "mpe",
   "version": "0.0.1",
   "description": "A JavaScript toolkit to handle MIDI data.",
   "main": "lib/index.js",
@@ -10,7 +10,7 @@
     "compile:dev": "WEBPACK_ENV=dev webpack",
     "docs:clean": "rm -rf docs/dist/*",
     "docs:jsdoc": "jsdoc src/*/index.js -d docs",
-    "docs:documentation-js": "documentation build src/*/index.js --config docs/documentation.yml --theme docs/_theme --format html --shallow --github --name WebMidiUtils --output docs/dist",
+    "docs:documentation-js": "documentation build src/*/index.js --config docs/documentation.yml --theme docs/_theme --format html --shallow --github --name mpe.js --output docs/dist",
     "docs:build": "npm run docs:clean && npm run docs:documentation-js",
     "docs:serve": "npm run docs:build && pushd docs/dist && python -m SimpleHTTPServer 8001 && popd",
     "clean": "rm -rf lib/*",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WeAreROLI/web-midi-utils"
+    "url": "git+https://github.com/WeAreROLI/mpejs"
   },
   "keywords": [
     "mpe",
