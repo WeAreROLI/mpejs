@@ -1,0 +1,863 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>mpe.js 0.1.0 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <!--[if IE] <link rel="shortcut icon" href="assets/favicon-16.ico" /> -->
+  <link href="assets/favicon-16.png" rel="icon" sizes="16x16" type="image/png" />
+  <link href="assets/favicon-32.png" rel="icon" sizes="32x32" type="image/png" />
+  <link href="assets/favicon-64.png" rel="icon" sizes="64x64" type="image/png" />
+  <link href="assets/favicon-180.png" rel="icon" sizes="180x180" type="image/png" />
+  <link href="assets/favicon-57.png" rel="apple-touch-icon" sizes="57x57" />
+  <link href="assets/favicon-72.png" rel="apple-touch-icon" sizes="72x72" />
+  <link href="assets/favicon-114.png" rel="apple-touch-icon" sizes="114x114" />
+</head>
+<body class='documentation fill-light'>
+  <div class='max-width-4 mx-auto'>
+    <nav class='px2'>
+      <img src="assets/roli-monogram.svg" alt="mpe.js" class="logo" />
+    </nav>
+    <div class='clearfix md-mxn2 mt3'>
+      <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
+        <div class='pl2 pb4'>
+          <h1 class='library-name stroke-light rounded p1'>
+            <small class="right">0.1.0</small>
+            mpe.js
+          </h1>
+          <div id='toc' class='mt1'>
+            <ul class='list-reset h5'>
+              
+                
+                <li class="mt1">
+                  <a
+                    href='#Introduction'
+                    class="block bold black caps">
+                    Introduction
+                  </a>
+                
+                </li>
+              
+                
+                <li class="mt1">
+                  <a
+                    href='#Getting started'
+                    class="block bold black caps">
+                    Getting started
+                  </a>
+                
+                </li>
+              
+                
+                <li class="mt1">
+                  <a
+                    href='#MPE tools'
+                    class="block bold black caps">
+                    MPE tools
+                  </a>
+                
+                </li>
+              
+                
+                <li class="">
+                  <a
+                    href='#mpeInstrument'
+                    class="block">
+                    mpeInstrument
+                  </a>
+                
+                <div>
+                  
+                  
+                    <ul class='list-reset pl2'>
+                      
+                      <li><a
+                        href='#mpeInstrument#processMidiMessage'
+                        class='regular pre-open'>
+                        #processMidiMessage
+                      </a></li>
+                      
+                      <li><a
+                        href='#mpeInstrument#activeNotes'
+                        class='regular pre-open'>
+                        #activeNotes
+                      </a></li>
+                      
+                      <li><a
+                        href='#mpeInstrument#subscribe'
+                        class='regular pre-open'>
+                        #subscribe
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li class="mt1">
+                  <a
+                    href='#Other utilities'
+                    class="block bold black caps">
+                    Other utilities
+                  </a>
+                
+                </li>
+              
+                
+                <li class="">
+                  <a
+                    href='#recorder'
+                    class="block">
+                    recorder
+                  </a>
+                
+                <div>
+                  
+                  
+                    <ul class='list-reset pl2'>
+                      
+                      <li><a
+                        href='#recorder#record'
+                        class='regular pre-open'>
+                        #record
+                      </a></li>
+                      
+                      <li><a
+                        href='#recorder#dump'
+                        class='regular pre-open'>
+                        #dump
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                </div>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 quiet xsmall'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div class="sm-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
+        <input
+          placeholder='Filter'
+          id='filter-input'
+          class='input stroke-light rounded'
+          type='text' />
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2 mt1'>
+          
+            
+              <div class='mt-top-not'><section class='note mb2 clearfix'>
+
+  <h2 id='Introduction' class='bold black caps anchor'>
+    Introduction
+  </h2>
+
+  
+    <p><a href="#MPE">MPE</a> (Multidimensional Polyphonic Expression) is a widely adopted iteration upon MIDI 1.0.</p>
+<p>By assigning conventional note on/off messages into &ldquo;note channels&rdquo;, the <a href="https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit">MPE proposed standard</a> enables continuous control parameters to be attached to individual active notes. These parameters can be used to represent, for example, continuous per-note pitch bend, pressure and timbre.</p>
+<p>The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and Roger Linn Design. It is currently implemented in ROLI&rsquo;s Equator and NOISE software synthesizers, as well as Logic X, Bitwig Studio and Cubase.</p>
+<p>A C++ implementation is also available, included in <a href="https://juce.com">JUCE</a>.</p>
+
+  
+</section>
+</div>
+            
+          
+            
+              <div class='mt-top-not'><section class='note mb2 clearfix'>
+
+  <h2 id='Getting started' class='bold black caps anchor'>
+    Getting started
+  </h2>
+
+  
+    <p>To install the latest version of mpe.js:<br>
+<code>npm install --save mpe</code></p>
+<p>It is recommended to use mpe.js via <a href="https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import">ES2015&rsquo;s module system</a> (via <a href="http://babeljs.io/">Babel</a> or <a href="https://nodejs.org/en/">Node.js</a> &gt;v6) or as a CommonJS module (for ES5 users using <a href="http://webpack.github.io/">webpack</a> or <a href="http://browserify.org/">Browserify</a>).</p>
+<p>If you don&rsquo;t use a module bundler, that&rsquo;s also fine. The <code>lib</code> folder of the mpe.js node package also includes a version of the library that can be used directly as a <code>&lt;script&gt;</code> tag. Both <code>mpe.js</code> and <code>mpe.min.js</code> can be used in this way, and will set <code>mpe</code> as a global variable.</p>
+
+  
+</section>
+</div>
+            
+          
+            
+              <div class='mt-top-not'><section class='note mb2 clearfix'>
+
+  <h2 id='MPE tools' class='bold black caps anchor'>
+    MPE tools
+  </h2>
+
+  
+    <p>The included <a href="#mpeInstrument">mpeInstrument</a> function models MPE compatible instrument.</p>
+
+  
+</section>
+</div>
+            
+          
+            
+              <section class='clearfix fill-white pt2 px2 stroke-light'>
+
+  
+    <h2 class='clearfix anchor mb2 black' id='mpeInstrument'>
+      <span class='left'>
+        mpeInstrument
+      </span>
+      
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/web-midi-utils/blob/a88bd40923add73ccc4f43d04a8f7c8506c92c0e/src/mpeInstrument/index.js#L51-L140'>
+          <span>src/mpeInstrument/index.js</span>
+        </a>
+      
+    </h2>
+  
+
+
+  <div class='section-contents '>
+      <p>Creates an Object representing an instrument supporting MPE.</p>
+<p>You can trigger and modulate notes using the <code>processMidiMessage</code> method.</p>
+<p><code>processMidiMessage</code> implements the channel and note management logic
+specified in MPE. If you pass it a message, it will know what notes on what
+channels (if any) should be affected by that message.</p>
+<p>The instruments current playing notes can be accessed via the <code>activeNotes</code>
+method at any given time.</p>
+<p>A <code>subscribe</code> method is also provided, allowing callbacks to be registered
+to listen for note changes.</p>
+<p><em>MPE implementation details:</em></p>
+<p><em>Handles note messages on channels 1&ndash;16 as a single MPE zone. Multi-zone
+layouts are not currently supported.</em></p>
+<p><em>Channel 1 only implements &quot;zone master channel&quot; behaviour in the case of all
+notes off messages. Other messages types on channel 1 are handled as standard
+channel scope messages.</em></p>
+
+
+      <pre class='p1'>mpeInstrument(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></pre>
+
+      
+
+      
+      
+      
+      
+      
+
+      
+        <div class='quiet mt1 prose-big'>Parameters</div>
+        <div class='prose'>
+          
+            <div class='space-bottom0'>
+              <div>
+                <span class='code'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Configuration options.
+
+              </div>
+              
+              <table class='mt1 mb2 fixed-table'>
+                <colgroup>
+                  <col width='30%' />
+                  <col width='70%' />
+                </colgroup>
+                <thead>
+                  <tr class='fill-light'>
+                    <td>Name</td>
+                    <td>Description</td>
+                  </tr>
+                </thead>
+                <tbody class='mt1'>
+                  
+                    <tr>
+                      <td class='break-word'><span class='code'>options.log</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>]</code>
+                      
+                        (default <code>false</code>)
+                      </td>
+                      <td class='break-word'><span>When 
+<code>true</code>
+ logs current active notes to
+the console.
+</span></td>
+                    </tr>
+                  
+                </tbody>
+              </table>
+              
+            </div>
+          
+        </div>
+      
+
+      
+
+      
+        
+          <div class='quiet mt1 prose-big'>Returns</div>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+            An Object representing an MPE compatible instrument.
+
+          
+        
+      
+
+      
+
+      
+        <div class='quiet mt1 prose-big'>Example</div>
+        
+          
+          <pre class='p1 overflow-auto round'><span class="hljs-keyword">import</span> { mpeInstrument } <span class="hljs-keyword">from</span> <span class="hljs-string">'mpe'</span>;
+
+<span class="hljs-comment">// Assign `instrument` as an Object modelling an MPE instrument</span>
+<span class="hljs-keyword">const</span> instrument = mpeInstrument();
+
+<span class="hljs-comment">// 1) Request MIDI device access from the Web MIDI API</span>
+<span class="hljs-comment">// 2) Take the first `MidiInput` from the available MIDI `inputMap`</span>
+<span class="hljs-comment">// 3) Send input messages from this input to `instrument`</span>
+navigator.requestMIDIAccess().then({ inputMap } =&gt; {
+  <span class="hljs-keyword">const</span> midiInput = inputMap.values().next();
+  midiInput.addEventListener(
+    <span class="hljs-string">'midimessage'</span>,
+    { data } =&gt; instrument.processMidiMessage(data)
+  );
+});</pre>
+        
+      
+
+      
+
+      
+        <div class='quiet mt1 prose-big'>Instance Members</div>
+        <div class="clearfix">
+  
+    <div class='keyline-bottom stroke-light pt1 px1 mb1'>
+      <div class='anchor' id='mpeInstrument#processMidiMessage'></div>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="pad1y contain pointer h5">
+            <a class='icon right pad1y dark-link caret-right'>▾</a>
+            <span class='code strong truncate'>processMidiMessage</span>
+            <span class='quiet code strong space-right2'>(midiMessage)</span>
+        </div>
+      </div>
+      <div class="clearfix hidden toggle-target">
+        <section class='clearfix '>
+
+  
+
+
+  <div class='section-contents pl2 mb2'>
+      <p>Reads MIDI message data and updates the instrument state accordingly.</p>
+<p>Processed MIDI messages trigger changes or modulations in <code>activeNotes</code>.</p>
+
+
+      <pre class='p1'>processMidiMessage(midiMessage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></pre>
+
+      
+
+      
+      
+      
+      
+      
+
+      
+        <div class='quiet mt1 prose-big'>Parameters</div>
+        <div class='prose'>
+          
+            <div class='space-bottom0'>
+              <div>
+                <span class='code'>midiMessage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>)</code> A MIDI message.
+
+              </div>
+              
+            </div>
+          
+        </div>
+      
+
+      
+
+      
+        
+          <div class='quiet mt1 prose-big'>Returns</div>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>
+        
+      
+
+      
+
+      
+        <div class='quiet mt1 prose-big'>Example</div>
+        
+          
+          <pre class='p1 overflow-auto round'><span class="hljs-keyword">import</span> { mpeInstrument } <span class="hljs-keyword">from</span> <span class="hljs-string">'mpe'</span>;
+<span class="hljs-keyword">const</span> instrument = mpeInstrument();
+
+<span class="hljs-comment">// Trigger a note on, channel 2, middle C, max velocity</span>
+instrument.processMidiMessage([<span class="hljs-number">145</span>, <span class="hljs-number">60</span>, <span class="hljs-number">127</span>]);</pre>
+        
+      
+
+      
+
+      
+
+      
+  </div>
+</section>
+
+      </div>
+    </div>
+  
+    <div class='keyline-bottom stroke-light pt1 px1 mb1'>
+      <div class='anchor' id='mpeInstrument#activeNotes'></div>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="pad1y contain pointer h5">
+            <a class='icon right pad1y dark-link caret-right'>▾</a>
+            <span class='code strong truncate'>activeNotes</span>
+            <span class='quiet code strong space-right2'>()</span>
+        </div>
+      </div>
+      <div class="clearfix hidden toggle-target">
+        <section class='clearfix '>
+
+  
+
+
+  <div class='section-contents pl2 mb2'>
+      <p>Lists current active notes.</p>
+
+
+      <pre class='p1'>activeNotes(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></pre>
+
+      
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        
+          <div class='quiet mt1 prose-big'>Returns</div>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+            An array of note objects representing active notes.
+
+          
+        
+      
+
+      
+
+      
+        <div class='quiet mt1 prose-big'>Example</div>
+        
+          
+          <pre class='p1 overflow-auto round'><span class="hljs-keyword">import</span> { mpeInstrument } <span class="hljs-keyword">from</span> <span class="hljs-string">'mpe'</span>;
+<span class="hljs-keyword">const</span> instrument = mpeInstrument();
+
+instrument.activeNotes();
+<span class="hljs-comment">// =&gt; []</span>
+
+instrument.processMidiMessage([<span class="hljs-number">145</span>, <span class="hljs-number">60</span>, <span class="hljs-number">127</span>]);
+instrument.activeNotes();
+<span class="hljs-comment">// =&gt; [ { noteNumber: 60,</span>
+<span class="hljs-comment">//        channel: 2,</span>
+<span class="hljs-comment">//        noteOnVelocity: 127,</span>
+<span class="hljs-comment">//        pitchBend: 8192,</span>
+<span class="hljs-comment">//        timbre: 8192,</span>
+<span class="hljs-comment">//        pressure: 0 } ]</span></pre>
+        
+      
+
+      
+
+      
+
+      
+  </div>
+</section>
+
+      </div>
+    </div>
+  
+    <div class='keyline-bottom stroke-light pt1 px1 mb1'>
+      <div class='anchor' id='mpeInstrument#subscribe'></div>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="pad1y contain pointer h5">
+            <a class='icon right pad1y dark-link caret-right'>▾</a>
+            <span class='code strong truncate'>subscribe</span>
+            <span class='quiet code strong space-right2'>(callback)</span>
+        </div>
+      </div>
+      <div class="clearfix hidden toggle-target">
+        <section class='clearfix '>
+
+  
+
+
+  <div class='section-contents pl2 mb2'>
+      <p>Subscribe to changes to the MPE instrument&rsquo;s active notes.</p>
+<p>All changes or modulations affecting the instrument&rsquo;s active notes trigger
+the provided callback. The new value of <code>activeNotes</code> is passed to the
+provided callback as an argument.</p>
+
+
+      <pre class='p1'>subscribe(callback: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></pre>
+
+      
+
+      
+      
+      
+      
+      
+
+      
+        <div class='quiet mt1 prose-big'>Parameters</div>
+        <div class='prose'>
+          
+            <div class='space-bottom0'>
+              <div>
+                <span class='code'>callback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>)</code> A callback to be updated with current active
+notes in response to any note changes. For example, the callback is
+triggered when a new active note is added or an existing one is modulated.
+
+              </div>
+              
+            </div>
+          
+        </div>
+      
+
+      
+
+      
+        
+          <div class='quiet mt1 prose-big'>Returns</div>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></code>:
+            A function to unsubscribe the given callback.
+
+          
+        
+      
+
+      
+
+      
+        <div class='quiet mt1 prose-big'>Example</div>
+        
+          
+          <pre class='p1 overflow-auto round'><span class="hljs-keyword">import</span> { mpeInstrument } <span class="hljs-keyword">from</span> <span class="hljs-string">'mpe'</span>;
+<span class="hljs-keyword">const</span> instrument = mpeInstrument();
+
+<span class="hljs-comment">// Print new `activeNotes` values to the console</span>
+instrument.subscribe(<span class="hljs-built_in">console</span>.log);</pre>
+        
+      
+
+      
+
+      
+
+      
+  </div>
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+  </div>
+</section>
+
+            
+          
+            
+              <div class='mt-top-not'><section class='note mb2 clearfix'>
+
+  <h2 id='Other utilities' class='bold black caps anchor'>
+    Other utilities
+  </h2>
+
+  
+    <p>Alongside, offering JavaScript support for <a href="#MPE">MPE MIDI</a>, the library bundles utilities designed to ease the process of building music web apps.</p>
+
+  
+</section>
+</div>
+            
+          
+            
+              <section class='clearfix fill-white pt2 px2 stroke-light'>
+
+  
+    <h2 class='clearfix anchor mb2 black' id='recorder'>
+      <span class='left'>
+        recorder
+      </span>
+      
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/web-midi-utils/blob/a88bd40923add73ccc4f43d04a8f7c8506c92c0e/src/recorder/index.js#L15-L51'>
+          <span>src/recorder/index.js</span>
+        </a>
+      
+    </h2>
+  
+
+
+  <div class='section-contents '>
+      <p>Creates a recorder instance.</p>
+
+
+      <pre class='p1'>recorder(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></pre>
+
+      
+
+      
+      
+      
+      
+      
+
+      
+        <div class='quiet mt1 prose-big'>Parameters</div>
+        <div class='prose'>
+          
+            <div class='space-bottom0'>
+              <div>
+                <span class='code'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Configuration options.
+
+              </div>
+              
+              <table class='mt1 mb2 fixed-table'>
+                <colgroup>
+                  <col width='30%' />
+                  <col width='70%' />
+                </colgroup>
+                <thead>
+                  <tr class='fill-light'>
+                    <td>Name</td>
+                    <td>Description</td>
+                  </tr>
+                </thead>
+                <tbody class='mt1'>
+                  
+                    <tr>
+                      <td class='break-word'><span class='code'>options.log</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>]</code>
+                      
+                        (default <code>false</code>)
+                      </td>
+                      <td class='break-word'><span>When 
+<code>true</code>
+ logs changes to the console.
+</span></td>
+                    </tr>
+                  
+                </tbody>
+              </table>
+              
+            </div>
+          
+        </div>
+      
+
+      
+
+      
+        
+          <div class='quiet mt1 prose-big'>Returns</div>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+            A 
+<code>recorder</code>
+ Object. Stores messages and times received
+to the 
+<code>record</code>
+ method.
+
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+        <div class='quiet mt1 prose-big'>Instance Members</div>
+        <div class="clearfix">
+  
+    <div class='keyline-bottom stroke-light pt1 px1 mb1'>
+      <div class='anchor' id='recorder#record'></div>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="pad1y contain pointer h5">
+            <a class='icon right pad1y dark-link caret-right'>▾</a>
+            <span class='code strong truncate'>record</span>
+            <span class='quiet code strong space-right2'>(message, time)</span>
+        </div>
+      </div>
+      <div class="clearfix hidden toggle-target">
+        <section class='clearfix '>
+
+  
+
+
+  <div class='section-contents pl2 mb2'>
+      <p>Adds received messages to a time indexed store. Supports all standard
+JavaScript data types.</p>
+
+
+      <pre class='p1'>record(message: any, time: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></pre>
+
+      
+
+      
+      
+      
+      
+      
+
+      
+        <div class='quiet mt1 prose-big'>Parameters</div>
+        <div class='prose'>
+          
+            <div class='space-bottom0'>
+              <div>
+                <span class='code'>message</span> <code class='quiet'>(any)</code> A message to store.
+
+              </div>
+              
+            </div>
+          
+            <div class='space-bottom0'>
+              <div>
+                <span class='code'>time</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>)</code> The time to index the received message against.
+
+              </div>
+              
+            </div>
+          
+        </div>
+      
+
+      
+
+      
+        
+          <div class='quiet mt1 prose-big'>Returns</div>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+  </div>
+</section>
+
+      </div>
+    </div>
+  
+    <div class='keyline-bottom stroke-light pt1 px1 mb1'>
+      <div class='anchor' id='recorder#dump'></div>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="pad1y contain pointer h5">
+            <a class='icon right pad1y dark-link caret-right'>▾</a>
+            <span class='code strong truncate'>dump</span>
+            <span class='quiet code strong space-right2'>()</span>
+        </div>
+      </div>
+      <div class="clearfix hidden toggle-target">
+        <section class='clearfix '>
+
+  
+
+
+  <div class='section-contents pl2 mb2'>
+      <p>Returns all messages stored by the <code>recorder</code> instance. Entries are ordered
+by ascending time values.</p>
+
+
+      <pre class='p1'>dump(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></pre>
+
+      
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+        
+          <div class='quiet mt1 prose-big'>Returns</div>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+            An array of stored messages.
+
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+  </div>
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+  </div>
+</section>
+
+            
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
