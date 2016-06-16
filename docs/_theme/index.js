@@ -7,7 +7,8 @@ var fs = require('fs'),
   _ = require('lodash'),
   concat = require('concat-stream'),
   formatMarkdown = require('./lib/format_markdown'),
-  formatParameters = require('./lib/format_parameters');
+  formatParameters = require('./lib/format_parameters'),
+  packageJson = require('../../package.json');
 
 module.exports = function (comments, options, callback) {
 
@@ -83,7 +84,8 @@ module.exports = function (comments, options, callback) {
       }),
       renderSectionList: _.template(fs.readFileSync(path.join(__dirname, 'section_list._'), 'utf8'), {
         imports: imports
-      })
+      }),
+      packageJson: packageJson
     }
   });
 

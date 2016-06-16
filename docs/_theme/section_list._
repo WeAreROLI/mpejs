@@ -1,6 +1,7 @@
 <div class="clearfix">
   <% members.forEach(function(member) { %>
-    <div class='keyline-bottom anchor stroke-light pt1 px1 mb1' id='<%- member.namespace %>'>
+    <div class='keyline-bottom stroke-light pt1 px1 mb1'>
+      <div class='anchor' id='<%- member.namespace %>'></div>
       <div class="clearfix small pointer toggle-sibling">
         <div class="pad1y contain pointer h5">
             <a class='icon right pad1y dark-link caret-right'>▾</a>

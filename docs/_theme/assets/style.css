@@ -1,9 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
 .documentation {
-    font-family: "Fira Sans", "Helvetica Neue", sans-serif;
-    color: #666;
-    line-height: 1.5;
-    font-size: 16px;
-    margin: 0;
+  font-family: "Fira Sans", "Helvetica Neue", sans-serif;
+  color: #666;
+  line-height: 1.5;
+  font-size: 16px;
+  margin: 0;
+}
+
+.library-name {
+  margin: 0 -0.75rem;
+  height: 3rem;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6,
@@ -155,14 +164,19 @@ h4:hover .anchorjs-link {
 .pre, pre, code, .code {
   font-family: "Fira Mono",Menlo,Consolas,Liberation Mono,monospace;
   font-size: 0.975em;
+  margin: 0;
 }
 
 .fill-light {
   background: rgba(0, 0, 0, 0.03);
 }
 
+.stroke-mid {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
 .stroke-light {
-  border: 1px solid rgba(0, 0, 0, 0.05)
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .fill-white {
@@ -181,17 +195,23 @@ ul {
   padding-left: 1rem;
 }
 
+.fix-bottom {
+  bottom: 0;
+}
+
 .input {
   font-family: inherit;
   display: block;
   width: 100%;
-  height: 2rem;
-  padding: .5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  height: 2.25rem;
+  padding: .375rem .75rem;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);;
+  border: none;
   font-size: .875rem;
-  border-radius: 3px;
   box-sizing: border-box;
+  outline: none !important;
+  bottom: 0;
 }
 
 table {

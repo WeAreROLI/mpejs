@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title><%- options.name %> <%- options.version %> | Documentation</title>
+  <title><%- options.name %> <%- packageJson.version %> | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
@@ -16,13 +16,12 @@
     </nav>
     <div class='clearfix md-mxn2 mt3'>
       <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
-        <div class='px2'>
-          <input
-            placeholder='Filter'
-            id='filter-input'
-            class='block input'
-            type='text' />
-          <div id='toc'>
+        <div class='px2 pb4'>
+          <h1 class='library-name stroke-light p1'>
+            <small class="right"><%= packageJson.version %></small>
+            <%- options.name %>
+          </h1>
+          <div id='toc' class='mt1'>
             <ul class='list-reset h5'>
               <% docs.forEach(function(doc) { %>
                 <% var hasMembers = doc.members.static.length || doc.members.instance.length %>
@@ -79,8 +78,15 @@
           </div>
         </div>
       </div>
+      <div class="sm-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
+        <input
+          placeholder='Filter'
+          id='filter-input'
+          class='input stroke-light rounded mb1'
+          type='text' />
+      </div>
       <div class='fix-margin-3'>
-        <div class='px2'>
+        <div class='px2 mt1'>
           <% docs.forEach(function(s) { %>
             <% if (s.kind !== 'note') { %>
               <%= renderSection({

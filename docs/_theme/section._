@@ -1,7 +1,7 @@
 <section class='clearfix <% if (typeof nested === 'undefined') { %>fill-white pt2 px2 stroke-light<% } %>'>
 
   <% if (typeof nested === 'undefined') { %>
-    <h2 class='clearfix anchor mb3 black' id='<%- section.namespace %>'>
+    <h2 class='clearfix anchor mb2 black' id='<%- section.namespace %>'>
       <span class='left'>
         <%- section.name %>
       </span>
