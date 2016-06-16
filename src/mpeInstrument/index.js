@@ -6,6 +6,17 @@ import rootReducer from './reducers';
 /**
  * Creates an Object representing an instrument supporting MPE.
  *
+ * You can trigger and modulate notes using the `processMidiMessage` method.
+ *
+ * `processMidiMessage` implements the channel and note management logic
+ *  specified in MPE. If you pass it a message, it will know what notes on what
+ *  channels (if any) should be affected by that message.
+ *
+ *  The instruments current playing notes can be accessed via the `activeNotes`
+ *  method at any given time.
+ *
+ *  A `subscribe` method is also provided, allowing callbacks to be registered
+ *  to listen for note changes.
  *
  * _MPE implementation details:_
  *
@@ -15,7 +26,7 @@ import rootReducer from './reducers';
  * _Channel 1 only implements "zone master channel" behaviour in the case of all
  * notes off messages. Other messages types on channel 1 are handled as standard
  * channel scope messages._
- *
+ * @kind function
  * @example
  * import { mpeInstrument } from 'mpe';
  *
@@ -91,9 +102,9 @@ export function mpeInstrument(options) {
   }
 
   /**
-   * Subscribe to changes to the MPE instrument's active notes.
+   * Subscribe to changes to the MPE instrument’s active notes.
    *
-   * All changes or modulations affecting the instrument's active notes trigger
+     * All changes or modulations affecting the instrument’s active notes trigger
    * the provided callback. The new value of `activeNotes` is passed to the
    * provided callback as an argument.
    *

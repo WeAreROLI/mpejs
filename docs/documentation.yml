@@ -12,29 +12,33 @@ toc:
       per-note pitch bend, pressure and timbre.\n\n
 
       The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
-      Roger Linn Design. It is currently implemented in ROLI's Equator and NOISE
+      Roger Linn Design. It is currently implemented in ROLI’s Equator and NOISE
       software synthesizers, as well as Logic X, Bitwig Studio and Cubase.\n\n
 
       A C++ implementation is also available, included in
       [JUCE](https://juce.com)."
-      
-  - name: MPE developer toolkit
+
+  - name: Getting started
     description:
-      "The included [`mpeInstrument`](#mpeInstrument) function, returns an Object
-      representing an instrument supporting MPE.\n\n
+      "To install the latest version of mpe.js:  \n
+      `npm install --save mpe`\n\n
 
-      You can trigger and modulate notes using the
-      [`processMidiMessage`](#mpeInstrument#processMidiMessage) method.
-      [`processMidiMessage`](#mpeInstrument#processMidiMessage) implements the
-      channel and note management logic specified in MPE. If you pass it a
-      message, it will know what notes on what channels (if any) should be
-      affected by that message.\n\n
+      It is recommended to use mpe.js via [ES2015’s module
+      system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
+      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) >v6)
+      or as a CommonJS module (for ES5 users using
+      [webpack](http://webpack.github.io/) or
+      [Browserify](http://browserify.org/)).\n\n
 
-      The instruments current playing notes can be accessed via the
-      [`activeNotes`](#mpeInstrument#activeNotes) method at any given time.\n\n
+      If you don’t use a module bundler, that’s also fine. The `lib` folder of
+      the mpe.js node package also includes a version of the library that can be
+      used directly as a `<script>` tag. Both `mpe.js` and `mpe.min.js` can be
+      used in this way, and will set `mpe` as a global variable."
 
-      A [`subscribe`](#mpeInstrument#subscribe) method is also provided,
-      allowing callbacks to be registered to listen for note changes."
+  - name: MPE tools
+    description:
+      "The included [mpeInstrument](#mpeInstrument) function models MPE
+      compatible instrument."
 
   - mpeInstrument
 
