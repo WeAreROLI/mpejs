@@ -10,14 +10,14 @@ toc:
       enables continuous control parameters to be attached to individual active
       notes. These parameters can be used to represent, for example, continuous
       per-note pitch bend, pressure and timbre.\n\n
-      The working group is supported by, among others, ROLI, Apple, Bitwig,
-      Moog, Haken and Roger Linn Design. It is currently implemented in ROLI's
-      Equator and NOISE software synthesizers, as well as Logic X, Bitwig Studio
-      and Cubase.\n\n
+
+      The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
+      Roger Linn Design. It is currently implemented in ROLI's Equator and NOISE
+      software synthesizers, as well as Logic X, Bitwig Studio and Cubase.\n\n
 
       A C++ implementation is also available, included in
       [JUCE](https://juce.com)."
-
+      
   - name: MPE developer toolkit
     description:
       "The included [`mpeInstrument`](#mpeInstrument) function, returns an Object
