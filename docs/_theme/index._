@@ -8,6 +8,14 @@
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <!--[if IE] <link rel="shortcut icon" href="assets/favicon-16.ico" /> -->
+  <link href="assets/favicon-16.png" rel="icon" sizes="16x16" type="image/png" />
+  <link href="assets/favicon-32.png" rel="icon" sizes="32x32" type="image/png" />
+  <link href="assets/favicon-64.png" rel="icon" sizes="64x64" type="image/png" />
+  <link href="assets/favicon-180.png" rel="icon" sizes="180x180" type="image/png" />
+  <link href="assets/favicon-57.png" rel="apple-touch-icon" sizes="57x57" />
+  <link href="assets/favicon-72.png" rel="apple-touch-icon" sizes="72x72" />
+  <link href="assets/favicon-114.png" rel="apple-touch-icon" sizes="114x114" />
 </head>
 <body class='documentation fill-light'>
   <div class='max-width-4 mx-auto'>
