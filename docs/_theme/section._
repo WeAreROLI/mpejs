@@ -17,6 +17,8 @@
   <div class='section-contents <% if (typeof nested !== 'undefined') { %>pl2 mb2<% } %>'>
       <%= md(section.description) %>
 
+      <pre class='p1'><%= signature(section) %></pre>
+
       <% if (section.augments) { %>
         <p>
           Extends
@@ -123,7 +125,7 @@
         <div class='quiet mt1 prose-big'>Example</div>
         <% section.examples.forEach(function(example) { %>
           <% if (example.caption) { %><p><%= md(example.caption) %></p><% } %>
-          <pre class='p1 overflow-auto round fill-light'><%= highlight(example.description) %></pre>
+          <pre class='p1 overflow-auto round'><%= highlight(example.description) %></pre>
         <% }) %>
       <% } %>
 

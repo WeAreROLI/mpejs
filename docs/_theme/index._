@@ -24,8 +24,8 @@
     </nav>
     <div class='clearfix md-mxn2 mt3'>
       <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
-        <div class='px2 pb4'>
-          <h1 class='library-name stroke-light p1'>
+        <div class='pl2 pb4'>
+          <h1 class='library-name stroke-light rounded p1'>
             <small class="right"><%= packageJson.version %></small>
             <%- options.name %>
           </h1>

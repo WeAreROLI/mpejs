@@ -1,4 +1,4 @@
-<section class='mb2 clearfix'>
+<section class='note mb2 clearfix'>
 
   <h2 id='<%- note.namespace %>' class='bold black caps anchor'>
     <%- note.name %>

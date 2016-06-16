@@ -11,7 +11,7 @@
 }
 
 .library-name {
-  margin: 0 -0.75rem;
+  margin-left: -0.75rem;
   height: 3rem;
 }
 
@@ -159,6 +159,11 @@ h4:hover .anchorjs-link {
   .fix-margin-3 {
     margin-left: 25%;
   }
+}
+
+.note pre, .note code, pre {
+  background-color: rgba(0, 0, 0, 0.03);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
 }
 
 .pre, pre, code, .code {

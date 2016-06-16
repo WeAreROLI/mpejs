@@ -11,7 +11,7 @@
 .font-size-inherit{ font-size:inherit }
 .text-decoration-none{ text-decoration:none }
 
-.bold{ font-weight: bold; font-weight: bold }
+.bold{ font-weight: bold; }
 .regular{ font-weight:normal }
 .italic{ font-style:italic }
 .caps{ text-transform:uppercase; letter-spacing: .1em; }
