@@ -168,7 +168,7 @@
 
   
     <p><a href="#MPE">MPE</a> (Multidimensional Polyphonic Expression) is a widely adopted iteration upon MIDI 1.0.</p>
-<p>By assigning conventional note on/off messages into &ldquo;note channels&rdquo;, the <a href="https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit">MPE proposed standard</a> enables continuous control parameters to be attached to individual active notes. These parameters can be used to represent continuously changing per-note pitch bend, pressure and timbre.</p>
+<p>By assigning conventional note on/off messages into &ldquo;note channels&rdquo;, the <a href="https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit">MPE proposed specification</a> enables continuous control parameters to be attached to individual active notes. These parameters can be used to represent continuously changing per-note pitch bend, pressure and timbre.</p>
 <p>The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and Roger Linn Design. It is currently implemented in ROLI&rsquo;s Equator and NOISE software synthesizers, as well as Logic X, Bitwig Studio and Cubase.</p>
 <p>A C++ implementation is also available, included in <a href="https://juce.com">JUCE</a>.</p>
 
@@ -222,7 +222,7 @@
         (options)
       </span>
       
-        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/e8a49a3c53ab7112237b37b8dbf4b0f2b8295eb4/src/mpeInstrument/index.js#L32-L133'>
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/f524f09aaa7f7fb9d4165fd552b7d61002fe1221/src/mpeInstrument/index.js#L32-L133'>
           <span>src/mpeInstrument/index.js</span>
         </a>
       
@@ -351,8 +351,8 @@ changes.</p>
 <p><em>MPE implementation details:</em></p>
 <p><em>Handles note messages on channels 1&ndash;16 as a single MPE zone. Multi-zone
 layouts are not currently supported.</em></p>
-<p><em>Channel 1 only implements &quot;zone master channel&quot; behaviour in the case of all
-notes off messages. Other messages types on channel 1 are handled as standard
+<p><em>Channel 1 only implements &quot;Master Channel&quot; behaviour in the case of All
+Notes Off messages. Other messages types on channel 1 are handled as standard
 channel scope messages.</em></p>
 
 
@@ -609,7 +609,7 @@ instrument.subscribe(<span class="hljs-built_in">console</span>.log);</pre>
         (options)
       </span>
       
-        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/e8a49a3c53ab7112237b37b8dbf4b0f2b8295eb4/src/recorder/index.js#L15-L51'>
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/f524f09aaa7f7fb9d4165fd552b7d61002fe1221/src/recorder/index.js#L15-L51'>
           <span>src/recorder/index.js</span>
         </a>
       
