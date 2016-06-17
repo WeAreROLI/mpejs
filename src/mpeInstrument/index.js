@@ -6,22 +6,6 @@ import rootReducer from './reducers';
 /**
  * Creates an Object representing an instrument supporting MPE.
  *
- * `processMidiMessage` implements the channel and note management logic
- *  specified in MPE. If you pass it a message, it will know what notes on what
- *  channels (if any) should be affected by that message.
- *
- *  The instruments current playing notes can be accessed via the `activeNotes`
- *  method at any given time. A `subscribe` method is also provided, allowing callbacks to be registered
- *  to listen for note changes.
- *
- * _MPE implementation details:_
- *
- * _Handles note messages on channels 1–16 as a single MPE zone. Multi-zone
- * layouts are not currently supported._
- *
- * _Channel 1 only implements "zone master channel" behaviour in the case of all
- * notes off messages. Other messages types on channel 1 are handled as standard
- * channel scope messages._
  * @kind function
  * @example
  * import { mpeInstrument } from 'mpe';
@@ -43,6 +27,7 @@ import rootReducer from './reducers';
  * @param {Boolean} [options.log=false] When `true` logs current active notes to
  * the console.
  * @return {Object} An Object representing an MPE compatible instrument.
+ *
  */
 export function mpeInstrument(options) {
   const store = options && options.log ?
@@ -51,7 +36,19 @@ export function mpeInstrument(options) {
   /**
    * Reads MIDI message data and updates the instrument state accordingly.
    *
-   * Processed MIDI messages trigger changes or modulations in `activeNotes`.
+   * Processed MIDI messages trigger changes or modulations in `activeNotes`. On
+   * receiving a MIDI message, `processMidiMessage` decides which notes on which
+   * channels (if any) should be affected by that message, and applies the
+   * changes.
+   *
+   * _MPE implementation details:_
+   *
+   * _Handles note messages on channels 1–16 as a single MPE zone. Multi-zone
+   * layouts are not currently supported._
+   *
+   * _Channel 1 only implements "zone master channel" behaviour in the case of all
+   * notes off messages. Other messages types on channel 1 are handled as standard
+   * channel scope messages._
    *
    * @example
    * import { mpeInstrument } from 'mpe';
@@ -100,7 +97,7 @@ export function mpeInstrument(options) {
   /**
    * Subscribe to changes to the MPE instrument’s active notes.
    *
-     * All changes or modulations affecting the instrument’s active notes trigger
+   * All changes or modulations affecting the instrument’s active notes trigger
    * the provided callback. The new value of `activeNotes` is passed to the
    * provided callback as an argument.
    *

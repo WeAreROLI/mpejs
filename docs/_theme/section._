@@ -2,8 +2,11 @@
 
   <% if (typeof nested === 'undefined') { %>
     <h2 class='clearfix anchor mb2 black' id='<%- section.namespace %>'>
-      <span class='left'>
+      <span class='left code'>
         <%- section.name %>
+      </span>
+      <span class="left quiet code">
+        <%- shortSignature(section) %>
       </span>
       <% if (section.context && section.context.github) { %>
         <a class='right round quiet small' href='<%= section.context.github %>'>
@@ -16,8 +19,6 @@
 
   <div class='section-contents <% if (typeof nested !== 'undefined') { %>pl2 mb2<% } %>'>
       <%= md(section.description) %>
-
-      <pre class='p1'><%= signature(section) %></pre>
 
       <% if (section.augments) { %>
         <p>

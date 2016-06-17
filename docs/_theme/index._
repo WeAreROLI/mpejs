@@ -86,7 +86,7 @@
           </div>
         </div>
       </div>
-      <div class="sm-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
+      <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
         <input
           placeholder='Filter'
           id='filter-input'

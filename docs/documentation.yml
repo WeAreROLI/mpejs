@@ -8,7 +8,7 @@ toc:
       [MPE proposed
       standard](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
       enables continuous control parameters to be attached to individual active
-      notes. These parameters can be used to represent, for example, continuous
+      notes. These parameters can be used to represent continuously changing
       per-note pitch bend, pressure and timbre.\n\n
 
       The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
@@ -25,7 +25,7 @@ toc:
 
       It is recommended to use mpe.js via [ES2015’s module
       system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
-      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) >v6)
+      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) v6+)
       or as a CommonJS module (for ES5 users using
       [webpack](http://webpack.github.io/) or
       [Browserify](http://browserify.org/)).\n\n
@@ -33,19 +33,19 @@ toc:
       If you don’t use a module bundler, that’s also fine. The `lib` folder of
       the mpe.js node package also includes a version of the library that can be
       used directly as a `<script>` tag. Both `mpe.js` and `mpe.min.js` can be
-      used in this way, and will set `mpe` as a global variable."
+      used in this way, and will assign the library contents to the global
+      variable `mpe`."
 
   - name: MPE tools
     description:
-      "The included [mpeInstrument](#mpeInstrument) function models MPE
-      compatible instrument."
+      "The included [mpeInstrument](#mpeInstrument) function is designed to
+      model MPE compatible instruments."
 
   - mpeInstrument
 
   - name: Other utilities
     description:
-      "Alongside, offering JavaScript support for [MPE MIDI](#MPE), the library
-      bundles utilities designed to ease the process of building music web
-      apps."
+      "Alongside, offering JavaScript support for [MPE MIDI](#MPE), mpe.js
+      includes a small number of other music utilities."
 
   - recorder

@@ -5,8 +5,8 @@
       <div class="clearfix small pointer toggle-sibling">
         <div class="pad1y contain pointer h5">
             <a class='icon right pad1y dark-link caret-right'>▾</a>
-            <span class='code strong truncate'><%= member.name%></span>
-            <span class='quiet code strong space-right2'><%= shortSignature(member, false) %></span>
+            <span class='code truncate'><%= member.name%></span>
+            <span class='quiet code space-right2'><%= shortSignature(member, false) %></span>
         </div>
       </div>
       <div class="clearfix hidden toggle-target">
