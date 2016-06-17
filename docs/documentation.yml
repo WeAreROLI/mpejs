@@ -6,7 +6,7 @@ toc:
 
       By assigning conventional note on/off messages into “note channels”, the
       [MPE proposed
-      standard](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
+      specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
       enables continuous control parameters to be attached to individual active
       notes. These parameters can be used to represent continuously changing
       per-note pitch bend, pressure and timbre.\n\n
