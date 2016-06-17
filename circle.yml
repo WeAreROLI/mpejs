@@ -1,4 +1,7 @@
 machine:
+  environment:
+    USER_NAME: odub
+    USER_EMAIL: oscardub@gmail.com
   node:
     version: 4.2.2
 dependencies:
@@ -10,3 +13,8 @@ test:
     - npm run lint
     - npm run test
     - npm run docs:build
+deployment:
+  production:
+    branch: master
+    commands:
+      - npm run docs:deploy
