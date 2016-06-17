@@ -1,23 +1,36 @@
-import MpeInstrument from './index';
+/* eslint no-console: 0 */
+/* global mpe: false */
 
 if (navigator.requestMIDIAccess) {
   console.log('\nWelcome to Web MIDI Sandbox\n\n');
 
   navigator.requestMIDIAccess({ sysex: true }).then(
-    function(x){
+    ({ inputMap, outputMap }) => {
+      const inputs = Array.from(inputMap.values());
+      const outputs = Array.from(outputMap.values());
       console.log('MIDI inputs:');
-      console.log(Array.from(x.inputs.values()));
+      console.log(inputs);
       console.log('MIDI outputs:');
-      console.log(Array.from(x.outputs.values()));
-      new MpeInstrument(
-        x.inputs.values().next().value,
-        x.outputs.values().next().value
+      console.log(outputs);
+
+      if (!inputs && !outputs) {
+        return console.log('No MIDI devices not found.');
+      }
+      const instrument = new mpe.mpeInstrument({ debug: true });
+      const selectedInput = inputs[0];
+      selectedInput.addEventListener(
+        'midimessage',
+        ({ data }) => instrument.processMidiMessage(data)
       );
+
+      const recorder = new mpe.recorder();
+      recorder.debug();
     },
-    function(error) {
+    (error) => {
       console.log('requestMIDIAccess failed.');
+      console.error(error);
     }
-  )
+  );
 } else {
   console.log('Please use a browser which supports Web MIDI API.');
 }
