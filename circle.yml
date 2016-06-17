@@ -3,7 +3,7 @@ machine:
     version: 4.2.2
 dependencies:
   override:
-    - npm install
+    - npm install --dev
 test:
   override:
     - npm run build
