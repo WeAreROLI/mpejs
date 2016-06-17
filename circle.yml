@@ -6,8 +6,8 @@ machine:
     version: 4.2.2
 dependencies:
   override:
+    - npm install documentation # install documentation-js with subdependencies
     - npm install
-    - npm update
 test:
   override:
     - npm run build
