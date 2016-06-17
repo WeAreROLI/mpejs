@@ -1,5 +1,5 @@
 /* eslint no-console: 0 */
-/* global WebMidiUtils: false */
+/* global mpe: false */
 
 if (navigator.requestMIDIAccess) {
   console.log('\nWelcome to Web MIDI Sandbox\n\n');
@@ -16,15 +16,14 @@ if (navigator.requestMIDIAccess) {
       if (!inputs && !outputs) {
         return console.log('No MIDI devices not found.');
       }
-      const instrument = new WebMidiUtils.MpeInstrument();
+      const instrument = new mpe.mpeInstrument({ debug: true });
       const selectedInput = inputs[0];
       selectedInput.addEventListener(
         'midimessage',
         ({ data }) => instrument.processMidiMessage(data)
       );
-      instrument.debug();
 
-      const recorder = new WebMidiUtils.MidiRecorder(inputs[0]);
+      const recorder = new mpe.recorder();
       recorder.debug();
     },
     (error) => {

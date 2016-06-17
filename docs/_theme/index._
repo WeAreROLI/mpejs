@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title><%- options.name %> <%- packageJson.version %> | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <!--[if IE] <link rel="shortcut icon" href="assets/favicon-16.ico" /> -->
+  <link href="assets/favicon-16.png" rel="icon" sizes="16x16" type="image/png" />
+  <link href="assets/favicon-32.png" rel="icon" sizes="32x32" type="image/png" />
+  <link href="assets/favicon-64.png" rel="icon" sizes="64x64" type="image/png" />
+  <link href="assets/favicon-180.png" rel="icon" sizes="180x180" type="image/png" />
+  <link href="assets/favicon-57.png" rel="apple-touch-icon" sizes="57x57" />
+  <link href="assets/favicon-72.png" rel="apple-touch-icon" sizes="72x72" />
+  <link href="assets/favicon-114.png" rel="apple-touch-icon" sizes="114x114" />
+</head>
+<body class='documentation fill-light'>
+  <div class='max-width-4 mx-auto'>
+    <nav class='px2'>
+      <img src="assets/roli-monogram.svg" alt="<%- options.name %>" class="logo" />
+    </nav>
+    <div class='clearfix md-mxn2 mt3'>
+      <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
+        <div class='pl2 pb4'>
+          <h1 class='library-name stroke-light rounded p1'>
+            <small class="right"><%= packageJson.version %></small>
+            <%- options.name %>
+          </h1>
+          <div id='toc' class='mt1'>
+            <ul class='list-reset h5'>
+              <% docs.forEach(function(doc) { %>
+                <% var hasMembers = doc.members.static.length || doc.members.instance.length %>
+                <li class="<% if (doc.kind === 'note') { %>mt1<% } %>">
+                  <a
+                    href='#<%=doc.namespace%>'
+                    class="block<% if (doc.kind === 'note') { %> bold black caps<% } %>">
+                    <%- doc.name %>
+                  </a>
+                <% if (hasMembers) { %>
+                <div>
+                  <% if (doc.members.static && doc.members.static.length) { %>
+                  <ul class='list-reset pl2'>
+                    <% doc.members.static.forEach(function(member) { %>
+                      <li><a
+                        href='#<%=member.namespace%>'
+                        class='regular pre-open'>
+                        .<%- member.name %>
+                      </a></li>
+                    <% }) %>
+                    </ul>
+                  <% } %>
+                  <% if (doc.members.instance && doc.members.instance.length) { %>
+                    <ul class='list-reset pl2'>
+                      <% doc.members.instance.forEach(function(member) { %>
+                      <li><a
+                        href='#<%=member.namespace%>'
+                        class='regular pre-open'>
+                        #<%- member.name %>
+                      </a></li>
+                      <% }) %>
+                    </ul>
+                  <% } %>
+                  <% if (doc.members.events && doc.members.events.length) { %>
+                    <ul class='list-reset pl2'>
+                      <li class='h5'>Events</li>
+                      <% doc.members.events.forEach(function(member) { %>
+                        <li><a
+                          href='#<%=member.namespace%>'
+                          class='regular pre-open'>
+                          ⓔ <%- member.name %>
+                        </a></li>
+                      <% }) %>
+                    </ul>
+                  <% } %>
+                </div>
+                <% } %>
+                </li>
+              <% }) %>
+            </ul>
+          </div>
+          <div class='mt1 quiet xsmall'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
+        <input
+          placeholder='Filter'
+          id='filter-input'
+          class='input stroke-light rounded'
+          type='text' />
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2 mt1'>
+          <% docs.forEach(function(s) { %>
+            <% if (s.kind !== 'note') { %>
+              <%= renderSection({
+                section: s,
+                renderSection: renderSection,
+                renderSectionList: renderSectionList
+              }) %>
+            <% } else { %>
+              <div class='mt-top-not'><%=renderNote({ note: s })%></div>
+            <% } %>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-74377415-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

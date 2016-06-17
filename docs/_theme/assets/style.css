@@ -1,0 +1,246 @@
+* {
+  box-sizing: border-box;
+}
+
+.documentation {
+  font-family: "Fira Sans", "Helvetica Neue", sans-serif;
+  color: #666;
+  line-height: 1.5;
+  font-size: 16px;
+  margin: 0;
+}
+
+.library-name {
+  margin-left: -0.75rem;
+  height: 3rem;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6,
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 500;
+  margin: 0 0 0.75rem 0;
+  line-height: 24px;
+}
+
+small, .small {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.xsmall {
+  font-size: 0.75rem;
+}
+
+p {
+  margin: 0 0 0.75rem 0;
+}
+
+.code.strong {
+  font-size: 1rem;
+}
+
+.code.quiet {
+  font-weight: normal;
+}
+
+.anchor:before {
+  content: '';
+  display: block;
+  position: relative;
+  width: 0;
+  height: 3.5em;
+  margin-top: -3.5em
+}
+
+nav::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 3rem;
+  background: rgba(0,0,0,.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+nav::after {
+  content: '';
+  display: block;
+  height: 3rem;
+}
+
+.logo {
+  position: fixed;
+  top: 0.5rem;
+  height: 1.8rem;
+}
+
+.black {
+  color: #666;
+}
+
+#toc {
+  font-size: 0.875rem;
+}
+
+.blockh5 {
+  margin-top: 0.75rem;
+}
+
+h4 {
+  margin: 20px 0 10px 0;
+}
+
+.documentation h3 {
+  color: #000;
+}
+
+.keyline-top {
+  border-top: 1px solid #ccc;
+}
+
+.mt-top-not {
+  margin-top: 2.25rem;
+}
+
+.mt-top-not:first-child {
+  margin-top: 0;
+}
+
+.keyline-right {
+  border-right: 1px solid #ccc;
+}
+
+a {
+  color: #1184CE;
+  text-decoration: none;
+}
+
+.documentation a[href]:hover {
+  text-decoration: underline;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.pointer, .pointer:hover {
+  cursor: pointer;
+}
+
+.max-height-100 {
+  max-height: 100%;
+}
+
+section:target h3 {
+  font-weight:700;
+}
+
+.documentation td,
+.documentation th {
+    padding: .25rem .25rem;
+}
+
+h1:hover .anchorjs-link,
+h2:hover .anchorjs-link,
+h3:hover .anchorjs-link,
+h4:hover .anchorjs-link {
+  opacity: 1;
+}
+
+.fix-3 {
+  width: 25%;
+  max-width: 244px;
+}
+
+.fix-3 {
+  width: 25%;
+  max-width: 244px;
+}
+
+@media (min-width: 52em) {
+  .fix-margin-3 {
+    margin-left: 25%;
+  }
+}
+
+.note pre, .note code, pre {
+  background-color: rgba(0, 0, 0, 0.03);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.pre, pre, code, .code {
+  font-family: "Fira Mono",Menlo,Consolas,Liberation Mono,monospace;
+  font-size: 0.975em;
+  margin: 0;
+}
+
+.fill-light {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.stroke-mid {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.stroke-light {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.fill-white {
+  background: #fff;
+}
+
+.width2 {
+  width: 1rem;
+}
+
+ol {
+  padding-left: 2rem;
+}
+
+ul {
+  padding-left: 1rem;
+}
+
+.fix-bottom {
+  bottom: 0;
+}
+
+.input {
+  font-family: inherit;
+  display: block;
+  width: 100%;
+  height: 2.25rem;
+  padding: .375rem .75rem;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);;
+  border: none;
+  font-size: .875rem;
+  box-sizing: border-box;
+  outline: none !important;
+  bottom: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.prose table th,
+.prose table td {
+  padding:8px;
+  border:1px solid #ddd;
+}
+
+.prose table {
+  border:1px solid #ddd;
+}
+
+.prose-big {
+  margin-top: 1.5rem;
+}
+
+.quiet {
+  opacity: 0.7;
+}
