@@ -4,10 +4,6 @@ machine:
     USER_EMAIL: oscardub@gmail.com
   node:
     version: 4.2.2
-dependencies:
-  override:
-    - npm install documentation # install documentation-js with subdependencies
-    - npm install
 test:
   override:
     - npm run build
