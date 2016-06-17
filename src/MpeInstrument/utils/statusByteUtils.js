@@ -20,7 +20,7 @@ export function statusByteClassifier(statusByte) {
     case 0xf0: return types.SYSTEM_MESSAGE;
   }
   return types.UNCLASSIFIED;
-};
+}
 
 export function statusByteToChannel(statusByte) {
   return (statusByte & 0x0f) + 1;

@@ -20,9 +20,7 @@ export const scale7To14Bit = (input) => {
 /**
  * Converts one or two MIDI data bytes into normalized 14-bit values.
  *
- * @param {uint8} midiDataByte1 First MIDI data byte.
- * @param {uint8} midiDataByte2 Second MIDI data byte. If given a second byte
- * implies a 14-bit precision value.
+ * @param {uint8} midiDataBytes The encoded data from a standard MIDI message.
  * @returns {uint16} Normalized 14-bit integer representation of the inputs.
  */
 export const dataBytesToUint14 = (midiDataBytes) => {
@@ -35,10 +33,9 @@ export const dataBytesToUint14 = (midiDataBytes) => {
     case 2:
       // With two 7-bit values, combine to make one 14-bit integer
       return (midiDataByteContents[0] << 7) + midiDataByteContents[1];
-    default:
-      throw new Error(
-        `midiDataToMpeValue takes one or two 8-bit integers.\n` +
-        `midiDataToMpeValue(${midiDataBytes}) is invalid.`
-      );
   }
+  throw new Error(
+    `midiDataToMpeValue takes one or two 8-bit integers.\n` +
+    `midiDataToMpeValue(${midiDataBytes}) is invalid.`
+  );
 };
