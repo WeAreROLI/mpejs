@@ -1,6 +1,9 @@
 machine:
   node:
     version: 4.2.2
+dependencies:
+  override:
+    - npm install
 test:
   override:
     - npm run build
