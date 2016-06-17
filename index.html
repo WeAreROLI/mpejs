@@ -149,7 +149,7 @@
           </div>
         </div>
       </div>
-      <div class="sm-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
+      <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
         <input
           placeholder='Filter'
           id='filter-input'
@@ -168,7 +168,7 @@
 
   
     <p><a href="#MPE">MPE</a> (Multidimensional Polyphonic Expression) is a widely adopted iteration upon MIDI 1.0.</p>
-<p>By assigning conventional note on/off messages into &ldquo;note channels&rdquo;, the <a href="https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit">MPE proposed standard</a> enables continuous control parameters to be attached to individual active notes. These parameters can be used to represent, for example, continuous per-note pitch bend, pressure and timbre.</p>
+<p>By assigning conventional note on/off messages into &ldquo;note channels&rdquo;, the <a href="https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit">MPE proposed standard</a> enables continuous control parameters to be attached to individual active notes. These parameters can be used to represent continuously changing per-note pitch bend, pressure and timbre.</p>
 <p>The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and Roger Linn Design. It is currently implemented in ROLI&rsquo;s Equator and NOISE software synthesizers, as well as Logic X, Bitwig Studio and Cubase.</p>
 <p>A C++ implementation is also available, included in <a href="https://juce.com">JUCE</a>.</p>
 
@@ -187,8 +187,8 @@
   
     <p>To install the latest version of mpe.js:<br>
 <code>npm install --save mpe</code></p>
-<p>It is recommended to use mpe.js via <a href="https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import">ES2015&rsquo;s module system</a> (via <a href="http://babeljs.io/">Babel</a> or <a href="https://nodejs.org/en/">Node.js</a> &gt;v6) or as a CommonJS module (for ES5 users using <a href="http://webpack.github.io/">webpack</a> or <a href="http://browserify.org/">Browserify</a>).</p>
-<p>If you don&rsquo;t use a module bundler, that&rsquo;s also fine. The <code>lib</code> folder of the mpe.js node package also includes a version of the library that can be used directly as a <code>&lt;script&gt;</code> tag. Both <code>mpe.js</code> and <code>mpe.min.js</code> can be used in this way, and will set <code>mpe</code> as a global variable.</p>
+<p>It is recommended to use mpe.js via <a href="https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import">ES2015&rsquo;s module system</a> (via <a href="http://babeljs.io/">Babel</a> or <a href="https://nodejs.org/en/">Node.js</a> v6+) or as a CommonJS module (for ES5 users using <a href="http://webpack.github.io/">webpack</a> or <a href="http://browserify.org/">Browserify</a>).</p>
+<p>If you don&rsquo;t use a module bundler, that&rsquo;s also fine. The <code>lib</code> folder of the mpe.js node package also includes a version of the library that can be used directly as a <code>&lt;script&gt;</code> tag. Both <code>mpe.js</code> and <code>mpe.min.js</code> can be used in this way, and will assign the library contents to the global variable <code>mpe</code>.</p>
 
   
 </section>
@@ -203,7 +203,7 @@
   </h2>
 
   
-    <p>The included <a href="#mpeInstrument">mpeInstrument</a> function models MPE compatible instrument.</p>
+    <p>The included <a href="#mpeInstrument">mpeInstrument</a> function is designed to model MPE compatible instruments.</p>
 
   
 </section>
@@ -215,11 +215,14 @@
 
   
     <h2 class='clearfix anchor mb2 black' id='mpeInstrument'>
-      <span class='left'>
+      <span class='left code'>
         mpeInstrument
       </span>
+      <span class="left quiet code">
+        (options)
+      </span>
       
-        <a class='right round quiet small' href='https://github.com/WeAreROLI/web-midi-utils/blob/408bfaf9e580657d488faa126152a25d0f5bf065/src/mpeInstrument/index.js#L47-L136'>
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/web-midi-utils/blob/a60cf53df1a961e568aa661db33b99b0b10d792a/src/mpeInstrument/index.js#L32-L133'>
           <span>src/mpeInstrument/index.js</span>
         </a>
       
@@ -229,21 +232,7 @@
 
   <div class='section-contents '>
       <p>Creates an Object representing an instrument supporting MPE.</p>
-<p><code>processMidiMessage</code> implements the channel and note management logic
-specified in MPE. If you pass it a message, it will know what notes on what
-channels (if any) should be affected by that message.</p>
-<p>The instruments current playing notes can be accessed via the <code>activeNotes</code>
-method at any given time. A <code>subscribe</code> method is also provided, allowing callbacks to be registered
-to listen for note changes.</p>
-<p><em>MPE implementation details:</em></p>
-<p><em>Handles note messages on channels 1&ndash;16 as a single MPE zone. Multi-zone
-layouts are not currently supported.</em></p>
-<p><em>Channel 1 only implements &quot;zone master channel&quot; behaviour in the case of all
-notes off messages. Other messages types on channel 1 are handled as standard
-channel scope messages.</em></p>
 
-
-      <pre class='p1'>mpeInstrument(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></pre>
 
       
 
@@ -343,8 +332,8 @@ navigator.requestMIDIAccess().then({ inputMap } =&gt; {
       <div class="clearfix small pointer toggle-sibling">
         <div class="pad1y contain pointer h5">
             <a class='icon right pad1y dark-link caret-right'>▾</a>
-            <span class='code strong truncate'>processMidiMessage</span>
-            <span class='quiet code strong space-right2'>(midiMessage)</span>
+            <span class='code truncate'>processMidiMessage</span>
+            <span class='quiet code space-right2'>(midiMessage)</span>
         </div>
       </div>
       <div class="clearfix hidden toggle-target">
@@ -355,10 +344,17 @@ navigator.requestMIDIAccess().then({ inputMap } =&gt; {
 
   <div class='section-contents pl2 mb2'>
       <p>Reads MIDI message data and updates the instrument state accordingly.</p>
-<p>Processed MIDI messages trigger changes or modulations in <code>activeNotes</code>.</p>
+<p>Processed MIDI messages trigger changes or modulations in <code>activeNotes</code>. On
+receiving a MIDI message, <code>processMidiMessage</code> decides which notes on which
+channels (if any) should be affected by that message, and applies the
+changes.</p>
+<p><em>MPE implementation details:</em></p>
+<p><em>Handles note messages on channels 1&ndash;16 as a single MPE zone. Multi-zone
+layouts are not currently supported.</em></p>
+<p><em>Channel 1 only implements &quot;zone master channel&quot; behaviour in the case of all
+notes off messages. Other messages types on channel 1 are handled as standard
+channel scope messages.</em></p>
 
-
-      <pre class='p1'>processMidiMessage(midiMessage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></pre>
 
       
 
@@ -422,8 +418,8 @@ instrument.processMidiMessage([<span class="hljs-number">145</span>, <span class
       <div class="clearfix small pointer toggle-sibling">
         <div class="pad1y contain pointer h5">
             <a class='icon right pad1y dark-link caret-right'>▾</a>
-            <span class='code strong truncate'>activeNotes</span>
-            <span class='quiet code strong space-right2'>()</span>
+            <span class='code truncate'>activeNotes</span>
+            <span class='quiet code space-right2'>()</span>
         </div>
       </div>
       <div class="clearfix hidden toggle-target">
@@ -435,8 +431,6 @@ instrument.processMidiMessage([<span class="hljs-number">145</span>, <span class
   <div class='section-contents pl2 mb2'>
       <p>Lists current active notes.</p>
 
-
-      <pre class='p1'>activeNotes(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></pre>
 
       
 
@@ -499,8 +493,8 @@ instrument.activeNotes();
       <div class="clearfix small pointer toggle-sibling">
         <div class="pad1y contain pointer h5">
             <a class='icon right pad1y dark-link caret-right'>▾</a>
-            <span class='code strong truncate'>subscribe</span>
-            <span class='quiet code strong space-right2'>(callback)</span>
+            <span class='code truncate'>subscribe</span>
+            <span class='quiet code space-right2'>(callback)</span>
         </div>
       </div>
       <div class="clearfix hidden toggle-target">
@@ -515,8 +509,6 @@ instrument.activeNotes();
 the provided callback. The new value of <code>activeNotes</code> is passed to the
 provided callback as an argument.</p>
 
-
-      <pre class='p1'>subscribe(callback: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a></pre>
 
       
 
@@ -598,7 +590,7 @@ instrument.subscribe(<span class="hljs-built_in">console</span>.log);</pre>
   </h2>
 
   
-    <p>Alongside, offering JavaScript support for <a href="#MPE">MPE MIDI</a>, the library bundles utilities designed to ease the process of building music web apps.</p>
+    <p>Alongside, offering JavaScript support for <a href="#MPE">MPE MIDI</a>, mpe.js includes a small number of other music utilities.</p>
 
   
 </section>
@@ -610,11 +602,14 @@ instrument.subscribe(<span class="hljs-built_in">console</span>.log);</pre>
 
   
     <h2 class='clearfix anchor mb2 black' id='recorder'>
-      <span class='left'>
+      <span class='left code'>
         recorder
       </span>
+      <span class="left quiet code">
+        (options)
+      </span>
       
-        <a class='right round quiet small' href='https://github.com/WeAreROLI/web-midi-utils/blob/408bfaf9e580657d488faa126152a25d0f5bf065/src/recorder/index.js#L15-L51'>
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/web-midi-utils/blob/a60cf53df1a961e568aa661db33b99b0b10d792a/src/recorder/index.js#L15-L51'>
           <span>src/recorder/index.js</span>
         </a>
       
@@ -625,8 +620,6 @@ instrument.subscribe(<span class="hljs-built_in">console</span>.log);</pre>
   <div class='section-contents '>
       <p>Creates a recorder instance.</p>
 
-
-      <pre class='p1'>recorder(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></pre>
 
       
 
@@ -710,8 +703,8 @@ to the
       <div class="clearfix small pointer toggle-sibling">
         <div class="pad1y contain pointer h5">
             <a class='icon right pad1y dark-link caret-right'>▾</a>
-            <span class='code strong truncate'>record</span>
-            <span class='quiet code strong space-right2'>(message, time)</span>
+            <span class='code truncate'>record</span>
+            <span class='quiet code space-right2'>(message, time)</span>
         </div>
       </div>
       <div class="clearfix hidden toggle-target">
@@ -724,8 +717,6 @@ to the
       <p>Adds received messages to a time indexed store. Supports all standard
 JavaScript data types.</p>
 
-
-      <pre class='p1'>record(message: any, time: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></pre>
 
       
 
@@ -787,8 +778,8 @@ JavaScript data types.</p>
       <div class="clearfix small pointer toggle-sibling">
         <div class="pad1y contain pointer h5">
             <a class='icon right pad1y dark-link caret-right'>▾</a>
-            <span class='code strong truncate'>dump</span>
-            <span class='quiet code strong space-right2'>()</span>
+            <span class='code truncate'>dump</span>
+            <span class='quiet code space-right2'>()</span>
         </div>
       </div>
       <div class="clearfix hidden toggle-target">
@@ -801,8 +792,6 @@ JavaScript data types.</p>
       <p>Returns all messages stored by the <code>recorder</code> instance. Entries are ordered
 by ascending time values.</p>
 
-
-      <pre class='p1'>dump(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></pre>
 
       
 
