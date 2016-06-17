@@ -1,7 +1,7 @@
 {
   "name": "mpe",
-  "version": "0.1.1",
-  "description": "A JavaScript toolkit to support MPE compatible MIDI devices.",
+  "version": "0.1.2",
+  "description": "A JavaScript toolkit for MPE devices.",
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && npm run compile",
