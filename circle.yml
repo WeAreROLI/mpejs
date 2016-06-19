@@ -16,4 +16,5 @@ deployment:
     commands:
       - git config user.name "$USER_NAME"
       - git config user.email "$USER_EMAIL"
+      - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_EMAIL" | npm login
       - npm run publish
