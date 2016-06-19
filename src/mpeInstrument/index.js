@@ -16,11 +16,11 @@ import rootReducer from './reducers';
  * // 1) Request MIDI device access from the Web MIDI API
  * // 2) Take the first `MidiInput` from the available MIDI `inputMap`
  * // 3) Send input messages from this input to `instrument`
- * navigator.requestMIDIAccess().then({ inputMap } => {
+ * navigator.requestMIDIAccess().then(({ inputMap }) => {
  *   const midiInput = inputMap.values().next();
  *   midiInput.addEventListener(
  *     'midimessage',
- *     { data } => instrument.processMidiMessage(data)
+ *     ({ data }) => instrument.processMidiMessage(data)
  *   );
  * });
  * @param {Object} options Configuration options.
