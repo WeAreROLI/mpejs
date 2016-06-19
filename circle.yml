@@ -1,0 +1,24 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
+machine:
+  environment:
+    USER_NAME: odub
+    USER_EMAIL: oscardub@gmail.com
+  node:
+    version: 4.2.2
+test:
+  override:
+    - npm run build
+    - npm run lint
+    - npm run test
+    - npm run docs:build
+deployment:
+  production:
+    branch: master
+    commands:
+      - git config user.name "$USER_NAME"
+      - git config user.email "$USER_EMAIL"
+      - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_EMAIL" | npm login
+      - npm publish
