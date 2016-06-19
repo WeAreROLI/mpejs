@@ -16,7 +16,6 @@
     "docs:serve": "npm run docs:build && pushd docs/dist && python -m SimpleHTTPServer 8001 && popd",
     "docs:deploy": "npm run docs:build && git-directory-deploy --directory docs/dist --branch gh-pages",
     "lint": "eslint src/",
-    "install": "npm run build",
     "prepublish": "npm run build",
     "publish": "npm run docs:deploy",
     "test": "mocha --compilers js:babel-core/register test/**/*.test.js",
