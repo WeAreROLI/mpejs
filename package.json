@@ -2,6 +2,24 @@
   "name": "mpe",
   "version": "0.1.7",
   "description": "Next generation MIDI for the web.",
+  "keywords": [
+    "mpe",
+    "midi",
+    "music",
+    "keyboard",
+    "javascript",
+    "js"
+  ],
+  "author": "Oscar Dub <oscar@roli.com>",
+  "homepage": "http://mpe.js.org",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeAreROLI/mpejs"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && npm run compile",
@@ -21,20 +39,6 @@
     "test": "mocha --compilers js:babel-core/register test/**/*.test.js",
     "serve": "python -m SimpleHTTPServer 8000"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WeAreROLI/mpejs"
-  },
-  "keywords": [
-    "mpe",
-    "midi",
-    "music",
-    "keyboard",
-    "javascript",
-    "js"
-  ],
-  "author": "Oscar Dub <oscar@roli.com>",
-  "license": "UNLICENSED",
   "dependencies": {
     "redux": "^3.5.2"
   },
@@ -66,8 +70,6 @@
     "webpack": "^1.13.1"
   },
   "babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"]
   }
 }
