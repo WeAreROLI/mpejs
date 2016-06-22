@@ -1,7 +1,7 @@
 {
   "name": "mpe",
   "version": "0.1.7",
-  "description": "A JavaScript toolkit for MPE devices.",
+  "description": "Next generation MIDI for the web.",
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && npm run compile",
