@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>mpe.js 0.1.7 | Documentation</title>
+  <title>mpe.js 0.1.8 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
@@ -26,7 +26,7 @@
       <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
         <div class='pl2 pb4'>
           <h1 class='library-name stroke-light rounded p1'>
-            <small class="right">0.1.7</small>
+            <small class="right">0.1.8</small>
             mpe.js
           </h1>
           <div id='toc' class='mt1'>
@@ -158,6 +158,9 @@
       </div>
       <div class='fix-margin-3'>
         <div class='px2 mt1'>
+          <h2 class='library-description pb1'>
+            Next generation MIDI for the web.
+          </h2>
           
             
               <div class='mt-top-not'><section class='note mb2 clearfix'>
@@ -168,8 +171,8 @@
 
   
     <p><a href="#MPE">MPE</a> (Multidimensional Polyphonic Expression) is a widely adopted iteration upon MIDI 1.0.</p>
-<p>By assigning conventional note on/off messages into &ldquo;note channels&rdquo;, the <a href="https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit">MPE proposed specification</a> enables continuous control parameters to be attached to individual active notes. These parameters can be used to represent continuously changing per-note pitch bend, pressure and timbre.</p>
-<p>The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and Roger Linn Design. It is currently implemented in ROLI&rsquo;s Equator and NOISE software synthesizers, as well as Logic X, Bitwig Studio and Cubase.</p>
+<p>By assigning conventional note on/off messages into “note channels”, the <a href="https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit">MPE proposed specification</a> enables continuous control parameters to be attached to individual active notes. These parameters can be used to represent continuously changing per-note pitch bend, pressure and timbre.</p>
+<p>The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and Roger Linn Design. It is currently implemented in ROLI’s Equator and NOISE software synthesizers, as well as Logic X, Bitwig Studio and Cubase.</p>
 <p>A C++ implementation is also available, included in <a href="https://juce.com">JUCE</a>.</p>
 
   
@@ -187,8 +190,8 @@
   
     <p>To install the latest version of mpe.js:<br>
 <code>npm install --save mpe</code></p>
-<p>It is recommended to use mpe.js via <a href="https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import">ES2015&rsquo;s module system</a> (via <a href="http://babeljs.io/">Babel</a> or <a href="https://nodejs.org/en/">Node.js</a> v6+) or as a CommonJS module (for ES5 users using <a href="http://webpack.github.io/">webpack</a> or <a href="http://browserify.org/">Browserify</a>).</p>
-<p>If you don&rsquo;t use a module bundler, that&rsquo;s also fine. The <code>lib</code> folder of the mpe.js node package also includes a version of the library that can be used directly as a <code>&lt;script&gt;</code> tag. Both <code>mpe.js</code> and <code>mpe.min.js</code> can be used in this way, and will assign the library contents to the global variable <code>mpe</code>.</p>
+<p>It is recommended to use mpe.js via <a href="https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import">ES2015’s module system</a> (via <a href="http://babeljs.io/">Babel</a> or <a href="https://nodejs.org/en/">Node.js</a> v6+) or as a CommonJS module (for ES5 users using <a href="http://webpack.github.io/">webpack</a> or <a href="http://browserify.org/">Browserify</a>).</p>
+<p>If you don’t use a module bundler, that’s also fine. The <code>lib</code> folder of the mpe.js node package also includes a version of the library that can be used directly as a <code>&#x3C;script&#x3E;</code> tag. Both <code>mpe.js</code> and <code>mpe.min.js</code> can be used in this way, and will assign the library contents to the global variable <code>mpe</code>.</p>
 
   
 </section>
@@ -222,7 +225,7 @@
         (options)
       </span>
       
-        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/c3921416c57bf0e7a373b9de8671bc460ce82c99/src/mpeInstrument/index.js#L32-L133'>
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/7a0ae781e1b47be2c12f22b079108879dcf2699d/src/mpeInstrument/index.js#L32-L133'>
           <span>src/mpeInstrument/index.js</span>
         </a>
       
@@ -349,9 +352,9 @@ receiving a MIDI message, <code>processMidiMessage</code> decides which notes on
 channels (if any) should be affected by that message, and applies the
 changes.</p>
 <p><em>MPE implementation details:</em></p>
-<p><em>Handles note messages on channels 1&ndash;16 as a single MPE zone. Multi-zone
+<p><em>Handles note messages on channels 1–16 as a single MPE zone. Multi-zone
 layouts are not currently supported.</em></p>
-<p><em>Channel 1 only implements &quot;Master Channel&quot; behaviour in the case of All
+<p><em>Channel 1 only implements &#x22;Master Channel&#x22; behaviour in the case of All
 Notes Off messages. Other messages types on channel 1 are handled as standard
 channel scope messages.</em></p>
 
@@ -384,7 +387,10 @@ channel scope messages.</em></p>
       
         
           <div class='quiet mt1 prose-big'>Returns</div>
-          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+            
+
+          
         
       
 
@@ -504,8 +510,8 @@ instrument.activeNotes();
 
 
   <div class='section-contents pl2 mb2'>
-      <p>Subscribe to changes to the MPE instrument&rsquo;s active notes.</p>
-<p>All changes or modulations affecting the instrument&rsquo;s active notes trigger
+      <p>Subscribe to changes to the MPE instrument’s active notes.</p>
+<p>All changes or modulations affecting the instrument’s active notes trigger
 the provided callback. The new value of <code>activeNotes</code> is passed to the
 provided callback as an argument.</p>
 
@@ -609,7 +615,7 @@ instrument.subscribe(<span class="hljs-built_in">console</span>.log);</pre>
         (options)
       </span>
       
-        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/c3921416c57bf0e7a373b9de8671bc460ce82c99/src/recorder/index.js#L15-L51'>
+        <a class='right round quiet small' href='https://github.com/WeAreROLI/mpejs/blob/7a0ae781e1b47be2c12f22b079108879dcf2699d/src/recorder/index.js#L15-L51'>
           <span>src/recorder/index.js</span>
         </a>
       
@@ -754,7 +760,10 @@ JavaScript data types.</p>
       
         
           <div class='quiet mt1 prose-big'>Returns</div>
-          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+            
+
+          
         
       
 
