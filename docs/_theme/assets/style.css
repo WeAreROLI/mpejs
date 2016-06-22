@@ -15,6 +15,14 @@
   height: 3rem;
 }
 
+.library-description {
+  font-weight: 300 !important;
+  font-size: 1.5rem;
+  line-height: 24px;
+  margin: 0 0 0.75rem 0;
+  color: rgba(0, 0, 0, 0.4);
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6,
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
@@ -101,7 +109,7 @@ h4 {
 }
 
 .mt-top-not {
-  margin-top: 2.25rem;
+  margin-top: 3rem;
 }
 
 .mt-top-not:first-child {
