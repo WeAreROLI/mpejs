@@ -2,35 +2,36 @@
 /* global mpe: false */
 
 if (navigator.requestMIDIAccess) {
-  console.log('\nWelcome to Web MIDI Sandbox\n\n');
+  console.info('\nWeb MIDI Sandbox\n\n');
 
   navigator.requestMIDIAccess({ sysex: true }).then(
-    ({ inputMap, outputMap }) => {
-      const inputs = Array.from(inputMap.values());
-      const outputs = Array.from(outputMap.values());
-      console.log('MIDI inputs:');
-      console.log(inputs);
-      console.log('MIDI outputs:');
-      console.log(outputs);
+    ({ inputs, outputs }) => {
+      const inputArray = Array.from(inputs.values());
+      const outputArray = Array.from(outputs.values());
+      console.info('MIDI inputs:');
+      console.info(inputArray);
+      console.info('MIDI outputs:');
+      console.info(outputArray);
 
-      if (!inputs && !outputs) {
+      if (!inputArray && !outputArray) {
         return console.log('No MIDI devices not found.');
       }
       const instrument = new mpe.mpeInstrument({ debug: true });
-      const selectedInput = inputs[0];
+      const selectedInput = inputArray[0];
       selectedInput.addEventListener(
         'midimessage',
-        ({ data }) => instrument.processMidiMessage(data)
+        ({ data }) => {
+          document.getElementById('midi').checked && console.info(data);
+          instrument.processMidiMessage(data);
+        }
       );
-
-      const recorder = new mpe.recorder();
-      recorder.debug();
+      instrument.subscribe(activeNotes => document.getElementById('mpe').checked && console.info(JSON.stringify(activeNotes, null, '  ')));
     },
     (error) => {
-      console.log('requestMIDIAccess failed.');
+      console.info('requestMIDIAccess failed.');
       console.error(error);
     }
   );
 } else {
-  console.log('Please use a browser which supports Web MIDI API.');
+  console.info('Please use a browser which supports Web MIDI API.');
 }
