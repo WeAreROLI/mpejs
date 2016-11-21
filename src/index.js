@@ -1,2 +1,2 @@
-export * from './mpeInstrument';
 export * from './recorder';
+export { mpeInstrument as default } from './mpeInstrument';
