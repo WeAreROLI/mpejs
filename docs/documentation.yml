@@ -42,10 +42,3 @@ toc:
       model MPE compatible instruments."
 
   - mpeInstrument
-
-  - name: Other utilities
-    description:
-      "Alongside, offering JavaScript support for [MPE MIDI](#MPE), mpe.js
-      includes a small number of other music utilities."
-
-  - recorder
