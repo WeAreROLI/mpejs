@@ -8,7 +8,7 @@ import rootReducer from './reducers';
  *
  * @kind function
  * @example
- * import { mpeInstrument } from 'mpe';
+ * import mpeInstrument from 'mpe';
  *
  * // Assign `instrument` as an Object modelling an MPE instrument
  * const instrument = mpeInstrument();
@@ -16,11 +16,11 @@ import rootReducer from './reducers';
  * // 1) Request MIDI device access from the Web MIDI API
  * // 2) Take the first `MidiInput` from the available MIDI `inputMap`
  * // 3) Send input messages from this input to `instrument`
- * navigator.requestMIDIAccess().then(({ inputMap }) => {
- *   const midiInput = inputMap.values().next();
+ * navigator.requestMIDIAccess().then(access => {
+ *   const midiInput = access.inputMap.values().next();
  *   midiInput.addEventListener(
  *     'midimessage',
- *     ({ data }) => instrument.processMidiMessage(data)
+ *     (event) => instrument.processMidiMessage(event.data)
  *   );
  * });
  * @param {Object} options Configuration options.
@@ -51,7 +51,7 @@ export function mpeInstrument(options) {
    * channel scope messages._
    *
    * @example
-   * import { mpeInstrument } from 'mpe';
+   * import mpeInstrument from 'mpe';
    * const instrument = mpeInstrument();
    *
    * // Trigger a note on, channel 2, middle C, max velocity
@@ -70,7 +70,7 @@ export function mpeInstrument(options) {
    * Lists current active notes.
    *
    * @example
-   * import { mpeInstrument } from 'mpe';
+   * import mpeInstrument from 'mpe';
    * const instrument = mpeInstrument();
    *
    * instrument.activeNotes();
@@ -102,7 +102,7 @@ export function mpeInstrument(options) {
    * provided callback as an argument.
    *
    * @example
-   * import { mpeInstrument } from 'mpe';
+   * import mpeInstrument from 'mpe';
    * const instrument = mpeInstrument();
    *
    * // Print new `activeNotes` values to the console
