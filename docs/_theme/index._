@@ -48,7 +48,7 @@
                 <li class="<% if (doc.kind === 'note') { %>mt1<% } %>">
                   <a
                     href='#<%=doc.namespace%>'
-                    class="block<% if (doc.kind === 'note') { %> bold black caps<% } %>">
+                    class="block<% if (doc.kind === 'note') { %> bold black caps<% } else { %> code<% } %>">
                     <%- doc.name %>
                   </a>
                 <% if (hasMembers) { %>
@@ -58,7 +58,7 @@
                     <% doc.members.static.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
-                        class='regular pre-open'>
+                        class='regular pre-open code'>
                         .<%- member.name %>
                       </a></li>
                     <% }) %>
@@ -69,7 +69,7 @@
                       <% doc.members.instance.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
-                        class='regular pre-open'>
+                        class='regular pre-open code'>
                         #<%- member.name %>
                       </a></li>
                       <% }) %>
@@ -81,7 +81,7 @@
                       <% doc.members.events.forEach(function(member) { %>
                         <li><a
                           href='#<%=member.namespace%>'
-                          class='regular pre-open'>
+                          class='regular pre-open code'>
                           ⓔ <%- member.name %>
                         </a></li>
                       <% }) %>

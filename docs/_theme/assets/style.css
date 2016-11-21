@@ -184,6 +184,11 @@ h4:hover .anchorjs-link {
   font-family: "Fira Mono",Menlo,Consolas,Liberation Mono,monospace;
   color: rgba(0, 0, 0, 0.9);
   margin: 0;
+  font-size: 0.85em;
+}
+
+h2 code, h2 .code {
+  font-size: 1rem;
 }
 
 .note pre, pre {
@@ -193,7 +198,6 @@ h4:hover .anchorjs-link {
 }
 
 p > .pre, p > pre, p > code, p > .code {
-  font-size: 0.95em;
   margin: 0;
 }
 
