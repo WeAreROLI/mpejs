@@ -86,13 +86,13 @@
           </div>
         </div>
       </div>
-      <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
+      <% /* <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
         <input
           placeholder='Filter'
           id='filter-input'
           class='input stroke-light rounded'
           type='text' />
-      </div>
+      </div> */ %>
       <div class='fix-margin-3'>
         <div class='px2 mt1'>
           <h2 class='library-description pb1'>
