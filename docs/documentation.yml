@@ -1,10 +1,10 @@
 toc:
   - name: Quick start
     description:
-      "[mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs).\n\n
-
-      To install the latest version of [mpe.js](/):
+      "To install the latest version of [mpe.js](/):
       <pre class='p1'>npm install --save mpe</pre>\n\n
+
+      [mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs).\n\n
 
       It is recommended to use [mpe.js](/) via [ES2015’s module
       system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
