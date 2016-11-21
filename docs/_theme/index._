@@ -93,9 +93,9 @@
               <% }) %>
             </ul>
           </div>
-          <div class='mt1 quiet xsmall'>
+          <% /* <div class='mt1 quiet xsmall'>
             <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
-          </div>
+          </div> */ %>
         </div>
       </div>
       <% /* <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
