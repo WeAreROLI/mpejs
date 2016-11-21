@@ -16,18 +16,30 @@
   <link href="assets/favicon-57.png" rel="apple-touch-icon" sizes="57x57" />
   <link href="assets/favicon-72.png" rel="apple-touch-icon" sizes="72x72" />
   <link href="assets/favicon-114.png" rel="apple-touch-icon" sizes="114x114" />
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 <body class='documentation fill-light'>
   <div class='max-width-4 mx-auto'>
-    <nav class='px2'>
+    <nav class='px2 relative'>
       <img src="assets/roli-monogram.svg" alt="<%- options.name %>" class="logo" />
+      <div style='position: absolute; z-index: 2; right: 135px; top: 10px; opacity: 0.98;'>
+        <div class='fixed'>
+          <a style='display: none;' class='github-button' href='https://github.com/weareroli/mpejs' data-icon='octicon-star' data-style='mega' data-count-href='/weareroli/mpejs/stargazers' data-count-api='/repos/weareroli/mpejs#stargazers_count' data-count-aria-label='# stargazers on GitHub' aria-label='Star weareroli/mpejs on GitHub'>Star</a>
+        </div>
+      </div>
     </nav>
     <div class='clearfix md-mxn2 mt3'>
       <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
         <div class='pl2 pb4'>
           <h1 class='library-name stroke-light rounded p1'>
-            <small class="right"><%= packageJson.version %></small>
+            <small class="right">
+              <a class='black' href="https://github.com/WeAreROLI/mpejs/commits/master">
+                <%= packageJson.version %>
+              </a>
+            </small>
+            <a class='black' href='https://github.com/WeAreROLI/mpejs'>
             <%- options.name %>
+            </a>
           </h1>
           <div id='toc' class='mt1'>
             <ul class='list-reset h5'>
@@ -95,7 +107,7 @@
       </div> */ %>
       <div class='fix-margin-3'>
         <div class='px2 mt1'>
-          <h2 class='library-description pb1'>
+          <h2 class='library-description pb1 quiet'>
             <%= packageJson.description %>
           </h2>
           <% docs.forEach(function(s) { %>

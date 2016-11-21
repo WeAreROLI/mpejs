@@ -10,7 +10,7 @@ import rootReducer from './reducers';
  * @example
  * import mpeInstrument from 'mpe';
  *
- * // Assign `instrument` as an Object modelling an MPE instrument
+ * // Define `instrument` as an instance of `mpeInstrument`
  * const instrument = mpeInstrument();
  *
  * // 1) Request MIDI device access from the Web MIDI API
@@ -52,6 +52,7 @@ export function mpeInstrument(options) {
    *
    * @example
    * import mpeInstrument from 'mpe';
+   *
    * const instrument = mpeInstrument();
    *
    * // Trigger a note on, channel 2, middle C, max velocity
@@ -71,6 +72,7 @@ export function mpeInstrument(options) {
    *
    * @example
    * import mpeInstrument from 'mpe';
+   *
    * const instrument = mpeInstrument();
    *
    * instrument.activeNotes();
@@ -95,7 +97,7 @@ export function mpeInstrument(options) {
   }
 
   /**
-   * Subscribe to changes to the MPE instrument’s active notes.
+   * Subscribe to changes on the `mpeInstrument` instance’s active notes.
    *
    * All changes or modulations affecting the instrument’s active notes trigger
    * the provided callback. The new value of `activeNotes` is passed to the
@@ -103,15 +105,14 @@ export function mpeInstrument(options) {
    *
    * @example
    * import mpeInstrument from 'mpe';
+   *
    * const instrument = mpeInstrument();
    *
    * // Print new `activeNotes` values to the console
    * instrument.subscribe(console.log);
    * @memberof mpeInstrument
    * @instance
-   * @param {function} callback A callback to be updated with current active
-   * notes in response to any note changes. For example, the callback is
-   * triggered when a new active note is added or an existing one is modulated.
+   * @param {function} callback A callback for changes to current active notes.
    * @return {function} A function to unsubscribe the given callback.
    */
   function subscribe(callback) {

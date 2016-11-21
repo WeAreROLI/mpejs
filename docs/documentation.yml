@@ -1,5 +1,29 @@
 toc:
-  - name: Introduction
+  - name: Quick start
+    description:
+      "[mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs).\n\n
+
+      To install the latest version of [mpe.js](/):
+      <pre class='p1'>npm install --save mpe</pre>\n\n
+
+      It is recommended to use [mpe.js](/) via [ES2015’s module
+      system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
+      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) v6+)
+      or as a CommonJS module (for ES5 users using
+      [webpack](http://webpack.github.io/) or
+      [Browserify](http://browserify.org/)).\n\n
+
+      If you don’t use a module bundler, that’s also fine. The `lib` folder of
+      the [mpe.js](/) node package also includes a version of the library that can be
+      used directly as a `<script>` tag. Both `mpe.js` and `mpe.min.js` can be
+      used in this way, and will assign the library contents to the global
+      variable `mpe`."
+
+  - name: API
+
+  - mpeInstrument
+
+  - name: What is MPE?
     description:
       "[MPE](#MPE) (Multidimensional Polyphonic Expression) is a widely adopted
       iteration upon MIDI 1.0.\n\n
@@ -17,28 +41,3 @@ toc:
 
       A C++ implementation is also available, included in
       [JUCE](https://juce.com)."
-
-  - name: Getting started
-    description:
-      "To install the latest version of mpe.js:  \n
-      `npm install --save mpe`\n\n
-
-      It is recommended to use mpe.js via [ES2015’s module
-      system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
-      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) v6+)
-      or as a CommonJS module (for ES5 users using
-      [webpack](http://webpack.github.io/) or
-      [Browserify](http://browserify.org/)).\n\n
-
-      If you don’t use a module bundler, that’s also fine. The `lib` folder of
-      the mpe.js node package also includes a version of the library that can be
-      used directly as a `<script>` tag. Both `mpe.js` and `mpe.min.js` can be
-      used in this way, and will assign the library contents to the global
-      variable `mpe`."
-
-  - name: MPE tools
-    description:
-      "The included [mpeInstrument](#mpeInstrument) function is designed to
-      model MPE compatible instruments."
-
-  - mpeInstrument

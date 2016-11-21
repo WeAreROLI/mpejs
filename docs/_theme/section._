@@ -1,4 +1,4 @@
-<section class='clearfix <% if (typeof nested === 'undefined') { %>fill-white pt2 px2 stroke-light<% } %>'>
+<section class='clearfix <% if (typeof nested === 'undefined') { %>fill-white pt2 px2 stroke-light rounded<% } %>'>
 
   <% if (typeof nested === 'undefined') { %>
     <h2 class='clearfix anchor mb2 black' id='<%- section.namespace %>'>
@@ -17,7 +17,7 @@
   <% } %>
 
 
-  <div class='section-contents <% if (typeof nested !== 'undefined') { %>pl2 mb2<% } %>'>
+  <div class='section-contents <% if (typeof nested !== 'undefined') { %>pl3 mb2<% } %>'>
       <%= md(section.description) %>
 
       <% if (section.augments) { %>
@@ -126,7 +126,7 @@
         <div class='quiet mt1 prose-big'>Example</div>
         <% section.examples.forEach(function(example) { %>
           <% if (example.caption) { %><p><%= md(example.caption) %></p><% } %>
-          <pre class='p1 overflow-auto round'><%= highlight(example.description) %></pre>
+          <pre class='p1 overflow-auto rounded'><%= highlight(example.description) %></pre>
         <% }) %>
       <% } %>
 
