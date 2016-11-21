@@ -29,7 +29,7 @@
     "compile:dev": "WEBPACK_ENV=dev webpack",
     "docs:clean": "rm -rf docs/dist/*",
     "docs:jsdoc": "jsdoc src/*/index.js -d docs",
-    "docs:documentation-js": "documentation build src/*/index.js --config docs/documentation.yml --theme docs/_theme --format html --shallow --github --name mpe.js --output docs/dist",
+    "docs:documentation-js": "documentation build ./src/*/index.js --config docs/documentation.yml --theme docs/_theme --format html --shallow --github --name mpe.js --output docs/dist",
     "docs:build": "npm run docs:clean && npm run docs:documentation-js && cp docs/CNAME circle.yml docs/dist/",
     "docs:serve": "npm run docs:build && pushd docs/dist && python -m SimpleHTTPServer 8001 && popd",
     "docs:deploy": "npm run docs:build && git-directory-deploy --directory docs/dist --branch gh-pages",
