@@ -45,7 +45,7 @@
             <ul class='list-reset h5'>
               <% docs.forEach(function(doc) { %>
                 <% var hasMembers = doc.members.static.length || doc.members.instance.length %>
-                <li class="<% if (doc.kind === 'note') { %>mt1<% } %>">
+                <li class="<% if (doc.kind === 'note') { %>mt1<% } else { %>ml1 mb2<% } %>">
                   <a
                     href='#<%=doc.namespace%>'
                     class="block<% if (doc.kind === 'note') { %> bold black caps<% } else { %> code<% } %>">
