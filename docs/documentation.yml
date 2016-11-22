@@ -10,8 +10,7 @@ toc:
     description:
       "[mpe.js](/) is flexible to different styles of usage.
 
-      * [ES2015 module](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
-      (recommended):
+      * ES2015 module (recommended):
       <pre class='p1 mb1'>import mpeInstrument from 'mpe';</pre>
 
       * CommonJS module:
