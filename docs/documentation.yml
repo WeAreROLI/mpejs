@@ -18,10 +18,10 @@ toc:
       <pre class='p1 mb1'>var mpeInstrument = require('mpe');</pre>
 
       * Script tag:
-      <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js' /></pre>
+      <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js'>&lt;/script></pre>
 
       * Script tag from CDN:
-      <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe/lib/mpe.js' /></pre>
+      <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe/lib/mpe.js'>&lt;/script></pre>
 
 
       <small>*Note*: Using `lib/mpe.js` or `lib/mpe.min.js` via a script tag will assign
