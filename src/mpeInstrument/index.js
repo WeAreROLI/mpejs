@@ -23,9 +23,9 @@ import rootReducer from './reducers';
  *     (event) => instrument.processMidiMessage(event.data)
  *   );
  * });
- * @param {Object} options Configuration options.
- * @param {Boolean} [options.log=false] When `true` logs current active notes to
- * the console.
+ * @param {Object} options
+ * @param {Boolean} [options.log=false] Log instrument state to
+ * the console on change
  * @return {Object} An Object representing an MPE compatible instrument.
  *
  */

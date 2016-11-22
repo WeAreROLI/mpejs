@@ -4,8 +4,8 @@
     <h2 class='clearfix anchor mb2 black' id='<%- section.namespace %>'>
       <span class='left code'>
         <%- section.name %>
-      </span>
-      <span class="left quiet code">
+      </span><!--
+      --><span class="left quiet code">
         <%- shortSignature(section) %>
       </span>
       <% if (section.context && section.context.github) { %>
@@ -43,9 +43,9 @@
           <% section.params.forEach(function(param) { %>
             <div class='space-bottom0'>
               <div>
-                <span class='code'><%- param.name%></span> <code class='quiet'>(<%= formatType(param) %><% if (param.default) { %>
+                <span class='code'><%- param.name%></span><code class='quiet'>: <%= formatType(param) %><% if (param.default) { %>
                 (default <code><%- param.default %></code>)
-                <% } %>)</code> <%= md(param.description, true) %>
+                <% } %></code> <%= md(param.description, true) %>
               </div>
               <% if (param.properties) { %>
               <table class='mt1 mb2 fixed-table'>
@@ -62,7 +62,7 @@
                 <tbody class='mt1'>
                   <% param.properties.forEach(function(property) { %>
                     <tr>
-                      <td class='break-word'><span class='code'><%- property.name %></span> <code class='quiet'><%= formatType(property) %></code>
+                      <td class='break-word'><span class='code'><%- property.name %></span>
                       <% if (property.default) { %>
                         (default <code><%- property.default %></code>)
                       <% } %></td>
@@ -107,7 +107,7 @@
       <% if (section.returns) { %>
         <% section.returns.forEach(function(ret) { %>
           <div class='quiet mt1 prose-big'>Returns</div>
-          <code><%= formatType(ret) %></code><% if (md(ret.description, true)) { %>:
+          <code><%= formatType(ret) %></code><% if (md(ret.description, true)) { %>
             <%= md(ret.description, true) %>
           <% }%>
         <% }) %>
