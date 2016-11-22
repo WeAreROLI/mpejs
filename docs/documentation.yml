@@ -32,19 +32,20 @@ toc:
 
   - name: What is MPE?
     description:
-      "[MPE](#MPE) (Multidimensional Polyphonic Expression) is a widely adopted
-      iteration upon MIDI 1.0.\n\n
+      "MPE (Multidimensional Polyphonic Expression) is an extension of
+      MIDI 1.0.\n\n
 
-      By assigning conventional note on/off messages into “note channels”, the
-      [MPE proposed
-      specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
-      enables continuous control parameters to be attached to individual active
-      notes. These parameters can be used to represent continuously changing
-      per-note pitch bend, pressure and timbre.\n\n
+      MPE MIDI is designed to allow notes to have independent pitch bend,
+      pressure and timbre values. Using previous MIDI these would commonly be
+      set globally.\n\n
 
-      The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
-      Roger Linn Design. It is currently implemented in ROLI’s Equator and NOISE
-      software synthesizers, as well as Logic X, Bitwig Studio and Cubase.\n\n
+      Instruments following the [MPE proposed specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
+      assign conventional note on/off messages into “note channels”. ROLI’s
+      Seaboard and BLOCKS controllers, the Haken Continuum and the Linnstrument
+      all follow this one note per channel convention.\n\n
 
-      A C++ implementation is also available, included in
-      [JUCE](https://juce.com)."
+      The MPE working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
+      Roger Linn Design. MPE is currently implemented in ROLI’s Equator and
+      NOISE software synths, as well as Logic X, Bitwig Studio and Cubase.\n\n
+
+      A C++ implementation is also available included in [JUCE](https://juce.com)."
