@@ -1,23 +1,31 @@
 toc:
-  - name: Quick start
+  - name: Installation
     description:
       "To install the latest version of [mpe.js](/):
       <pre class='p1'>npm install --save mpe</pre>\n\n
 
-      [mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs).\n\n
+      [mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs)."
 
-      It is recommended to use [mpe.js](/) via [ES2015’s module
-      system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
-      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) v6+)
-      or as a CommonJS module (for ES5 users using
-      [webpack](http://webpack.github.io/) or
-      [Browserify](http://browserify.org/)).\n\n
+  - name: Quick start
+    description:
+      "[mpe.js](/) is flexible to different styles of usage.
 
-      If you don’t use a module bundler, that’s also fine. The `lib` folder of
-      the [mpe.js](/) node package also includes a version of the library that can be
-      used directly as a `<script>` tag. Both `mpe.js` and `mpe.min.js` can be
-      used in this way, and will assign the library contents to the global
-      variable `mpe`."
+      * [ES2015 module](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
+      (recommended):
+      <pre class='p1 mb1'>import mpeInstrument from 'mpe';</pre>
+
+      * CommonJS module:
+      <pre class='p1 mb1'>var mpeInstrument = require('mpe');</pre>
+
+      * Script tag:
+      <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js' /></pre>
+
+      * Script tag from CDN:
+      <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe/lib/mpe.js' /></pre>
+
+
+      <small>*Note*: Using `lib/mpe.js` or `lib/mpe.min.js` via a script tag will assign
+      module contents to `window.mpe`.</small>"
 
   - name: API
 
