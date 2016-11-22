@@ -30,6 +30,7 @@
     ],
     "valid-jsdoc": [
       "error",
+      { "requireParamDescription": false },
     ],
     "semi": [
       "error",
