@@ -41,15 +41,6 @@ export function mpeInstrument(options) {
    * channels (if any) should be affected by that message, and applies the
    * changes.
    *
-   * _MPE implementation details:_
-   *
-   * _Handles note messages on channels 1–16 as a single MPE zone. Multi-zone
-   * layouts are not currently supported._
-   *
-   * _Channel 1 only implements "Master Channel" behaviour in the case of All
-   * Notes Off messages. Other messages types on channel 1 are handled as standard
-   * channel scope messages._
-   *
    * @example
    * import mpeInstrument from 'mpe';
    *
