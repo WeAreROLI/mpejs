@@ -41,7 +41,7 @@
             <%- options.name %>
             </a>
           </h1>
-          <div id='toc' class='mt1'>
+          <div id='toc' class='mt1 ml1'>
             <ul class='list-reset h5'>
               <% docs.forEach(function(doc) { %>
                 <% var hasMembers = doc.members.static.length || doc.members.instance.length %>
