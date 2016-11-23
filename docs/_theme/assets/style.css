@@ -8,7 +8,9 @@
   line-height: 1.5;
   font-size: 16px;
   margin: 0;
+  padding-bottom: 3rem;
 }
+
 
 .library-name {
   height: 3rem;
@@ -19,6 +21,11 @@
   font-size: 1.5rem;
   line-height: 24px;
   margin: 0 0 0.75rem 0;
+  padding-bottom: 4px;
+}
+
+.library-description:hover {
+  box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5) inset;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6,
@@ -55,9 +62,18 @@ p {
   display: block;
   position: relative;
   width: 0;
-  height: 3.5em;
-  margin-top: -3.5em
+  height: 6rem;
+  margin-top: -6rem
 }
+
+section:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 100vh;
+}
+
 
 nav::before {
   content: '';

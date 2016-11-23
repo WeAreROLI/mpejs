@@ -6,7 +6,7 @@ toc:
       To install the latest version of [mpe.js](/):
       <pre class='p1 mb1'>npm install --save mpe</pre>\n
 
-      Or without a package manager:
+      To use without a package manager:
       <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe@{PACKAGE_JSON_VERSION}/lib/mpe.min.js'>&lt;/script></pre>"
 
   - name: Quick start
@@ -32,12 +32,11 @@ toc:
 
   - name: What is MPE?
     description:
-      "MPE (Multidimensional Polyphonic Expression) is an extension of
-      MIDI 1.0.\n\n
+      "MIDI Polyphonic Expression (MPE) is an extension of MIDI 1.0.\n\n
 
-      MPE MIDI is designed to allow notes to have independent pitch bend,
-      pressure and timbre values. Using previous MIDI these would commonly be
-      set globally.\n\n
+      MPE allows notes to have independent pitch bend, pressure and timbre
+      values where using previous MIDI these would be set globally for an
+      instrument.\n\n
 
       Instruments following the [MPE proposed specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
       assign conventional note on/off messages into “note channels”. ROLI’s
@@ -45,7 +44,7 @@ toc:
       all follow this one note per channel convention.\n\n
 
       The MPE working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
-      Roger Linn Design. MPE is currently implemented in ROLI’s Equator and
-      NOISE software synths, as well as Logic X, Bitwig Studio and Cubase.\n\n
+      Roger Linn Design. MPE is currently implemented in Logic X, Bitwig Studio
+      and Cubase, as well as ROLI’s Equator and NOISE software synths.\n\n
 
-      A C++ implementation is also available included in [JUCE](https://juce.com)."
+      A C++ implementation is included in [JUCE](https://juce.com)."

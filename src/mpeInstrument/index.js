@@ -4,7 +4,7 @@ import { logger } from './middlewares';
 import rootReducer from './reducers';
 
 /**
- * Creates an Object representing an instrument supporting MPE.
+ * Creates a new instance for processing MPE data
  *
  * @kind function
  * @example
@@ -26,7 +26,7 @@ import rootReducer from './reducers';
  * @param {Object} options
  * @param {Boolean} [options.log=false] Log instrument state to
  * the console on change
- * @return {Object} An Object representing an MPE compatible instrument.
+ * @return {Object} Instance representing an MPE compatible instrument
  *
  */
 export function mpeInstrument(options) {
@@ -34,12 +34,7 @@ export function mpeInstrument(options) {
     createStore(rootReducer, applyMiddleware(logger)) :
     createStore(rootReducer);
   /**
-   * Reads MIDI message data and updates the instrument state accordingly.
-   *
-   * Processed MIDI messages trigger changes or modulations in `activeNotes`. On
-   * receiving a MIDI message, `processMidiMessage` decides which notes on which
-   * channels (if any) should be affected by that message, and applies the
-   * changes.
+   * Reads an MPE message and updates `mpeInstrument` state
    *
    * @example
    * import mpeInstrument from 'mpe';
@@ -50,7 +45,7 @@ export function mpeInstrument(options) {
    * instrument.processMidiMessage([145, 60, 127]);
    * @memberof mpeInstrument
    * @instance
-   * @param {Uint8Array} midiMessage A MIDI message.
+   * @param {Uint8Array} midiMessage An MPE MIDI message
    * @return {undefined}
    */
   function processMidiMessage(midiMessage) {
@@ -59,7 +54,7 @@ export function mpeInstrument(options) {
   }
 
   /**
-   * Lists current active notes.
+   * Lists active notes of the `mpeInstrument` instance
    *
    * @example
    * import mpeInstrument from 'mpe';
@@ -80,7 +75,7 @@ export function mpeInstrument(options) {
    *
    * @memberof mpeInstrument
    * @instance
-   * @return {Array} An array of note objects representing active notes.
+   * @return {Array} Active note objects
    * @method activeNotes
    */
   function activeNotes() {
@@ -88,23 +83,19 @@ export function mpeInstrument(options) {
   }
 
   /**
-   * Subscribe to changes on the `mpeInstrument` instance’s active notes.
-   *
-   * All changes or modulations affecting the instrument’s active notes trigger
-   * the provided callback. The new value of `activeNotes` is passed to the
-   * provided callback as an argument.
+   * Subscribes a callback to changes to the instance's active notes
    *
    * @example
    * import mpeInstrument from 'mpe';
    *
    * const instrument = mpeInstrument();
    *
-   * // Print new `activeNotes` values to the console
+   * // Log `activeNotes` values to the console on change
    * instrument.subscribe(console.log);
    * @memberof mpeInstrument
    * @instance
-   * @param {function} callback A callback for changes to current active notes.
-   * @return {function} A function to unsubscribe the given callback.
+   * @param {function} callback Callback for active note changes
+   * @return {function} Unsubscribe the callback
    */
   function subscribe(callback) {
     let currentActiveNotes = this.activeNotes();

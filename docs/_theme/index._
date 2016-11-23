@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title><%- options.name %> <%- packageJson.version %> | Documentation</title>
+  <title><%- options.name %> | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
@@ -107,9 +107,11 @@
       </div> */ %>
       <div class='fix-margin-3'>
         <div class='px2 mt1'>
-          <h2 class='library-description pb1 quiet'>
-            <%= packageJson.description %>
-          </h2>
+          <a href='#What is MPE?' style='color: inherit;'>
+            <h2 class='library-description pb1 quiet inline-block'>
+              <%= packageJson.description %>
+            </h2>
+          </a>
           <% docs.forEach(function(s) { %>
             <% if (s.kind !== 'note') { %>
               <%= renderSection({
