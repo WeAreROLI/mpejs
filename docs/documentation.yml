@@ -1,27 +1,27 @@
 toc:
   - name: Installation
     description:
-      "To install the latest version of [mpe.js](/):
-      <pre class='p1'>npm install --save mpe</pre>\n\n
+      "[mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs).\n
 
-      [mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs)."
+      To install the latest version of [mpe.js](/):
+      <pre class='p1 mb1'>npm install --save mpe</pre>\n
+
+      Or without a package manager:
+      <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe@{PACKAGE_JSON_VERSION}/lib/mpe.min.js'>&lt;/script></pre>"
 
   - name: Quick start
     description:
-      "[mpe.js](/) is flexible to different styles of usage.
+      "
+      Once installed from npm, [mpe.js](/) can be used in any of these ways.
 
-      * ES2015 module (recommended):
+      * ES2015 module (recommended)
       <pre class='p1 mb1'>import mpeInstrument from 'mpe';</pre>
 
-      * CommonJS module:
+      * CommonJS module
       <pre class='p1 mb1'>var mpeInstrument = require('mpe');</pre>
 
-      * Script tag:
-      <pre class='p1 mb1'>&lt;script src='path/to/mpe@{PACKAGE_JSON_VERSION}/lib/mpe.min.js'>&lt;/script></pre>
-
-      * Script tag from CDN:
-      <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe@{PACKAGE_JSON_VERSION}/lib/mpe.min.js'>&lt;/script></pre>
-
+      * Script tag
+      <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js'>&lt;/script></pre>
 
       <small>*Note*: Using `lib/mpe.min.js` or `lib/mpe.min.js` via a script tag will assign
       module contents to `window.mpe`.</small>"

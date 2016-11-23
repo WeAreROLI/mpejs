@@ -54,7 +54,7 @@
                 <% if (hasMembers) { %>
                 <div>
                   <% if (doc.members.static && doc.members.static.length) { %>
-                  <ul class='list-reset pl2'>
+                  <ul class='list-reset pl1'>
                     <% doc.members.static.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -65,7 +65,7 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.instance && doc.members.instance.length) { %>
-                    <ul class='list-reset pl2'>
+                    <ul class='list-reset pl1'>
                       <% doc.members.instance.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -76,7 +76,7 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.events && doc.members.events.length) { %>
-                    <ul class='list-reset pl2'>
+                    <ul class='list-reset pl1'>
                       <li class='h5'>Events</li>
                       <% doc.members.events.forEach(function(member) { %>
                         <li><a
