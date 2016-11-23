@@ -1,51 +1,50 @@
 toc:
-  - name: Introduction
+  - name: Installation
     description:
-      "[MPE](#MPE) (Multidimensional Polyphonic Expression) is a widely adopted
-      iteration upon MIDI 1.0.\n\n
+      "[mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs).\n
 
-      By assigning conventional note on/off messages into “note channels”, the
-      [MPE proposed
-      specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
-      enables continuous control parameters to be attached to individual active
-      notes. These parameters can be used to represent continuously changing
-      per-note pitch bend, pressure and timbre.\n\n
+      To install the latest version of [mpe.js](/):
+      <pre class='p1 mb1'>npm install --save mpe</pre>\n
 
-      The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
-      Roger Linn Design. It is currently implemented in ROLI’s Equator and NOISE
-      software synthesizers, as well as Logic X, Bitwig Studio and Cubase.\n\n
+      To use without a package manager:
+      <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe@{PACKAGE_JSON_VERSION}/lib/mpe.min.js'>&lt;/script></pre>"
 
-      A C++ implementation is also available, included in
-      [JUCE](https://juce.com)."
-
-  - name: Getting started
+  - name: Quick start
     description:
-      "To install the latest version of mpe.js:  \n
-      `npm install --save mpe`\n\n
+      "
+      Once installed from npm, [mpe.js](/) can be used in any of these ways.
 
-      It is recommended to use mpe.js via [ES2015’s module
-      system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
-      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) v6+)
-      or as a CommonJS module (for ES5 users using
-      [webpack](http://webpack.github.io/) or
-      [Browserify](http://browserify.org/)).\n\n
+      * ES2015 module (recommended)
+      <pre class='p1 mb1'>import mpeInstrument from 'mpe';</pre>
 
-      If you don’t use a module bundler, that’s also fine. The `lib` folder of
-      the mpe.js node package also includes a version of the library that can be
-      used directly as a `<script>` tag. Both `mpe.js` and `mpe.min.js` can be
-      used in this way, and will assign the library contents to the global
-      variable `mpe`."
+      * CommonJS module
+      <pre class='p1 mb1'>var mpeInstrument = require('mpe');</pre>
 
-  - name: MPE tools
-    description:
-      "The included [mpeInstrument](#mpeInstrument) function is designed to
-      model MPE compatible instruments."
+      * Script tag
+      <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js'>&lt;/script></pre>
+
+      <small>*Note*: Using `lib/mpe.min.js` or `lib/mpe.min.js` via a script tag will assign
+      module contents to `window.mpe`.</small>"
+
+  - name: API
 
   - mpeInstrument
 
-  - name: Other utilities
+  - name: What is MPE?
     description:
-      "Alongside, offering JavaScript support for [MPE MIDI](#MPE), mpe.js
-      includes a small number of other music utilities."
+      "MIDI Polyphonic Expression (MPE) is an extension of MIDI 1.0.\n\n
 
-  - recorder
+      MPE allows notes to have independent pitch bend, pressure and timbre
+      values where using previous MIDI these would be set globally for an
+      instrument.\n\n
+
+      Instruments following the [MPE proposed specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
+      assign conventional note on/off messages into “note channels”. ROLI’s
+      Seaboard and BLOCKS controllers, the Haken Continuum and the Linnstrument
+      all follow this one note per channel convention.\n\n
+
+      The MPE working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
+      Roger Linn Design. MPE is currently implemented in Logic X, Bitwig Studio
+      and Cubase, as well as ROLI’s Equator and NOISE software synths.\n\n
+
+      A C++ implementation is included in [JUCE](https://juce.com)."

@@ -1,3 +1,3 @@
-import * as mpe from '.';
+import mpe from '.';
 
 module.exports = mpe;

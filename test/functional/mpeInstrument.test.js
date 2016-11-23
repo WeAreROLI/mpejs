@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as library from '../../lib';
+import mpeInstrument from '../../lib';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -39,7 +39,7 @@ describe('mpeInstrument', () => {
   describe('initialization options', () => {
     describe('default', () => {
       beforeEach(() => {
-        instrument = library.mpeInstrument();
+        instrument = mpeInstrument();
         sinon.stub(console, 'log');
       });
       it('doesn\'t log a note creation event by default', () => {
@@ -54,7 +54,7 @@ describe('mpeInstrument', () => {
     });
     describe('log', () => {
       beforeEach(() => {
-        instrument = library.mpeInstrument({ log: true });
+        instrument = mpeInstrument({ log: true });
         sinon.stub(console, 'log');
       });
       it('logs a note creation event', () => {
@@ -83,7 +83,7 @@ describe('mpeInstrument', () => {
   /* eslint-enable no-console */
   describe('#activeNotes()', () => {
     beforeEach(() => {
-      instrument = library.mpeInstrument();
+      instrument = mpeInstrument();
     });
     it('returns an empty array on initialization', () => {
       expect(instrument.activeNotes()).to.be.instanceof(Array);
@@ -92,7 +92,7 @@ describe('mpeInstrument', () => {
   });
   describe('#processMidiMessage()', () => {
     beforeEach(() => {
-      instrument = library.mpeInstrument();
+      instrument = mpeInstrument();
     });
     it('creates an active note given a note on', () => {
       instrument.processMidiMessage(NOTE_ON_1);
@@ -234,7 +234,7 @@ describe('mpeInstrument', () => {
   });
   describe('#subscribe()', () => {
     beforeEach(() => {
-      instrument = library.mpeInstrument();
+      instrument = mpeInstrument();
       states = [];
       instrument.subscribe((newState) => states = [...states, newState]);
     });
