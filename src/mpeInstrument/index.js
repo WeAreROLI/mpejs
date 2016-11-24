@@ -80,9 +80,9 @@ export function mpeInstrument(options) {
    * @method activeNotes
    */
   function activeNotes() {
-    return store.getState().activeNotes.map(
-      options && options.normalize ? normalizeNote : f => f
-    );
+    return options && options.normalize ?
+      store.getState().activeNotes.map(normalizeNote) :
+      store.getState().activeNotes;
   }
 
   /**
