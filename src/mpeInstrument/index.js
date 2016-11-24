@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
+import { normalizeNote } from './utils/activeNoteUtils'
 import { generateMidiActions } from './actions';
 import { logger } from './middlewares';
 import rootReducer from './reducers';
@@ -30,6 +31,7 @@ import rootReducer from './reducers';
  *
  */
 export function mpeInstrument(options) {
+  const options = options;
   const store = options && options.log ?
     createStore(rootReducer, applyMiddleware(logger)) :
     createStore(rootReducer);
@@ -79,7 +81,9 @@ export function mpeInstrument(options) {
    * @method activeNotes
    */
   function activeNotes() {
-    return store.getState().activeNotes;
+    return store.getState().activeNotes.map(
+      options.normalize ? normalizeNote : f => f
+    );
   }
 
   /**

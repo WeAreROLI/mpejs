@@ -1,3 +1,16 @@
+import { transformObject } from './objectUtils';
+
+const NORMALIZE_NOTE_TRANSFORMATIONS = {
+  timbre: v => v / 16383,
+  pressure: v => v / 16383,
+  pitchBend: v => (2 * v / 16383) - 1,
+  noteOnVelocity: v => v / 127,
+};
+
+export function normalizeNote(note) {
+  return transformObject(note, NORMALIZE_NOTE_TRANSFORMATIONS);
+}
+
 export function findActiveNoteIndex(state, action) {
   const { channel, noteNumber } = action;
   return state.findIndex((activeNote) =>
