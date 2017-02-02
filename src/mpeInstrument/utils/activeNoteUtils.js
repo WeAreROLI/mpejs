@@ -11,6 +11,13 @@ export function normalizeNote(note) {
   return transformObject(note, NORMALIZE_NOTE_TRANSFORMATIONS);
 }
 
+export function normalizeAction(note) {
+  if (note.channelScope) {
+    note.channelScope = normalizeNote(note.channelScope);
+  }
+  return normalizeNote(note);
+}
+
 export function findActiveNoteIndex(state, action) {
   const { channel, noteNumber } = action;
   return state.findIndex((activeNote) =>

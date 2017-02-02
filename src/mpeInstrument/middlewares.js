@@ -1,3 +1,5 @@
+import { normalizeAction } from './utils/activeNoteUtils';
+
 let currentActiveNotes;
 
 /* eslint-disable no-console */
@@ -11,3 +13,7 @@ export const logger = store => next => action => {
   return result;
 };
 /* eslint-enable no-console */
+
+export const normalizer = store => next => action => {
+  return next(normalizeAction(action));
+};

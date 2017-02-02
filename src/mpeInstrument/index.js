@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
-import { normalizeNote } from './utils/activeNoteUtils';
 import { generateMidiActions } from './actions';
-import { logger } from './middlewares';
+import { logger, normalizer } from './middlewares';
 import rootReducer from './reducers';
 
 /**
@@ -30,10 +29,12 @@ import rootReducer from './reducers';
  * @return {Object} Instance representing an MPE compatible instrument
  *
  */
-export function mpeInstrument(options) {
-  const store = options && options.log ?
-    createStore(rootReducer, applyMiddleware(logger)) :
-    createStore(rootReducer);
+export function mpeInstrument(options={}) {
+  const middlewares = [
+    options.log && logger,
+    options.normalize && normalizer,
+  ].filter(f => f);
+  const store = createStore(rootReducer, applyMiddleware(...middlewares));
   /**
    * Reads an MPE message and updates `mpeInstrument` state
    *
@@ -80,9 +81,7 @@ export function mpeInstrument(options) {
    * @method activeNotes
    */
   function activeNotes() {
-    return options && options.normalize ?
-      store.getState().activeNotes.map(normalizeNote) :
-      store.getState().activeNotes;
+    return store.getState().activeNotes;
   }
 
   /**
