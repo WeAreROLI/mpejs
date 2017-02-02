@@ -306,4 +306,13 @@ describe('mpeInstrument', () => {
       expect(states.length).to.equal(0);
     });
   });
+  describe('#clear()', () => {
+    it('clears all notes', () => {
+      instrument.processMidiMessage(NOTE_ON_1);
+      instrument.processMidiMessage(NOTE_ON_2);
+      expect(instrument.activeNotes().length).to.equal(2);
+      instrument.clear();
+      expect(instrument.activeNotes().length).to.equal(0);
+    });
+  });
 });
