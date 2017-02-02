@@ -98,6 +98,19 @@ describe('mpeInstrument', () => {
         instrument.processMidiMessage(NOTE_ON_2);
         expect(instrument.activeNotes().every(n => n.pitchBend <= 1 && n.pitchBend >= -1)).to.be.true;
       });
+      it('should have normalized pressure values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes().every(n => n.pressure <= 1 && n.pressure >= -1)).to.be.true;
+      });
+      it('should have normalized noteOffVelocity', () => {
+        let states = [];
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.subscribe((newState) => states = [...states, newState]);
+        instrument.processMidiMessage(NOTE_OFF_1);
+        expect(states.length).to.equal(2);
+        expect(states[0][0].noteOffVelocity).to.equal(1);
+      });
       it('should follow normal note update and removal behaviours', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
