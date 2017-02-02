@@ -307,7 +307,7 @@ describe('mpeInstrument', () => {
     });
   });
   describe('#clear()', () => {
-    it('clears all notes', () => {
+    it('clears all active notes', () => {
       instrument.processMidiMessage(NOTE_ON_1);
       instrument.processMidiMessage(NOTE_ON_2);
       expect(instrument.activeNotes().length).to.equal(2);

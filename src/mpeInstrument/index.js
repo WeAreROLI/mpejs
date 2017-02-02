@@ -59,7 +59,34 @@ export function mpeInstrument(options) {
     const actions = generateMidiActions(midiMessage, store.getState);
     actions.forEach(store.dispatch);
   }
-
+  /**
+   * Clears all active notes
+   *
+   * @example
+   * import mpeInstrument from 'mpe';
+   *
+   * const instrument = mpeInstrument();
+   *
+   * instrument.activeNotes();
+   * // => []
+   *
+   * instrument.processMidiMessage([145, 60, 127]);
+   * instrument.activeNotes();
+   * // => [ { noteNumber: 60,
+   * //        channel: 2,
+   * //        noteOnVelocity: 127,
+   * //        pitchBend: 8192,
+   * //        timbre: 8192,
+   * //        pressure: 0 } ]
+   *
+   * instrument.clear();
+   * instrument.activeNotes()
+   * // => []
+   *
+   * @memberof mpeInstrument
+   * @instance
+   * @return {undefined}
+   */
   function clear() {
     processMidiMessage(ALL_NOTES_OFF);
   }
