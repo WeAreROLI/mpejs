@@ -98,11 +98,10 @@ describe('mpeInstrument', () => {
         instrument.processMidiMessage(NOTE_ON_2);
         expect(instrument.activeNotes().every(n => n.pitchBend <= 1 && n.pitchBend >= -1)).to.be.true;
       });
-      it('should have normalized modifications applied', () => {
+      it('should follow normal note update and removal behaviours', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes()[1].timbre).to.be.above(0.49)
-          .and.below(0.51);
+        expect(instrument.activeNotes()[1].timbre).to.be.above(0.49).and.below(0.51);
         instrument.processMidiMessage(TIMBRE);
         expect(instrument.activeNotes().length).to.eq(2);
         expect(instrument.activeNotes()[1].timbre).to.eq(1);
