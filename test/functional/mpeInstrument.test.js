@@ -79,6 +79,39 @@ describe('mpeInstrument', () => {
         }
       });
     });
+    describe('normalize', () => {
+      beforeEach(() => {
+        instrument = mpeInstrument({ normalize: true });
+      });
+      it('should have normalized timbre values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes().every(n => n.timbre <= 1 && n.pitchBend >= 0)).to.be.true;
+      });
+      it('should have normalized noteOnVelocity values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes().every(n => n.noteOnVelocity <= 1 && n.pitchBend >= 0)).to.be.true;
+      });
+      it('should have normalized pitch bend values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes().every(n => n.pitchBend <= 1 && n.pitchBend >= -1)).to.be.true;
+      });
+      it('should have normalized modifications applied', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes()[1].timbre).to.be.above(0.49)
+          .and.below(0.51);
+        instrument.processMidiMessage(TIMBRE);
+        expect(instrument.activeNotes().length).to.eq(2);
+        expect(instrument.activeNotes()[1].timbre).to.eq(1);
+        instrument.processMidiMessage(NOTE_OFF_2);
+        expect(instrument.activeNotes().length).to.eq(1);
+        instrument.processMidiMessage(NOTE_OFF_1);
+        expect(instrument.activeNotes().length).to.eq(0);
+      });
+    });
   });
   /* eslint-enable no-console */
   describe('#activeNotes()', () => {
