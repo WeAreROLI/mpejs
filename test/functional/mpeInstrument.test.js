@@ -103,7 +103,7 @@ describe('mpeInstrument', () => {
         instrument.processMidiMessage(NOTE_ON_2);
         expect(instrument.activeNotes().every(n => n.pressure <= 1 && n.pressure >= -1)).to.be.true;
       });
-      it('should have normalized noteOffVelocity', () => {
+      it('should have normalized noteOffVelocity values', () => {
         let states = [];
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.subscribe((newState) => states = [...states, newState]);
