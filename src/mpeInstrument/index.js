@@ -24,15 +24,18 @@ import rootReducer from './reducers';
  *   );
  * });
  * @param {Object} options
- * @param {Boolean} [options.log=false] Log instrument state to
- * the console on change
+ * @param {Boolean} [options.log=false] Log instrument state to the console on
+ * change
+ * @param {Boolean} [options.normalize=false] For all notes, remap `timbre`,
+ * `noteOnVelocity`, `noteOffVelocity` and `pressure` between 0 and 1, remap
+ * `pitchBend` between -1 and 1
  * @return {Object} Instance representing an MPE compatible instrument
  *
  */
-export function mpeInstrument(options={}) {
+export function mpeInstrument(options) {
   const middlewares = [
-    options.log && logger,
-    options.normalize && normalizer,
+    options && options.log && logger,
+    options && options.normalize && normalizer,
   ].filter(f => f);
   const store = createStore(rootReducer, applyMiddleware(...middlewares));
   /**
