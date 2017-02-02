@@ -3,6 +3,8 @@ import { generateMidiActions } from './actions';
 import { logger, normalizer } from './middlewares';
 import rootReducer from './reducers';
 
+const ALL_NOTES_OFF = new Uint8Array([0xb0, 123, 0]);
+
 /**
  * Creates a new instance for processing MPE data
  *
@@ -56,6 +58,10 @@ export function mpeInstrument(options) {
   function processMidiMessage(midiMessage) {
     const actions = generateMidiActions(midiMessage, store.getState);
     actions.forEach(store.dispatch);
+  }
+
+  function clear() {
+    processMidiMessage(ALL_NOTES_OFF);
   }
 
   /**
@@ -115,6 +121,7 @@ export function mpeInstrument(options) {
 
   return {
     processMidiMessage,
+    clear,
     activeNotes,
     subscribe,
   };
