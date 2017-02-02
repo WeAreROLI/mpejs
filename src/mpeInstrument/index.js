@@ -34,8 +34,8 @@ import rootReducer from './reducers';
  */
 export function mpeInstrument(options) {
   const middlewares = [
-    options && options.log && logger,
     options && options.normalize && normalizer,
+    options && options.log && logger,
   ].filter(f => f);
   const store = createStore(rootReducer, applyMiddleware(...middlewares));
   /**
