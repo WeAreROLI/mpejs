@@ -1,10 +1,11 @@
 import { transformObject } from './objectUtils';
 
 const NORMALIZE_NOTE_TRANSFORMATIONS = {
-  timbre: v => v / 16383,
-  pressure: v => v / 16383,
-  pitchBend: v => (2 * v / 16383) - 1,
   noteOnVelocity: v => v / 127,
+  noteOffVelocity: v => v / 127,
+  pitchBend: v => (2 * v / 16383) - 1,
+  pressure: v => v / 16383,
+  timbre: v => v / 16383,
 };
 
 export function normalizeNote(note) {
