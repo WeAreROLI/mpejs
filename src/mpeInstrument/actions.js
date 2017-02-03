@@ -3,6 +3,10 @@ import * as defaults from './constants/defaults';
 import * as types from './constants/actionTypes';
 import { dataBytesToUint14 } from './utils/dataByteUtils';
 
+export function clearActiveNotes() {
+  return { type: types.ALL_NOTES_OFF };
+}
+
 export function generateMidiActions(midiMessage, currentStateCallback) {
   const channel = statusByteToChannel(midiMessage[0]);
   const dataBytes = midiMessage.slice(1);

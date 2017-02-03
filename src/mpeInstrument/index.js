@@ -1,9 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
-import { generateMidiActions } from './actions';
+import { generateMidiActions, clearActiveNotes } from './actions';
 import { logger, normalizer } from './middlewares';
 import rootReducer from './reducers';
-
-const ALL_NOTES_OFF = new Uint8Array([0xb0, 123, 0]);
 
 /**
  * Creates a new instance for processing MPE data
@@ -40,25 +38,36 @@ export function mpeInstrument(options) {
     options && options.log && logger,
   ].filter(f => f);
   const store = createStore(rootReducer, applyMiddleware(...middlewares));
+
   /**
-   * Reads an MPE message and updates `mpeInstrument` state
+   * Lists active notes of the `mpeInstrument` instance
    *
    * @example
    * import mpeInstrument from 'mpe';
    *
    * const instrument = mpeInstrument();
    *
-   * // Trigger a note on, channel 2, middle C, max velocity
+   * instrument.activeNotes();
+   * // => []
+   *
    * instrument.processMidiMessage([145, 60, 127]);
+   * instrument.activeNotes();
+   * // => [ { noteNumber: 60,
+   * //        channel: 2,
+   * //        noteOnVelocity: 127,
+   * //        pitchBend: 8192,
+   * //        timbre: 8192,
+   * //        pressure: 0 } ]
+   *
    * @memberof mpeInstrument
    * @instance
-   * @param {Uint8Array} midiMessage An MPE MIDI message
-   * @return {undefined}
+   * @return {Array} Active note objects
+   * @method activeNotes
    */
-  function processMidiMessage(midiMessage) {
-    const actions = generateMidiActions(midiMessage, store.getState);
-    actions.forEach(store.dispatch);
+  function activeNotes() {
+    return store.getState().activeNotes;
   }
+
   /**
    * Clears all active notes
    *
@@ -88,36 +97,27 @@ export function mpeInstrument(options) {
    * @return {undefined}
    */
   function clear() {
-    processMidiMessage(ALL_NOTES_OFF);
+    store.dispatch(clearActiveNotes());
   }
 
   /**
-   * Lists active notes of the `mpeInstrument` instance
+   * Reads an MPE message and updates `mpeInstrument` state
    *
    * @example
    * import mpeInstrument from 'mpe';
    *
    * const instrument = mpeInstrument();
    *
-   * instrument.activeNotes();
-   * // => []
-   *
+   * // Trigger a note on, channel 2, middle C, max velocity
    * instrument.processMidiMessage([145, 60, 127]);
-   * instrument.activeNotes();
-   * // => [ { noteNumber: 60,
-   * //        channel: 2,
-   * //        noteOnVelocity: 127,
-   * //        pitchBend: 8192,
-   * //        timbre: 8192,
-   * //        pressure: 0 } ]
-   *
    * @memberof mpeInstrument
    * @instance
-   * @return {Array} Active note objects
-   * @method activeNotes
+   * @param {Uint8Array} midiMessage An MPE MIDI message
+   * @return {undefined}
    */
-  function activeNotes() {
-    return store.getState().activeNotes;
+  function processMidiMessage(midiMessage) {
+    const actions = generateMidiActions(midiMessage, store.getState);
+    actions.forEach(store.dispatch);
   }
 
   /**
