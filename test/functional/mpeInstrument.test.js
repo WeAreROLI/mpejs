@@ -129,10 +129,10 @@ describe('mpeInstrument', () => {
     const noteOn = noteNumber => new Uint8Array([0x91, noteNumber, 127]);
     const EXPECTED_PITCH_CONVERSIONS = [
       { noteNumber: 0,   scientific: 'C-1',  helmholtz: 'C,,,' },
-      { noteNumber: 1,   scientific: 'C♯-1', helmholtz: 'C♯,,,' },
+      { noteNumber: 1,   scientific: 'C#-1', helmholtz: 'C#,,,' },
       { noteNumber: 60,  scientific: 'C4',  helmholtz: 'c\'' },
-      { noteNumber: 63,  scientific: 'E♭4', helmholtz: 'e♭\'' },
-      { noteNumber: 66,  scientific: 'F♯4', helmholtz: 'f♯\'' },
+      { noteNumber: 63,  scientific: 'Eb4', helmholtz: 'eb\'' },
+      { noteNumber: 66,  scientific: 'F#4', helmholtz: 'f#\'' },
       { noteNumber: 127, scientific: 'G9', helmholtz: 'g\'\'\'\'\'\'' },
     ];
     describe('true', () => {

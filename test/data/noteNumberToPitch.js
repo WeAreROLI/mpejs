@@ -6,8 +6,8 @@ export default [
   },
   {
     noteNumber: 1,
-    helmholtz: 'C♯,,,',
-    scientific: 'C♯-1',
+    helmholtz: 'C#,,,',
+    scientific: 'C#-1',
   },
   {
     noteNumber: 2,
@@ -16,8 +16,8 @@ export default [
   },
   {
     noteNumber: 3,
-    helmholtz: 'E♭,,,',
-    scientific: 'E♭-1',
+    helmholtz: 'Eb,,,',
+    scientific: 'Eb-1',
   },
   {
     noteNumber: 4,
@@ -31,8 +31,8 @@ export default [
   },
   {
     noteNumber: 6,
-    helmholtz: 'F♯,,,',
-    scientific: 'F♯-1',
+    helmholtz: 'F#,,,',
+    scientific: 'F#-1',
   },
   {
     noteNumber: 7,
@@ -41,8 +41,8 @@ export default [
   },
   {
     noteNumber: 8,
-    helmholtz: 'A♭,,,',
-    scientific: 'A♭-1',
+    helmholtz: 'Ab,,,',
+    scientific: 'Ab-1',
   },
   {
     noteNumber: 9,
@@ -51,8 +51,8 @@ export default [
   },
   {
     noteNumber: 10,
-    helmholtz: 'B♭,,,',
-    scientific: 'B♭-1',
+    helmholtz: 'Bb,,,',
+    scientific: 'Bb-1',
   },
   {
     noteNumber: 11,
@@ -66,8 +66,8 @@ export default [
   },
   {
     noteNumber: 13,
-    helmholtz: 'C♯,,',
-    scientific: 'C♯0',
+    helmholtz: 'C#,,',
+    scientific: 'C#0',
   },
   {
     noteNumber: 14,
@@ -76,8 +76,8 @@ export default [
   },
   {
     noteNumber: 15,
-    helmholtz: 'E♭,,',
-    scientific: 'E♭0',
+    helmholtz: 'Eb,,',
+    scientific: 'Eb0',
   },
   {
     noteNumber: 16,
@@ -91,8 +91,8 @@ export default [
   },
   {
     noteNumber: 18,
-    helmholtz: 'F♯,,',
-    scientific: 'F♯0',
+    helmholtz: 'F#,,',
+    scientific: 'F#0',
   },
   {
     noteNumber: 19,
@@ -101,8 +101,8 @@ export default [
   },
   {
     noteNumber: 20,
-    helmholtz: 'A♭,,',
-    scientific: 'A♭0',
+    helmholtz: 'Ab,,',
+    scientific: 'Ab0',
   },
   {
     noteNumber: 21,
@@ -111,8 +111,8 @@ export default [
   },
   {
     noteNumber: 22,
-    helmholtz: 'B♭,,',
-    scientific: 'B♭0',
+    helmholtz: 'Bb,,',
+    scientific: 'Bb0',
   },
   {
     noteNumber: 23,
@@ -126,8 +126,8 @@ export default [
   },
   {
     noteNumber: 25,
-    helmholtz: 'C♯,',
-    scientific: 'C♯1',
+    helmholtz: 'C#,',
+    scientific: 'C#1',
   },
   {
     noteNumber: 26,
@@ -136,8 +136,8 @@ export default [
   },
   {
     noteNumber: 27,
-    helmholtz: 'E♭,',
-    scientific: 'E♭1',
+    helmholtz: 'Eb,',
+    scientific: 'Eb1',
   },
   {
     noteNumber: 28,
@@ -151,8 +151,8 @@ export default [
   },
   {
     noteNumber: 30,
-    helmholtz: 'F♯,',
-    scientific: 'F♯1',
+    helmholtz: 'F#,',
+    scientific: 'F#1',
   },
   {
     noteNumber: 31,
@@ -161,8 +161,8 @@ export default [
   },
   {
     noteNumber: 32,
-    helmholtz: 'A♭,',
-    scientific: 'A♭1',
+    helmholtz: 'Ab,',
+    scientific: 'Ab1',
   },
   {
     noteNumber: 33,
@@ -171,8 +171,8 @@ export default [
   },
   {
     noteNumber: 34,
-    helmholtz: 'B♭,',
-    scientific: 'B♭1',
+    helmholtz: 'Bb,',
+    scientific: 'Bb1',
   },
   {
     noteNumber: 35,
@@ -186,8 +186,8 @@ export default [
   },
   {
     noteNumber: 37,
-    helmholtz: 'C♯',
-    scientific: 'C♯2',
+    helmholtz: 'C#',
+    scientific: 'C#2',
   },
   {
     noteNumber: 38,
@@ -196,8 +196,8 @@ export default [
   },
   {
     noteNumber: 39,
-    helmholtz: 'E♭',
-    scientific: 'E♭2',
+    helmholtz: 'Eb',
+    scientific: 'Eb2',
   },
   {
     noteNumber: 40,
@@ -211,8 +211,8 @@ export default [
   },
   {
     noteNumber: 42,
-    helmholtz: 'F♯',
-    scientific: 'F♯2',
+    helmholtz: 'F#',
+    scientific: 'F#2',
   },
   {
     noteNumber: 43,
@@ -221,8 +221,8 @@ export default [
   },
   {
     noteNumber: 44,
-    helmholtz: 'A♭',
-    scientific: 'A♭2',
+    helmholtz: 'Ab',
+    scientific: 'Ab2',
   },
   {
     noteNumber: 45,
@@ -231,8 +231,8 @@ export default [
   },
   {
     noteNumber: 46,
-    helmholtz: 'B♭',
-    scientific: 'B♭2',
+    helmholtz: 'Bb',
+    scientific: 'Bb2',
   },
   {
     noteNumber: 47,
@@ -246,8 +246,8 @@ export default [
   },
   {
     noteNumber: 49,
-    helmholtz: 'c♯',
-    scientific: 'C♯3',
+    helmholtz: 'c#',
+    scientific: 'C#3',
   },
   {
     noteNumber: 50,
@@ -256,8 +256,8 @@ export default [
   },
   {
     noteNumber: 51,
-    helmholtz: 'e♭',
-    scientific: 'E♭3',
+    helmholtz: 'eb',
+    scientific: 'Eb3',
   },
   {
     noteNumber: 52,
@@ -271,8 +271,8 @@ export default [
   },
   {
     noteNumber: 54,
-    helmholtz: 'f♯',
-    scientific: 'F♯3',
+    helmholtz: 'f#',
+    scientific: 'F#3',
   },
   {
     noteNumber: 55,
@@ -281,8 +281,8 @@ export default [
   },
   {
     noteNumber: 56,
-    helmholtz: 'a♭',
-    scientific: 'A♭3',
+    helmholtz: 'ab',
+    scientific: 'Ab3',
   },
   {
     noteNumber: 57,
@@ -291,8 +291,8 @@ export default [
   },
   {
     noteNumber: 58,
-    helmholtz: 'b♭',
-    scientific: 'B♭3',
+    helmholtz: 'bb',
+    scientific: 'Bb3',
   },
   {
     noteNumber: 59,
@@ -306,8 +306,8 @@ export default [
   },
   {
     noteNumber: 61,
-    helmholtz: 'c♯\'',
-    scientific: 'C♯4',
+    helmholtz: 'c#\'',
+    scientific: 'C#4',
   },
   {
     noteNumber: 62,
@@ -316,8 +316,8 @@ export default [
   },
   {
     noteNumber: 63,
-    helmholtz: 'e♭\'',
-    scientific: 'E♭4',
+    helmholtz: 'eb\'',
+    scientific: 'Eb4',
   },
   {
     noteNumber: 64,
@@ -331,8 +331,8 @@ export default [
   },
   {
     noteNumber: 66,
-    helmholtz: 'f♯\'',
-    scientific: 'F♯4',
+    helmholtz: 'f#\'',
+    scientific: 'F#4',
   },
   {
     noteNumber: 67,
@@ -341,8 +341,8 @@ export default [
   },
   {
     noteNumber: 68,
-    helmholtz: 'a♭\'',
-    scientific: 'A♭4',
+    helmholtz: 'ab\'',
+    scientific: 'Ab4',
   },
   {
     noteNumber: 69,
@@ -351,8 +351,8 @@ export default [
   },
   {
     noteNumber: 70,
-    helmholtz: 'b♭\'',
-    scientific: 'B♭4',
+    helmholtz: 'bb\'',
+    scientific: 'Bb4',
   },
   {
     noteNumber: 71,
@@ -366,8 +366,8 @@ export default [
   },
   {
     noteNumber: 73,
-    helmholtz: 'c♯\'\'',
-    scientific: 'C♯5',
+    helmholtz: 'c#\'\'',
+    scientific: 'C#5',
   },
   {
     noteNumber: 74,
@@ -376,8 +376,8 @@ export default [
   },
   {
     noteNumber: 75,
-    helmholtz: 'e♭\'\'',
-    scientific: 'E♭5',
+    helmholtz: 'eb\'\'',
+    scientific: 'Eb5',
   },
   {
     noteNumber: 76,
@@ -391,8 +391,8 @@ export default [
   },
   {
     noteNumber: 78,
-    helmholtz: 'f♯\'\'',
-    scientific: 'F♯5',
+    helmholtz: 'f#\'\'',
+    scientific: 'F#5',
   },
   {
     noteNumber: 79,
@@ -401,8 +401,8 @@ export default [
   },
   {
     noteNumber: 80,
-    helmholtz: 'a♭\'\'',
-    scientific: 'A♭5',
+    helmholtz: 'ab\'\'',
+    scientific: 'Ab5',
   },
   {
     noteNumber: 81,
@@ -411,8 +411,8 @@ export default [
   },
   {
     noteNumber: 82,
-    helmholtz: 'b♭\'\'',
-    scientific: 'B♭5',
+    helmholtz: 'bb\'\'',
+    scientific: 'Bb5',
   },
   {
     noteNumber: 83,
@@ -426,8 +426,8 @@ export default [
   },
   {
     noteNumber: 85,
-    helmholtz: 'c♯\'\'\'',
-    scientific: 'C♯6',
+    helmholtz: 'c#\'\'\'',
+    scientific: 'C#6',
   },
   {
     noteNumber: 86,
@@ -436,8 +436,8 @@ export default [
   },
   {
     noteNumber: 87,
-    helmholtz: 'e♭\'\'\'',
-    scientific: 'E♭6',
+    helmholtz: 'eb\'\'\'',
+    scientific: 'Eb6',
   },
   {
     noteNumber: 88,
@@ -451,8 +451,8 @@ export default [
   },
   {
     noteNumber: 90,
-    helmholtz: 'f♯\'\'\'',
-    scientific: 'F♯6',
+    helmholtz: 'f#\'\'\'',
+    scientific: 'F#6',
   },
   {
     noteNumber: 91,
@@ -461,8 +461,8 @@ export default [
   },
   {
     noteNumber: 92,
-    helmholtz: 'a♭\'\'\'',
-    scientific: 'A♭6',
+    helmholtz: 'ab\'\'\'',
+    scientific: 'Ab6',
   },
   {
     noteNumber: 93,
@@ -471,8 +471,8 @@ export default [
   },
   {
     noteNumber: 94,
-    helmholtz: 'b♭\'\'\'',
-    scientific: 'B♭6',
+    helmholtz: 'bb\'\'\'',
+    scientific: 'Bb6',
   },
   {
     noteNumber: 95,
@@ -486,8 +486,8 @@ export default [
   },
   {
     noteNumber: 97,
-    helmholtz: 'c♯\'\'\'\'',
-    scientific: 'C♯7',
+    helmholtz: 'c#\'\'\'\'',
+    scientific: 'C#7',
   },
   {
     noteNumber: 98,
@@ -496,8 +496,8 @@ export default [
   },
   {
     noteNumber: 99,
-    helmholtz: 'e♭\'\'\'\'',
-    scientific: 'E♭7',
+    helmholtz: 'eb\'\'\'\'',
+    scientific: 'Eb7',
   },
   {
     noteNumber: 100,
@@ -511,8 +511,8 @@ export default [
   },
   {
     noteNumber: 102,
-    helmholtz: 'f♯\'\'\'\'',
-    scientific: 'F♯7',
+    helmholtz: 'f#\'\'\'\'',
+    scientific: 'F#7',
   },
   {
     noteNumber: 103,
@@ -521,8 +521,8 @@ export default [
   },
   {
     noteNumber: 104,
-    helmholtz: 'a♭\'\'\'\'',
-    scientific: 'A♭7',
+    helmholtz: 'ab\'\'\'\'',
+    scientific: 'Ab7',
   },
   {
     noteNumber: 105,
@@ -531,8 +531,8 @@ export default [
   },
   {
     noteNumber: 106,
-    helmholtz: 'b♭\'\'\'\'',
-    scientific: 'B♭7',
+    helmholtz: 'bb\'\'\'\'',
+    scientific: 'Bb7',
   },
   {
     noteNumber: 107,
@@ -546,8 +546,8 @@ export default [
   },
   {
     noteNumber: 109,
-    helmholtz: 'c♯\'\'\'\'\'',
-    scientific: 'C♯8',
+    helmholtz: 'c#\'\'\'\'\'',
+    scientific: 'C#8',
   },
   {
     noteNumber: 110,
@@ -556,8 +556,8 @@ export default [
   },
   {
     noteNumber: 111,
-    helmholtz: 'e♭\'\'\'\'\'',
-    scientific: 'E♭8',
+    helmholtz: 'eb\'\'\'\'\'',
+    scientific: 'Eb8',
   },
   {
     noteNumber: 112,
@@ -571,8 +571,8 @@ export default [
   },
   {
     noteNumber: 114,
-    helmholtz: 'f♯\'\'\'\'\'',
-    scientific: 'F♯8',
+    helmholtz: 'f#\'\'\'\'\'',
+    scientific: 'F#8',
   },
   {
     noteNumber: 115,
@@ -581,8 +581,8 @@ export default [
   },
   {
     noteNumber: 116,
-    helmholtz: 'a♭\'\'\'\'\'',
-    scientific: 'A♭8',
+    helmholtz: 'ab\'\'\'\'\'',
+    scientific: 'Ab8',
   },
   {
     noteNumber: 117,
@@ -591,8 +591,8 @@ export default [
   },
   {
     noteNumber: 118,
-    helmholtz: 'b♭\'\'\'\'\'',
-    scientific: 'B♭8',
+    helmholtz: 'bb\'\'\'\'\'',
+    scientific: 'Bb8',
   },
   {
     noteNumber: 119,
@@ -606,8 +606,8 @@ export default [
   },
   {
     noteNumber: 121,
-    helmholtz: 'c♯\'\'\'\'\'\'',
-    scientific: 'C♯9',
+    helmholtz: 'c#\'\'\'\'\'\'',
+    scientific: 'C#9',
   },
   {
     noteNumber: 122,
@@ -616,8 +616,8 @@ export default [
   },
   {
     noteNumber: 123,
-    helmholtz: 'e♭\'\'\'\'\'\'',
-    scientific: 'E♭9',
+    helmholtz: 'eb\'\'\'\'\'\'',
+    scientific: 'Eb9',
   },
   {
     noteNumber: 124,
@@ -631,8 +631,8 @@ export default [
   },
   {
     noteNumber: 126,
-    helmholtz: 'f♯\'\'\'\'\'\'',
-    scientific: 'F♯9',
+    helmholtz: 'f#\'\'\'\'\'\'',
+    scientific: 'F#9',
   },
   {
     noteNumber: 127,
