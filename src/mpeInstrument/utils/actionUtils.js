@@ -9,11 +9,11 @@ export function normalizeAction(action) {
 }
 
 export function addScientificPitch(action) {
-  if (!action.noteNumber) return action;
+  if (typeof action.noteNumber === 'undefined') return action;
   return Object.assign({}, action, { pitch: toScientificPitch(action.noteNumber) });
 }
 
 export function addHelmholtzPitch(action) {
-  if (!action.noteNumber) return action;
+  if (typeof action.noteNumber === 'undefined') return action;
   return Object.assign({}, action, { pitch: toHelmholtzPitch(action.noteNumber) });
 }
