@@ -29,6 +29,9 @@ import rootReducer from './reducers';
  * @param {Boolean} [options.normalize=false] For all notes, remap `timbre`,
  * `noteOnVelocity`, `noteOffVelocity` and `pressure` between 0 and 1, remap
  * `pitchBend` between -1 and 1
+ * @param {Boolean} [options.pitch=false] Adds a `pitch` property to all notes:
+ * uses scientific notation eg. `C4` when `true` or `'scientific'`, uses
+ * Helmholtz notation eg. `c'` when set to `'helmholtz'`
  * @return {Object} Instance representing an MPE compatible instrument
  *
  */
