@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { generateMidiActions, clearActiveNotes } from './actions';
-import { logger, normalizer } from './middlewares';
+import { logger, normalizer, pitchConverter } from './middlewares';
 import rootReducer from './reducers';
 
 /**
@@ -35,6 +35,7 @@ import rootReducer from './reducers';
 export function mpeInstrument(options) {
   const middlewares = [
     options && options.normalize && normalizer,
+    options && options.pitch && pitchConverter(options.pitch),
     options && options.log && logger,
   ].filter(f => f);
   const store = createStore(rootReducer, applyMiddleware(...middlewares));
