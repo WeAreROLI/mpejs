@@ -131,19 +131,19 @@ describe('mpeInstrument', () => {
       { noteNumber: 0,   scientific: 'C0',  helmholtz: 'C,,,' },
       { noteNumber: 1,   scientific: 'C#0', helmholtz: 'C#,,,' },
       { noteNumber: 24,  scientific: 'C2',  helmholtz: 'C,' },
-      { noteNumber: 36,  scientific: 'C2',  helmholtz: 'C' },
-      { noteNumber: 46,  scientific: 'Bb2', helmholtz: 'Bb' },
-      { noteNumber: 48,  scientific: 'C3',  helmholtz: 'c' },
-      { noteNumber: 59,  scientific: 'B3',  helmholtz: 'b' },
-      { noteNumber: 60,  scientific: 'C4',  helmholtz: 'c\'' },
-      { noteNumber: 63,  scientific: 'Eb4', helmholtz: 'eb\'' },
-      { noteNumber: 65,  scientific: 'F#4', helmholtz: 'f#\'' },
-      { noteNumber: 71,  scientific: 'B4',  helmholtz: 'c\'' },
-      { noteNumber: 72,  scientific: 'C5',  helmholtz: 'c\'\'' },
-      { noteNumber: 84,  scientific: 'C6',  helmholtz: 'c\'\'' },
-      { noteNumber: 96,  scientific: 'C7',  helmholtz: 'c\'\'\'' },
-      { noteNumber: 108, scientific: 'C8',  helmholtz: 'c\'\'\'\'' },
-      { noteNumber: 120, scientific: 'C9',  helmholtz: 'c\'\'\'\'\'' },
+      { noteNumber: 36,  scientific: 'C3',  helmholtz: 'C' },
+      { noteNumber: 46,  scientific: 'Bb3', helmholtz: 'Bb' },
+      { noteNumber: 48,  scientific: 'C4',  helmholtz: 'c' },
+      { noteNumber: 59,  scientific: 'B4',  helmholtz: 'b' },
+      { noteNumber: 60,  scientific: 'C5',  helmholtz: 'c\'' },
+      { noteNumber: 63,  scientific: 'Eb5', helmholtz: 'eb\'' },
+      { noteNumber: 66,  scientific: 'F#5', helmholtz: 'f#\'' },
+      { noteNumber: 71,  scientific: 'B5',  helmholtz: 'c\'' },
+      { noteNumber: 72,  scientific: 'C6',  helmholtz: 'c\'\'' },
+      { noteNumber: 84,  scientific: 'C7',  helmholtz: 'c\'\'' },
+      { noteNumber: 96,  scientific: 'C8',  helmholtz: 'c\'\'\'' },
+      { noteNumber: 108, scientific: 'C9',  helmholtz: 'c\'\'\'\'' },
+      { noteNumber: 120, scientific: 'C10',  helmholtz: 'c\'\'\'\'\'' },
       { noteNumber: 127, scientific: 'G10', helmholtz: 'g\'\'\'\'\'' },
     ];
     describe('true', () => {
@@ -155,11 +155,12 @@ describe('mpeInstrument', () => {
         instrument.processMidiMessage(NOTE_ON_2);
         expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
       });
-      it('should match expected results', () => {
+      it('should alias pitch \'scientific\'', () => {
+        const instruments = [instrument, mpeInstrument({ pitch: 'scientific' })];
         EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, scientific }) => {
-          instrument.processMidiMessage(noteOn(noteNumber));
-          expect(instrument.activeNotes()[0].pitch).to.eq(scientific);
-          instrument.clear();
+          instruments.forEach(i => i.processMidiMessage(noteOn(noteNumber)));
+          expect(instruments[0].activeNotes()[0].pitch).to.eq(instruments[0].activeNotes()[0].pitch);
+          instruments.forEach(i => i.clear());
         });
       });
     });
