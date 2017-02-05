@@ -130,10 +130,11 @@ describe('mpeInstrument', () => {
     const EXPECTED_PITCH_CONVERSIONS = [
       { noteNumber: 0,   scientific: 'C-1',  helmholtz: 'C,,,' },
       { noteNumber: 1,   scientific: 'C#-1', helmholtz: 'C#,,,' },
-      { noteNumber: 60,  scientific: 'C4',  helmholtz: 'c\'' },
-      { noteNumber: 63,  scientific: 'Eb4', helmholtz: 'eb\'' },
-      { noteNumber: 66,  scientific: 'F#4', helmholtz: 'f#\'' },
-      { noteNumber: 127, scientific: 'G9', helmholtz: 'g\'\'\'\'\'\'' },
+      { noteNumber: 60,  scientific: 'C4',   helmholtz: 'c\'' },
+      { noteNumber: 63,  scientific: 'Eb4',  helmholtz: 'eb\'' },
+      { noteNumber: 66,  scientific: 'F#4',  helmholtz: 'f#\'' },
+      { noteNumber: 69,  scientific: 'A4',   helmholtz: 'a\'' },
+      { noteNumber: 127, scientific: 'G9',   helmholtz: 'g\'\'\'\'\'\'' },
     ];
     describe('true', () => {
       beforeEach(() => {
