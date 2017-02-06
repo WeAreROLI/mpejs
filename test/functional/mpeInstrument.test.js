@@ -192,7 +192,7 @@ describe('mpeInstrument', () => {
       beforeEach(() => {
         instrument = mpeInstrument({ pitch: false });
       });
-      it('should leave active note pitch property undefined when falsey', () => {
+      it('should leave active note pitch property undefined', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
         expect(instrument.activeNotes().every(n => typeof n.pitch === 'undefined')).to.be.true;
