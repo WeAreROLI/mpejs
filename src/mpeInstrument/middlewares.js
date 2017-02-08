@@ -1,4 +1,4 @@
-import { normalizeAction } from './utils/activeNoteUtils';
+import { normalizeAction, addScientificPitch, addHelmholtzPitch } from './utils/actionUtils';
 
 let currentActiveNotes;
 
@@ -16,4 +16,11 @@ export const logger = store => next => action => {
 
 export const normalizer = store => next => action => {
   return next(normalizeAction(action));
+};
+
+export const pitchConverter = conversionType => store => next => action => {
+  const actionModifier = conversionType === 'helmholtz'
+    ? addHelmholtzPitch
+    : addScientificPitch;
+  return next(actionModifier(action));
 };

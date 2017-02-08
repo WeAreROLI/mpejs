@@ -37,10 +37,10 @@ export default function activeNotes(state = [], action) {
 
 function activeNote(state = defaults.ACTIVE_NOTE, action) {
   const { noteNumber, channel, channelScope, noteOnVelocity, noteOffVelocity,
-    pitchBend, pressure, timbre } = action;
+    pitch, pitchBend, pressure, timbre } = action;
   switch(action.type) {
     case types.NOTE_ON:
-      return Object.assign({}, state, { noteNumber, channel, noteOnVelocity }, channelScope);
+      return Object.assign({}, state, { noteNumber, channel, noteOnVelocity }, pitch && { pitch }, channelScope);
     case types.NOTE_OFF:
       return Object.assign({}, state, { noteOffVelocity, noteState: noteStates.OFF });
     case types.PITCH_BEND:
