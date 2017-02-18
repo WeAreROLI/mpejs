@@ -86,22 +86,26 @@ describe('mpeInstrument', () => {
       it('should have normalized timbre values', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => n.timbre <= 1 && n.pitchBend >= 0)).to.be.true;
+        expect(instrument.activeNotes()[0].timbre).to.eq(0.5);
+        expect(instrument.activeNotes()[1].timbre).to.eq(0.5);
       });
       it('should have normalized noteOnVelocity values', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => n.noteOnVelocity <= 1 && n.pitchBend >= 0)).to.be.true;
+        expect(instrument.activeNotes()[0].noteOnVelocity).to.eq(1);
+        expect(instrument.activeNotes()[1].noteOnVelocity).to.eq(1);
       });
       it('should have normalized pitch bend values', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => n.pitchBend <= 1 && n.pitchBend >= -1)).to.be.true;
+        expect(instrument.activeNotes()[0].pitchBend).to.eq(0);
+        expect(instrument.activeNotes()[1].pitchBend).to.eq(0);
       });
       it('should have normalized pressure values', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => n.pressure <= 1 && n.pressure >= -1)).to.be.true;
+        expect(instrument.activeNotes()[0].pressure).to.eq(0);
+        expect(instrument.activeNotes()[1].pressure).to.eq(0);
       });
       it('should have normalized noteOffVelocity values', () => {
         let states = [];
@@ -114,7 +118,8 @@ describe('mpeInstrument', () => {
       it('should follow normal note update and removal behaviours', () => {
         instrument.processMidiMessage(NOTE_ON_1);
         instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes()[1].timbre).to.be.above(0.49).and.below(0.51);
+        expect(instrument.activeNotes()[0].timbre).to.eq(0.5);
+        expect(instrument.activeNotes()[1].timbre).to.eq(0.5);
         instrument.processMidiMessage(TIMBRE);
         expect(instrument.activeNotes().length).to.eq(2);
         expect(instrument.activeNotes()[1].timbre).to.eq(1);
