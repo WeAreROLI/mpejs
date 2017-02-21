@@ -45,7 +45,6 @@ describe('dataByteUtils', () => {
         .thru(vs => zip(vs.slice(0, -1), vs.slice(1)))
         .map(([a, b]) => b - a)
         .thru(ds => Array.from(new Set(ds)))
-        .tap(ds => console.log(ds))
         .value()
         .every(v => expect(v).to.be.closeTo(0.000061, 0.00001));
     });
@@ -54,6 +53,16 @@ describe('dataByteUtils', () => {
     int14s.forEach(({ int14, signed }) => {
       it(`should convert ${int14} to ${signed}`, () => {
         expect(int14ToSignedFloat(int14)).to.eq(signed);
+      });
+
+      it('should produce even intervals', () => {
+        chain(range(16384))
+          .map(int14ToSignedFloat)
+          .thru(vs => zip(vs.slice(0, -1), vs.slice(1)))
+          .map(([a, b]) => b - a)
+          .thru(ds => Array.from(new Set(ds)))
+          .value()
+          .every(v => expect(v).to.be.closeTo(0.00012, 0.00001));
       });
     });
   });
