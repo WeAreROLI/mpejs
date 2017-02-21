@@ -8,7 +8,7 @@ const int7s = [
 ];
 
 const int14s = [
-  { int14: 0,   unsigned: 0.0, signed: -1.0 },
+  { int14: 0,     unsigned: 0.0, signed: -1.0 },
   { int14: 16383, unsigned: 1.0, signed: 1.0  },
   { int14: 8192,  unsigned: 0.5, signed: 0.0  },
 ];
