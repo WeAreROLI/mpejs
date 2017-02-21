@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { int7ToUnsignedFloat, int14ToUnsignedFloat, int14ToSignedFloat } from '../../src/mpeInstrument/utils/dataByteUtils';
+import { chain, range, zip } from 'lodash';
 
 const int7s = [
   { int7: 0,   unsigned: 0.0, signed: -1.0 },
@@ -19,6 +20,16 @@ describe('dataByteUtils', () => {
       it(`should convert ${int7} to ${unsigned}`, () => {
         expect(int7ToUnsignedFloat(int7)).to.eq(unsigned);
       });
+    });
+
+    it('should produce even intervals', () => {
+      chain(range(128))
+        .map(int7ToUnsignedFloat)
+        .thru(vs => zip(vs.slice(0, -1), vs.slice(1)))
+        .map(([a, b]) => b - a)
+        .thru(ds => Array.from(new Set(ds)))
+        .value()
+        .every(v => expect(v).to.be.closeTo(0.0078, 0.0002));
     });
   });
   describe('int14ToUnsignedFloat', () => {

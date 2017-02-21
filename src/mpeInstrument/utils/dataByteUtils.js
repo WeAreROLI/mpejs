@@ -42,7 +42,7 @@ export const dataBytesToUint14 = (midiDataBytes) => {
 
 export const int7ToUnsignedFloat = v => v <= 64
   ? 0.5 * v / 64
-  : v / 127;
+  : 0.5 + 0.5 * (v - 64) / 63;
 
 export const int14ToUnsignedFloat = v => v <= 8192
   ? 0.5 * v / 8192
