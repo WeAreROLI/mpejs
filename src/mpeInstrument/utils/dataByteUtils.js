@@ -39,3 +39,15 @@ export const dataBytesToUint14 = (midiDataBytes) => {
     `midiDataToMpeValue(${midiDataBytes}) is invalid.`
   );
 };
+
+export const int7ToUnsignedFloat = v => v <= 64
+  ? 0.5 * v / 64
+  : v / 127;
+
+export const int14ToUnsignedFloat = v => v <= 8192
+  ? 0.5 * v / 8192
+  : v / 16383;
+
+export const int14ToSignedFloat = v => v <= 8192
+  ? v / 8192 - 1
+  : (v - 8192) / 8191;
