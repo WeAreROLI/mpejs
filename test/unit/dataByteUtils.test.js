@@ -38,6 +38,17 @@ describe('dataByteUtils', () => {
         expect(int14ToUnsignedFloat(int14)).to.eq(unsigned);
       });
     });
+
+    it('should produce even intervals', () => {
+      chain(range(16384))
+        .map(int14ToUnsignedFloat)
+        .thru(vs => zip(vs.slice(0, -1), vs.slice(1)))
+        .map(([a, b]) => b - a)
+        .thru(ds => Array.from(new Set(ds)))
+        .tap(ds => console.log(ds))
+        .value()
+        .every(v => expect(v).to.be.closeTo(0.000061, 0.00001));
+    });
   });
   describe('int14ToSignedFloat', () => {
     int14s.forEach(({ int14, signed }) => {
