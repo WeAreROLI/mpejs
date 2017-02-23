@@ -216,7 +216,7 @@ describe('mpeInstrument', () => {
   });
   describe('#processMidiMessage()', () => {
     beforeEach(() => {
-      instrument = mpeInstrument();
+      instrument = mpeInstrument({ normalize: false });
     });
     it('creates an active note given a note on', () => {
       instrument.processMidiMessage(NOTE_ON_1);
