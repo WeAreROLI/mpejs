@@ -36,10 +36,16 @@ import rootReducer from './reducers';
  *
  */
 export function mpeInstrument(options) {
+  const defaults = {
+    log: false,
+    normalize: true,
+    pitch: false,
+  };
+  const defaultedOptions = Object.assign({}, defaults, options);
   const middlewares = [
-    options && options.normalize && normalizer,
-    options && options.pitch && pitchConverter(options.pitch),
-    options && options.log && logger,
+    defaultedOptions.normalize && normalizer,
+    defaultedOptions.pitch && pitchConverter(options.pitch),
+    defaultedOptions.log && logger,
   ].filter(f => f);
   const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
