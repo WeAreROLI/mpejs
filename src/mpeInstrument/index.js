@@ -36,10 +36,16 @@ import rootReducer from './reducers';
  *
  */
 export function mpeInstrument(options) {
+  const defaults = {
+    log: false,
+    normalize: true,
+    pitch: false,
+  };
+  const defaultedOptions = Object.assign({}, defaults, options);
   const middlewares = [
-    options && options.normalize && normalizer,
-    options && options.pitch && pitchConverter(options.pitch),
-    options && options.log && logger,
+    defaultedOptions.normalize && normalizer,
+    defaultedOptions.pitch && pitchConverter(options.pitch),
+    defaultedOptions.log && logger,
   ].filter(f => f);
   const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
@@ -58,9 +64,9 @@ export function mpeInstrument(options) {
    * instrument.activeNotes();
    * // => [ { noteNumber: 60,
    * //        channel: 2,
-   * //        noteOnVelocity: 127,
-   * //        pitchBend: 8192,
-   * //        timbre: 8192,
+   * //        noteOnVelocity: 1,
+   * //        pitchBend: 0,
+   * //        timbre: 0.5,
    * //        pressure: 0 } ]
    *
    * @memberof mpeInstrument
@@ -87,9 +93,9 @@ export function mpeInstrument(options) {
    * instrument.activeNotes();
    * // => [ { noteNumber: 60,
    * //        channel: 2,
-   * //        noteOnVelocity: 127,
-   * //        pitchBend: 8192,
-   * //        timbre: 8192,
+   * //        noteOnVelocity: 1,
+   * //        pitchBend: 0,
+   * //        timbre: 0.5,
    * //        pressure: 0 } ]
    *
    * instrument.clear();
