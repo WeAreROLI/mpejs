@@ -1,11 +1,12 @@
 import { transformObject } from './objectUtils';
+import { int7ToUnsignedFloat, int14ToUnsignedFloat, int14ToSignedFloat } from './dataByteUtils';
 
 const NORMALIZE_NOTE_TRANSFORMATIONS = {
-  noteOnVelocity: v => v / 127,
-  noteOffVelocity: v => v / 127,
-  pitchBend: v => (2 * v / 16383) - 1,
-  pressure: v => v / 16383,
-  timbre: v => v / 16383,
+  noteOnVelocity: int7ToUnsignedFloat,
+  noteOffVelocity: int7ToUnsignedFloat,
+  pitchBend: int14ToSignedFloat,
+  pressure: int14ToUnsignedFloat,
+  timbre: int14ToUnsignedFloat,
 };
 
 export function normalizeNote(note) {
