@@ -34,7 +34,6 @@ import rootReducer from './reducers';
  * uses scientific notation eg. `C4` when `true` or `'scientific'`, uses
  * Helmholtz notation eg. `c'` when set to `'helmholtz'`
  * @return {Object} Instance representing an MPE compatible instrument
- *
  */
 export const mpeInstrument = (options) => {
   const defaults = {
