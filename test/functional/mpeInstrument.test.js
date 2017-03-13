@@ -110,7 +110,7 @@ describe('mpeInstrument', () => {
       it('should have normalized noteOffVelocity values', () => {
         let states = [];
         instrument.processMidiMessage(NOTE_ON_1);
-        instrument.subscribe((newState) => states = [...states, newState]);
+        instrument.subscribe(newState => states = [...states, newState]);
         instrument.processMidiMessage(NOTE_OFF_1);
         expect(states.length).to.equal(2);
         expect(states[0][0].noteOffVelocity).to.equal(1);
@@ -132,7 +132,6 @@ describe('mpeInstrument', () => {
         instrument.processMidiMessage(TIMBRE);
         instrument.processMidiMessage(PITCH_BEND);
         instrument.processMidiMessage(NOTE_ON_2);
-        console.log(instrument.activeNotes())
         expect(instrument.activeNotes()[0].timbre).to.eq(1);
         expect(instrument.activeNotes()[0].pitchBend).to.eq(1);
       });
@@ -200,14 +199,67 @@ describe('mpeInstrument', () => {
           });
         });
       });
-      describe('false', () => {
-        beforeEach(() => {
-          instrument = mpeInstrument({ pitch: false });
+      [false, null].forEach(pitch => {
+        describe(pitch, () => {
+          beforeEach(() => {
+            instrument = mpeInstrument({ pitch });
+          });
+          it('should leave active note pitch property undefined', () => {
+            instrument.processMidiMessage(NOTE_ON_1);
+            instrument.processMidiMessage(NOTE_ON_2);
+            expect(instrument.activeNotes().every(n => typeof n.pitch === 'undefined')).to.be.true;
+          });
         });
-        it('should leave active note pitch property undefined', () => {
-          instrument.processMidiMessage(NOTE_ON_1);
-          instrument.processMidiMessage(NOTE_ON_2);
-          expect(instrument.activeNotes().every(n => typeof n.pitch === 'undefined')).to.be.true;
+      });
+    });
+    describe('pitchBendRange', () => {
+      const PITCH_BEND_MAX = new Uint8Array([0xe1, 127, 127]);
+      const PITCH_BEND_MIN = new Uint8Array([0xe1, 0, 0]);
+      const PITCH_BEND_MID = new Uint8Array([0xe1, 0, 64]);
+      const NOTE_ON = new Uint8Array([0x91, 60, 127]);
+      const EXPECTED_PITCH_CONVERSIONS = [0.5, 1, 12, 24, 48];
+      EXPECTED_PITCH_CONVERSIONS.forEach(pitchBendRange => {
+        describe(pitchBendRange, () => {
+          beforeEach(() => {
+            instrument = mpeInstrument({ pitchBendRange });
+          });
+          it(`returns ${pitchBendRange} as max value`, () => {
+            instrument.processMidiMessage(PITCH_BEND_MAX);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(pitchBendRange);
+          });
+          it(`returns -${pitchBendRange} as min value`, () => {
+            instrument.processMidiMessage(PITCH_BEND_MIN);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(-pitchBendRange);
+          });
+          it('returns 0 as center value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MID);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(0);
+          });
+        });
+      });
+      [false, null].forEach(pitchBendRange => {
+        describe(pitchBendRange, () => {
+          beforeEach(() => {
+            instrument = mpeInstrument({ pitchBendRange, normalize: false });
+          });
+          it('returns 16383 as max value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MAX);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(16383);
+          });
+          it('returns 0 as min value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MIN);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(0);
+          });
+          it('returns 8192 as center value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MID);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(8192);
+          });
         });
       });
     });
@@ -256,7 +308,7 @@ describe('mpeInstrument', () => {
     it('registers note off velocity', () => {
       let states = [];
       instrument.processMidiMessage(NOTE_ON_1);
-      instrument.subscribe((newState) => states = [...states, newState]);
+      instrument.subscribe(newState => states = [...states, newState]);
       instrument.processMidiMessage(NOTE_OFF_1);
       expect(states.length).to.equal(2);
       expect(states[0][0].noteOffVelocity).to.equal(127);
@@ -264,7 +316,7 @@ describe('mpeInstrument', () => {
     it('treats a zero velocity note on as a middle velocity note off', () => {
       let states = [];
       instrument.processMidiMessage(NOTE_ON_1);
-      instrument.subscribe((newState) => states = [...states, newState]);
+      instrument.subscribe(newState => states = [...states, newState]);
       instrument.processMidiMessage(NOTE_OFF_1_ZERO_VELOCITY);
       expect(states.length).to.equal(2);
       expect(states[1].length).to.equal(0);
@@ -368,7 +420,7 @@ describe('mpeInstrument', () => {
     beforeEach(() => {
       instrument = mpeInstrument();
       states = [];
-      instrument.subscribe((newState) => states = [...states, newState]);
+      instrument.subscribe(newState => states = [...states, newState]);
     });
     it('is triggered by note on and off messages', () => {
       instrument.processMidiMessage(NOTE_ON_1);
