@@ -11,6 +11,15 @@
   padding-bottom: 3rem;
 }
 
+.caret-right {
+  color: rgba(0, 0, 0, 0.6);
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
 
 .library-name {
   height: 3rem;
@@ -199,6 +208,8 @@ h4:hover .anchorjs-link {
   font-family: "Fira Mono",Menlo,Consolas,Liberation Mono,monospace;
   color: rgba(0, 0, 0, 0.9);
   margin: 0;
+}
+.pre, pre {
   font-size: 0.85em;
 }
 
@@ -266,6 +277,7 @@ ul {
 
 table {
   border-collapse: collapse;
+  font-size: 0.85em;
 }
 
 .prose table th,
