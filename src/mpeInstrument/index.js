@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { generateMidiActions, clearActiveNotes } from './actions';
-import { logger, normalizer, pitchConverter } from './middlewares';
+import { logger } from './middlewares';
+import { normalizeAction, addPitch } from './utils/actionUtils';
 import rootReducer from './reducers';
 
 /**
@@ -42,12 +43,16 @@ export function mpeInstrument(options) {
     pitch: false,
   };
   const defaultedOptions = Object.assign({}, defaults, options);
+  const formatNote = compose(...[
+    defaultedOptions.normalize && normalizeAction,
+    defaultedOptions.pitch && addPitch(options.pitch),
+  ].filter(f => f));
+  const formatActiveNotes = notes => notes.map(formatNote);
   const middlewares = [
-    defaultedOptions.normalize && normalizer,
-    defaultedOptions.pitch && pitchConverter(options.pitch),
-    defaultedOptions.log && logger,
+    defaultedOptions.log && logger(formatActiveNotes),
   ].filter(f => f);
   const store = createStore(rootReducer, applyMiddleware(...middlewares));
+  const rawActiveNotes = () => store.getState().activeNotes;
 
   /**
    * Lists active notes of the `mpeInstrument` instance
@@ -74,9 +79,7 @@ export function mpeInstrument(options) {
    * @return {Array} Active note objects
    * @method activeNotes
    */
-  function activeNotes() {
-    return store.getState().activeNotes;
-  }
+  const activeNotes = () => formatActiveNotes(rawActiveNotes());
 
   /**
    * Clears all active notes
@@ -106,9 +109,7 @@ export function mpeInstrument(options) {
    * @instance
    * @return {undefined}
    */
-  function clear() {
-    store.dispatch(clearActiveNotes());
-  }
+  const clear = () => store.dispatch(clearActiveNotes());
 
   /**
    * Reads an MPE message and updates `mpeInstrument` state
@@ -125,10 +126,10 @@ export function mpeInstrument(options) {
    * @param {Uint8Array} midiMessage An MPE MIDI message
    * @return {undefined}
    */
-  function processMidiMessage(midiMessage) {
+  const processMidiMessage = (midiMessage) => {
     const actions = generateMidiActions(midiMessage, store.getState);
     actions.forEach(store.dispatch);
-  }
+  };
 
   /**
    * Subscribes a callback to changes to the instance's active notes
@@ -145,16 +146,16 @@ export function mpeInstrument(options) {
    * @param {function} callback Callback for active note changes
    * @return {function} Unsubscribe the callback
    */
-  function subscribe(callback) {
-    let currentActiveNotes = this.activeNotes();
+  const subscribe = (callback) => {
+    let currentActiveNotes = rawActiveNotes();
     return store.subscribe(() => {
       let previousActiveNotes = currentActiveNotes;
-      currentActiveNotes = this.activeNotes();
+      currentActiveNotes = rawActiveNotes();
       if (currentActiveNotes !== previousActiveNotes) {
-        callback(this.activeNotes());
+        callback(activeNotes());
       }
     });
-  }
+  };
 
   return {
     processMidiMessage,

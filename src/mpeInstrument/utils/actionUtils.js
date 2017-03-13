@@ -17,3 +17,9 @@ export function addHelmholtzPitch(action) {
   if (typeof action.noteNumber === 'undefined') return action;
   return Object.assign({}, action, { pitch: toHelmholtzPitch(action.noteNumber) });
 }
+
+export function addPitch(conversionType) {
+  return conversionType === 'helmholtz'
+    ? addHelmholtzPitch
+    : addScientificPitch;
+}
