@@ -33,6 +33,8 @@ import rootReducer from './reducers';
  * @param {Boolean} [options.pitch=false] Adds a `pitch` property to all notes:
  * uses scientific notation eg. `C4` when `true` or `'scientific'`, uses
  * Helmholtz notation eg. `c'` when set to `'helmholtz'`
+ * @param {Boolean} [options.pitchBendRange=48] Converts `pitchBend` to the
+ * range specified, overriding `normalize` if both are set
  * @return {Object} Instance representing an MPE compatible instrument
  */
 export const mpeInstrument = options => {
