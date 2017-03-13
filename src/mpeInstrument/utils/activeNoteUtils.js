@@ -34,7 +34,7 @@ export const convertPitchBendRange = ({ pitchBendRange, normalize }) => action =
     {},
     action,
     { pitchBend: compose(...[
-      pitchBendRange && (v => v * pitchBendRange),
+      pitchBendRange && (v => v * parseFloat(pitchBendRange)),
       !normalize && int14ToSignedFloat,
     ].filter(f => f))(action.pitchBend) }
   );

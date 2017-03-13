@@ -217,7 +217,7 @@ describe('mpeInstrument', () => {
       const PITCH_BEND_MIN = new Uint8Array([0xe1, 0, 0]);
       const PITCH_BEND_MID = new Uint8Array([0xe1, 0, 64]);
       const NOTE_ON = new Uint8Array([0x91, 60, 127]);
-      const EXPECTED_PITCH_CONVERSIONS = [0.5, 1, 12, 24, 48];
+      const EXPECTED_PITCH_CONVERSIONS = [0.5, 1, 12, 24, '48'];
       EXPECTED_PITCH_CONVERSIONS.forEach(pitchBendRange => {
         describe(pitchBendRange, () => {
           beforeEach(() => {
@@ -226,12 +226,12 @@ describe('mpeInstrument', () => {
           it(`returns ${pitchBendRange} as max value`, () => {
             instrument.processMidiMessage(PITCH_BEND_MAX);
             instrument.processMidiMessage(NOTE_ON);
-            expect(instrument.activeNotes()[0].pitchBend).to.equal(pitchBendRange);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(parseFloat(pitchBendRange));
           });
           it(`returns -${pitchBendRange} as min value`, () => {
             instrument.processMidiMessage(PITCH_BEND_MIN);
             instrument.processMidiMessage(NOTE_ON);
-            expect(instrument.activeNotes()[0].pitchBend).to.equal(-pitchBendRange);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(-parseFloat(pitchBendRange));
           });
           it('returns 0 as center value', () => {
             instrument.processMidiMessage(PITCH_BEND_MID);
