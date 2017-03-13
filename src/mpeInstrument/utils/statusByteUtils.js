@@ -22,5 +22,5 @@ export const statusByteClassifier = statusByte => {
   return types.UNCLASSIFIED;
 };
 
-export const statusByteToChannel = (statusByte) =>
+export const statusByteToChannel = statusByte =>
   (statusByte & 0x0f) + 1;

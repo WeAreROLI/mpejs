@@ -20,14 +20,14 @@ const activeNotes = (state = [], action) => {
     case types.CHANNEL_PRESSURE:
     case types.TIMBRE: {
       const noteIndexes = findActiveNoteIndexesByChannel(state, action);
-      noteIndexes.forEach((noteIndex) => {
+      noteIndexes.forEach(noteIndex => {
         state = [...state.slice(0, noteIndex), activeNote(state[noteIndex], action), ...state.slice(noteIndex + 1)];
       });
       return state;
     }
     case types.NOTE_RELEASED:
       return state.length ?
-        state.filter((activeNote) => activeNote.noteState !== noteStates.OFF) :
+        state.filter(activeNote => activeNote.noteState !== noteStates.OFF) :
         state;
     case types.ALL_NOTES_OFF:
       return [];

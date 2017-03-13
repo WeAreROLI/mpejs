@@ -35,7 +35,7 @@ import rootReducer from './reducers';
  * Helmholtz notation eg. `c'` when set to `'helmholtz'`
  * @return {Object} Instance representing an MPE compatible instrument
  */
-export const mpeInstrument = (options) => {
+export const mpeInstrument = options => {
   const defaults = {
     log: false,
     normalize: true,
@@ -125,7 +125,7 @@ export const mpeInstrument = (options) => {
    * @param {Uint8Array} midiMessage An MPE MIDI message
    * @return {undefined}
    */
-  const processMidiMessage = (midiMessage) => {
+  const processMidiMessage = midiMessage => {
     const actions = generateMidiActions(midiMessage, store.getState);
     actions.forEach(store.dispatch);
   };
@@ -145,7 +145,7 @@ export const mpeInstrument = (options) => {
    * @param {function} callback Callback for active note changes
    * @return {function} Unsubscribe the callback
    */
-  const subscribe = (callback) => {
+  const subscribe = callback => {
     let currentActiveNotes = rawActiveNotes();
     return store.subscribe(() => {
       let previousActiveNotes = currentActiveNotes;

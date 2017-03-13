@@ -6,7 +6,7 @@ export const normalizeAction = action => {
     action.channelScope = normalizeNote(action.channelScope);
   }
   return normalizeNote(action);
-}
+};
 
 export const addScientificPitch = action =>
   typeof action.noteNumber === 'undefined'

@@ -9,12 +9,12 @@ const NORMALIZE_NOTE_TRANSFORMATIONS = {
   timbre: int14ToUnsignedFloat,
 };
 
-export const normalizeNote = (note) =>
+export const normalizeNote = note =>
   transformObject(note, NORMALIZE_NOTE_TRANSFORMATIONS);
 
 export const findActiveNoteIndex = (state, action) => {
   const { channel, noteNumber } = action;
-  return state.findIndex((activeNote) =>
+  return state.findIndex(activeNote =>
     activeNote.channel === channel && activeNote.noteNumber === noteNumber
   );
 };
