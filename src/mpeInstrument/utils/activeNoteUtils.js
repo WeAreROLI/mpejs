@@ -1,5 +1,7 @@
+import { compose } from 'redux';
 import { transformObject } from './objectUtils';
 import { int7ToUnsignedFloat, int14ToUnsignedFloat, int14ToSignedFloat } from './dataByteUtils';
+import { toScientificPitch, toHelmholtzPitch } from './noteNumberUtils';
 
 const NORMALIZE_NOTE_TRANSFORMATIONS = {
   noteOnVelocity: int7ToUnsignedFloat,
@@ -9,8 +11,33 @@ const NORMALIZE_NOTE_TRANSFORMATIONS = {
   timbre: int14ToUnsignedFloat,
 };
 
-export const normalizeNote = note =>
+export const normalize = note =>
   transformObject(note, NORMALIZE_NOTE_TRANSFORMATIONS);
+
+export const addScientificPitch = action =>
+  typeof action.noteNumber === 'undefined'
+    ? action
+    : Object.assign({}, action, { pitch: toScientificPitch(action.noteNumber) });
+
+export const addHelmholtzPitch = action =>
+  typeof action.noteNumber === 'undefined'
+    ? action
+    : Object.assign({}, action, { pitch: toHelmholtzPitch(action.noteNumber) });
+
+export const addPitch = ({ pitch }) =>
+  pitch === 'helmholtz'
+    ? addHelmholtzPitch
+    : addScientificPitch;
+
+export const convertPitchBendRange = ({ pitchBendRange, normalize }) => action =>
+  Object.assign(
+    {},
+    action,
+    { pitchBend: compose(...[
+      pitchBendRange && (v => v * pitchBendRange),
+      !normalize && int14ToSignedFloat,
+    ].filter(f => f))(action.pitchBend) }
+  );
 
 export const findActiveNoteIndex = (state, action) => {
   const { channel, noteNumber } = action;

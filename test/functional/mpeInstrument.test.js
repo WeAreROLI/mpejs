@@ -81,7 +81,7 @@ describe('mpeInstrument', () => {
     });
     describe('normalize', () => {
       beforeEach(() => {
-        instrument = mpeInstrument({ normalize: true });
+        instrument = mpeInstrument({ normalize: true, pitchBendRange: null });
       });
       it('should have normalized timbre values', () => {
         instrument.processMidiMessage(NOTE_ON_1);
@@ -276,7 +276,7 @@ describe('mpeInstrument', () => {
   });
   describe('#processMidiMessage()', () => {
     beforeEach(() => {
-      instrument = mpeInstrument({ normalize: false });
+      instrument = mpeInstrument({ normalize: false, pitchBendRange: null });
     });
     it('creates an active note given a note on', () => {
       instrument.processMidiMessage(NOTE_ON_1);
