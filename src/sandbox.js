@@ -26,7 +26,7 @@ if (navigator.requestMIDIAccess) {
       const recorder = new mpe.recorder();
       recorder.debug();
     },
-    (error) => {
+    error => {
       console.log('requestMIDIAccess failed.');
       console.error(error);
     }

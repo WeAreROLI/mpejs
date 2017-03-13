@@ -128,79 +128,87 @@ describe('mpeInstrument', () => {
         instrument.processMidiMessage(NOTE_OFF_1);
         expect(instrument.activeNotes().length).to.eq(0);
       });
-    });
-  });
-  describe('pitch', () => {
-    const noteOn = noteNumber => new Uint8Array([0x91, noteNumber, 127]);
-    const EXPECTED_PITCH_CONVERSIONS = [
-      { noteNumber: 0,   scientific: 'C-1',  helmholtz: 'C,,,' },
-      { noteNumber: 1,   scientific: 'C#-1', helmholtz: 'C#,,,' },
-      { noteNumber: 60,  scientific: 'C4',   helmholtz: 'c\'' },
-      { noteNumber: 63,  scientific: 'Eb4',  helmholtz: 'eb\'' },
-      { noteNumber: 66,  scientific: 'F#4',  helmholtz: 'f#\'' },
-      { noteNumber: 69,  scientific: 'A4',   helmholtz: 'a\'' },
-      { noteNumber: 127, scientific: 'G9',   helmholtz: 'g\'\'\'\'\'\'' },
-    ];
-    describe('true', () => {
-      beforeEach(() => {
-        instrument = mpeInstrument({ pitch: true });
-      });
-      it('should add pitch string to active notes', () => {
-        instrument.processMidiMessage(NOTE_ON_1);
+      it('should normalize channel scope midi messages', () => {
+        instrument.processMidiMessage(TIMBRE);
+        instrument.processMidiMessage(PITCH_BEND);
         instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
+        console.log(instrument.activeNotes())
+        expect(instrument.activeNotes()[0].timbre).to.eq(1);
+        expect(instrument.activeNotes()[0].pitchBend).to.eq(1);
       });
-      it('should alias pitch \'scientific\'', () => {
-        const instruments = [instrument, mpeInstrument({ pitch: 'scientific' })];
-        EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, scientific }) => {
-          instruments.forEach(i => i.processMidiMessage(noteOn(noteNumber)));
-          expect(instruments[0].activeNotes()[0].pitch).to.eq(instruments[0].activeNotes()[0].pitch);
-          instruments.forEach(i => i.clear());
+    });
+    describe('pitch', () => {
+      const noteOn = noteNumber => new Uint8Array([0x91, noteNumber, 127]);
+      const EXPECTED_PITCH_CONVERSIONS = [
+        { noteNumber: 0,   scientific: 'C-1',  helmholtz: 'C,,,' },
+        { noteNumber: 1,   scientific: 'C#-1', helmholtz: 'C#,,,' },
+        { noteNumber: 60,  scientific: 'C4',   helmholtz: 'c\'' },
+        { noteNumber: 63,  scientific: 'Eb4',  helmholtz: 'eb\'' },
+        { noteNumber: 66,  scientific: 'F#4',  helmholtz: 'f#\'' },
+        { noteNumber: 69,  scientific: 'A4',   helmholtz: 'a\'' },
+        { noteNumber: 127, scientific: 'G9',   helmholtz: 'g\'\'\'\'\'\'' },
+      ];
+      describe('true', () => {
+        beforeEach(() => {
+          instrument = mpeInstrument({ pitch: true });
+        });
+        it('should add pitch string to active notes', () => {
+          instrument.processMidiMessage(NOTE_ON_1);
+          instrument.processMidiMessage(NOTE_ON_2);
+          expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
+        });
+        it('should alias pitch \'scientific\'', () => {
+          const instruments = [instrument, mpeInstrument({ pitch: 'scientific' })];
+          EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, scientific }) => {
+            instruments.forEach(i => i.processMidiMessage(noteOn(noteNumber)));
+            expect(instruments[0].activeNotes()[0].pitch).to.eq(instruments[0].activeNotes()[0].pitch);
+            instruments.forEach(i => i.clear());
+          });
         });
       });
-    });
-    describe('\'scientific\'', () => {
-      beforeEach(() => {
-        instrument = mpeInstrument({ pitch: 'scientific' });
-      });
-      it('should add pitch string to active notes', () => {
-        instrument.processMidiMessage(NOTE_ON_1);
-        instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
-      });
-      it('should match expected results', () => {
-        EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, scientific }) => {
-          instrument.processMidiMessage(noteOn(noteNumber));
-          expect(instrument.activeNotes()[0].pitch).to.eq(scientific);
-          instrument.clear();
+      describe('\'scientific\'', () => {
+        beforeEach(() => {
+          instrument = mpeInstrument({ pitch: 'scientific' });
+        });
+        it('should add pitch string to active notes', () => {
+          instrument.processMidiMessage(NOTE_ON_1);
+          instrument.processMidiMessage(NOTE_ON_2);
+          expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
+        });
+        it('should match expected results', () => {
+          EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, scientific }) => {
+            instrument.processMidiMessage(noteOn(noteNumber));
+            expect(instrument.activeNotes()[0].pitch).to.eq(scientific);
+            instrument.clear();
+          });
         });
       });
-    });
-    describe('\'helmholtz\'', () => {
-      beforeEach(() => {
-        instrument = mpeInstrument({ pitch: 'helmholtz' });
-      });
-      it('should add pitch string to active notes', () => {
-        instrument.processMidiMessage(NOTE_ON_1);
-        instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
-      });
-      it('should match expected results', () => {
-        EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, helmholtz }) => {
-          instrument.processMidiMessage(noteOn(noteNumber));
-          expect(instrument.activeNotes()[0].pitch).to.eq(helmholtz);
-          instrument.clear();
+      describe('\'helmholtz\'', () => {
+        beforeEach(() => {
+          instrument = mpeInstrument({ pitch: 'helmholtz' });
+        });
+        it('should add pitch string to active notes', () => {
+          instrument.processMidiMessage(NOTE_ON_1);
+          instrument.processMidiMessage(NOTE_ON_2);
+          expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
+        });
+        it('should match expected results', () => {
+          EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, helmholtz }) => {
+            instrument.processMidiMessage(noteOn(noteNumber));
+            expect(instrument.activeNotes()[0].pitch).to.eq(helmholtz);
+            instrument.clear();
+          });
         });
       });
-    });
-    describe('false', () => {
-      beforeEach(() => {
-        instrument = mpeInstrument({ pitch: false });
-      });
-      it('should leave active note pitch property undefined', () => {
-        instrument.processMidiMessage(NOTE_ON_1);
-        instrument.processMidiMessage(NOTE_ON_2);
-        expect(instrument.activeNotes().every(n => typeof n.pitch === 'undefined')).to.be.true;
+      describe('false', () => {
+        beforeEach(() => {
+          instrument = mpeInstrument({ pitch: false });
+        });
+        it('should leave active note pitch property undefined', () => {
+          instrument.processMidiMessage(NOTE_ON_1);
+          instrument.processMidiMessage(NOTE_ON_2);
+          expect(instrument.activeNotes().every(n => typeof n.pitch === 'undefined')).to.be.true;
+        });
       });
     });
   });

@@ -1,19 +1,24 @@
 import { normalizeNote } from './activeNoteUtils';
 import { toScientificPitch, toHelmholtzPitch } from './noteNumberUtils';
 
-export function normalizeAction(action) {
+export const normalizeAction = action => {
   if (action.channelScope) {
     action.channelScope = normalizeNote(action.channelScope);
   }
   return normalizeNote(action);
-}
+};
 
-export function addScientificPitch(action) {
-  if (typeof action.noteNumber === 'undefined') return action;
-  return Object.assign({}, action, { pitch: toScientificPitch(action.noteNumber) });
-}
+export const addScientificPitch = action =>
+  typeof action.noteNumber === 'undefined'
+    ? action
+    : Object.assign({}, action, { pitch: toScientificPitch(action.noteNumber) });
 
-export function addHelmholtzPitch(action) {
-  if (typeof action.noteNumber === 'undefined') return action;
-  return Object.assign({}, action, { pitch: toHelmholtzPitch(action.noteNumber) });
-}
+export const addHelmholtzPitch = action =>
+  typeof action.noteNumber === 'undefined'
+    ? action
+    : Object.assign({}, action, { pitch: toHelmholtzPitch(action.noteNumber) });
+
+export const addPitch = conversionType =>
+  conversionType === 'helmholtz'
+    ? addHelmholtzPitch
+    : addScientificPitch;

@@ -1,4 +1,4 @@
-export function transformObject(object, transformations={}) {
+export const transformObject = (object, transformations={}) => {
   const changedValues = Object.keys(transformations).reduce((acc, key) => {
     if (typeof object[key] !== 'undefined') {
       acc[key] = transformations[key](object[key]);
@@ -7,4 +7,4 @@ export function transformObject(object, transformations={}) {
   }, {});
 
   return Object.assign({}, object, changedValues);
-}
+};
