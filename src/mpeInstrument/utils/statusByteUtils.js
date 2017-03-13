@@ -7,7 +7,7 @@
 
 import * as types from '../constants/midiMessageTypes';
 
-export function statusByteClassifier(statusByte) {
+export const statusByteClassifier = statusByte => {
   const firstNibble = statusByte & 0xf0;
   switch (firstNibble) {
     case 0x80: return types.NOTE_OFF;
@@ -20,8 +20,7 @@ export function statusByteClassifier(statusByte) {
     case 0xf0: return types.SYSTEM_MESSAGE;
   }
   return types.UNCLASSIFIED;
-}
+};
 
-export function statusByteToChannel(statusByte) {
-  return (statusByte & 0x0f) + 1;
-}
+export const statusByteToChannel = (statusByte) =>
+  (statusByte & 0x0f) + 1;

@@ -36,7 +36,7 @@ import rootReducer from './reducers';
  * @return {Object} Instance representing an MPE compatible instrument
  *
  */
-export function mpeInstrument(options) {
+export const mpeInstrument = (options) => {
   const defaults = {
     log: false,
     normalize: true,
@@ -163,4 +163,4 @@ export function mpeInstrument(options) {
     activeNotes,
     subscribe,
   };
-}
+};

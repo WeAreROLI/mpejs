@@ -3,7 +3,7 @@ import * as defaults from '../constants/defaults';
 import * as noteStates from '../constants/noteStates';
 import { findActiveNoteIndex, findActiveNoteIndexesByChannel } from '../utils/activeNoteUtils';
 
-export default function activeNotes(state = [], action) {
+const activeNotes = (state = [], action) => {
   if (!types[action.type]) {
     return state;
   }
@@ -33,9 +33,9 @@ export default function activeNotes(state = [], action) {
       return [];
   }
   return state;
-}
+};
 
-function activeNote(state = defaults.ACTIVE_NOTE, action) {
+const activeNote = (state = defaults.ACTIVE_NOTE, action) => {
   const { noteNumber, channel, channelScope, noteOnVelocity, noteOffVelocity,
     pitch, pitchBend, pressure, timbre } = action;
   switch(action.type) {
@@ -51,4 +51,6 @@ function activeNote(state = defaults.ACTIVE_NOTE, action) {
       return Object.assign({}, state, { timbre });
   }
   return state;
-}
+};
+
+export default activeNotes;

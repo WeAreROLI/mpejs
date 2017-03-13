@@ -9,21 +9,19 @@ const NORMALIZE_NOTE_TRANSFORMATIONS = {
   timbre: int14ToUnsignedFloat,
 };
 
-export function normalizeNote(note) {
-  return transformObject(note, NORMALIZE_NOTE_TRANSFORMATIONS);
-}
+export const normalizeNote = (note) =>
+  transformObject(note, NORMALIZE_NOTE_TRANSFORMATIONS);
 
-export function findActiveNoteIndex(state, action) {
+export const findActiveNoteIndex = (state, action) => {
   const { channel, noteNumber } = action;
   return state.findIndex((activeNote) =>
     activeNote.channel === channel && activeNote.noteNumber === noteNumber
   );
-}
+};
 
-export function findActiveNoteIndexesByChannel(state, action) {
-  return state.reduce(
+export const findActiveNoteIndexesByChannel = (state, action) =>
+  state.reduce(
     (indexes, activeNote, index) =>
       activeNote.channel === action.channel ? [...indexes, index] : indexes,
       []
   );
-}
