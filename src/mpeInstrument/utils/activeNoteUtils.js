@@ -29,14 +29,19 @@ export const addPitch = ({ pitch }) =>
     ? addHelmholtzPitch
     : addScientificPitch;
 
+export const createPitchBendConverter = (pitchBendRange, normalize) => {
+  const conversionFunctions = [
+    pitchBendRange && (v => v * parseFloat(pitchBendRange)),
+    !normalize && int14ToSignedFloat,
+  ].filter(f => f);
+  return compose(...conversionFunctions);
+};
+
 export const convertPitchBendRange = ({ pitchBendRange, normalize }) => action =>
   Object.assign(
     {},
     action,
-    { pitchBend: compose(...[
-      pitchBendRange && (v => v * parseFloat(pitchBendRange)),
-      !normalize && int14ToSignedFloat,
-    ].filter(f => f))(action.pitchBend) }
+    { pitchBend: createPitchBendConverter(pitchBendRange, normalize)(action.pitchBend) }
   );
 
 export const findActiveNoteIndex = (state, action) => {
