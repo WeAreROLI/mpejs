@@ -9,7 +9,7 @@
         <%- shortSignature(section) %>
       </span>
       <% if (section.context && section.context.github) { %>
-        <a class='right round quiet small' href='<%= section.context.github %>'>
+        <a class='right round small' href='<%= section.context.github %>'>
           <span><%= section.context.path %></span>
         </a>
       <% } %>
@@ -17,7 +17,7 @@
   <% } %>
 
 
-  <div class='section-contents <% if (typeof nested !== 'undefined') { %>pl3 mb2<% } %>'>
+  <div class='section-contents mt1 <% if (typeof nested !== 'undefined') { %>pl3 mb2<% } %>'>
       <%= md(section.description) %>
 
       <% if (section.augments) { %>
@@ -43,7 +43,7 @@
           <% section.params.forEach(function(param) { %>
             <div class='space-bottom0'>
               <div>
-                <span class='code'><%- param.name%></span><code class='quiet'>: <%= formatType(param) %><% if (param.default) { %>
+                <span class='code'><%- param.name%></span><code>: <%= formatType(param) %><% if (param.default) { %>
                 (default <code><%- param.default %></code>)
                 <% } %></code> <%= md(param.description, true) %>
               </div>
@@ -82,7 +82,7 @@
         <div>
           <% section.properties.forEach(function(property) { %>
             <div class='space-bottom0'>
-              <span class='code'><%- property.name%></span> <code class='quiet'>(<%= formatType(property) %>)</code>
+              <span class='code'><%- property.name%></span> <code>(<%= formatType(property) %>)</code>
               <% if (property.default) { %>
                 (default <code><%- property.default %></code>)
               <% } %><% if (property.description) {

@@ -3,7 +3,7 @@
     <div class='keyline-bottom stroke-light pt1 px1 mb1 rounded'>
       <div class='anchor' id='<%- member.namespace %>'></div>
       <div class="clearfix pointer toggle-sibling">
-        <div class="pad1y mb2 contain pointer">
+        <div class="pad1y mb1 contain pointer">
             <a class='icon right pad1y dark-link caret-right'>▾</a>
             <span class='code truncate'><%= member.name%></span><!--
          --><span class='quiet code space-right2'><%= shortSignature(member, false) %></span>

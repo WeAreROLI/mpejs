@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { generateMidiActions, clearActiveNotes } from './actions';
 import { logger } from './middlewares';
-import { normalizeAction, addPitch } from './utils/actionUtils';
+import { normalize, addPitch, convertPitchBendRange } from './utils/activeNoteUtils';
 import rootReducer from './reducers';
 
 /**
@@ -33,6 +33,8 @@ import rootReducer from './reducers';
  * @param {Boolean} [options.pitch=false] Adds a `pitch` property to all notes:
  * uses scientific notation eg. `C4` when `true` or `'scientific'`, uses
  * Helmholtz notation eg. `c'` when set to `'helmholtz'`
+ * @param {Boolean} [options.pitchBendRange=48] Converts `pitchBend` to the
+ * range specified, overriding `normalize` if both are set
  * @return {Object} Instance representing an MPE compatible instrument
  */
 export const mpeInstrument = options => {
@@ -40,11 +42,13 @@ export const mpeInstrument = options => {
     log: false,
     normalize: true,
     pitch: false,
+    pitchBendRange: 48,
   };
   const defaultedOptions = Object.assign({}, defaults, options);
   const formatNote = compose(...[
-    defaultedOptions.normalize && normalizeAction,
-    defaultedOptions.pitch && addPitch(options.pitch),
+    defaultedOptions.pitch && addPitch(defaultedOptions),
+    defaultedOptions.pitchBendRange && convertPitchBendRange(defaultedOptions),
+    defaultedOptions.normalize && normalize,
   ].filter(f => f));
   const formatActiveNotes = notes => notes.map(formatNote);
   const middlewares = [
