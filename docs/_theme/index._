@@ -67,7 +67,7 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.instance && doc.members.instance.length) { %>
-                    <ul class='list-reset pl1'>
+                    <ul class='list-reset'>
                       <% doc.members.instance.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -118,21 +118,14 @@
           </div>
           <div id='demo'>
             <div class='tab-wrapper'>
-              <canvas class='tab-child active' id='visualizer' width='500' height='260'></canvas>
-              <pre class='tab-child' id='mpe-output'></pre>
-              <pre class='tab-child' id='midi-input'></pre>
-              <div class='tab-controls'>
-                <div class='tab-button small active' data-tab='visualizer'>
-                  MPE touches
-                </div>
-                <div class='tab-button small' data-tab='mpe-output'>
-                  Raw MPE
-                </div>
-                <div class='tab-button small' data-tab='midi-input'>
-                  Raw MIDI
-                </div>
-              </div>
+              <pre class='tab-child active' id='midi-input'></pre>
               <video id='mpe-video' src='assets/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+            </div>
+            <div class='tab-wrapper'>
+              <pre class='tab-child active' id='mpe-output'></pre>
+              <div class='visualizer-wrapper'>
+                <canvas id='mpe-visualizer'></canvas>
+              </div>
             </div>
           </div>
           <% docs.forEach(function(s) { %>
