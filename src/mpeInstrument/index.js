@@ -15,7 +15,7 @@ import rootReducer from './reducers';
  * const instrument = mpeInstrument();
  *
  * // 1) Request MIDI device access from the Web MIDI API
- * // 2) Take the first `MidiInput` from the available MIDI `inputMap`
+ * // 2) Take the first `MIDIInput` from the available MIDI `inputMap`
  * // 3) Send input messages from this input to `instrument`
  * navigator.requestMIDIAccess().then(access => {
  *   const midiInput = access.inputMap.values().next();
