@@ -111,17 +111,19 @@
         <div class='px2'>
           <div id='demo'>
             <div class='tab-wrapper'>
-              <pre class='tab-child active' id='midi-input'></pre>
-              <video id='mpe-video' src='assets/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+              <div class='visualizer-wrapper'>
+                <video id='mpe-video' class='visualizer' src='assets/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+              </div>
+              <pre class='tab-child' id='midi-input'></pre>
             </div>
             <div class='tab-wrapper'>
-              <pre class='tab-child active' id='mpe-output'></pre>
-              <div class='visualizer-wrapper'>
-                <canvas id='mpe-visualizer'></canvas>
+              <div id='mpe-visualizer-wrapper' class='visualizer-wrapper'>
+                <canvas class='visualizer' id='mpe-visualizer'></canvas>
               </div>
+              <pre class='tab-child' id='mpe-output'></pre>
             </div>
           </div>
-          <div class='mt4 mb1'>
+          <div class='mt4 mb1 top'>
             <a href='#What is MPE?' style='color: inherit;'>
               <h2 class='library-description pb1 quiet inline-block'>
                 <%= packageJson.description %>

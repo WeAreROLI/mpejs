@@ -196,8 +196,10 @@ function renderMpeVisualizer() {
 // });
 
 function render(t) {
-  renderMpe();
-  renderMidi();
+  if (window.innerWidth > 600) {
+    renderMpe();
+    renderMidi();
+  }
   renderMpeVisualizer();
   window.requestAnimationFrame(render);
 }
