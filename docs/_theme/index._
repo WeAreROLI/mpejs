@@ -108,14 +108,7 @@
           type='text' />
       </div> */ %>
       <div class='fix-margin-3'>
-        <div class='px2 mt1'>
-          <div>
-            <a href='#What is MPE?' style='color: inherit;'>
-              <h2 class='library-description pb1 quiet inline-block'>
-                <%= packageJson.description %>
-              </h2>
-            </a>
-          </div>
+        <div class='px2'>
           <div id='demo'>
             <div class='tab-wrapper'>
               <pre class='tab-child active' id='midi-input'></pre>
@@ -127,6 +120,13 @@
                 <canvas id='mpe-visualizer'></canvas>
               </div>
             </div>
+          </div>
+          <div class='mt4 mb1'>
+            <a href='#What is MPE?' style='color: inherit;'>
+              <h2 class='library-description pb1 quiet inline-block'>
+                <%= packageJson.description %>
+              </h2>
+            </a>
           </div>
           <% docs.forEach(function(s) { %>
             <% if (s.kind !== 'note') { %>

@@ -15,7 +15,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   display: none;
   background-color: white;
   color: rgba(0, 0, 0, 0.9);
@@ -244,7 +244,7 @@ h4 {
   margin-top: 3rem;
 }
 
-.mt-top-not:first-child {
+.mt-top-not:nth-child(3) {
   margin-top: 0;
 }
 
