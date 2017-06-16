@@ -15,9 +15,6 @@ toc:
       * ES2015 module (recommended)
       <pre class='p1 mb1'>import mpeInstrument from 'mpe';</pre>
 
-      * CommonJS module
-      <pre class='p1 mb1'>var mpeInstrument = require('mpe');</pre>
-
       * Script tag
       <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js'>&lt;/script></pre>
 

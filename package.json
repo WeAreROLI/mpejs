@@ -1,6 +1,6 @@
 {
   "name": "mpe",
-  "version": "1.0.0-rc.0",
+  "version": "1.0.0",
   "description": "Next generation MIDI for the web",
   "keywords": [
     "mpe",
