@@ -24,9 +24,10 @@
       <img src="assets/roli-monogram.svg" alt="<%- options.name %>" class="logo" />
       <div style='position: absolute; z-index: 2; right: 135px; top: 10px; opacity: 0.98;'>
         <div class='fixed'>
-          <a style='display: none;' class='github-button' href='https://github.com/weareroli/mpejs' data-icon='octicon-star' data-style='mega' data-count-href='/weareroli/mpejs/stargazers' data-count-api='/repos/weareroli/mpejs#stargazers_count' data-count-aria-label='# stargazers on GitHub' aria-label='Star weareroli/mpejs on GitHub'>Star</a>
+          <a style='display: none;' class='github-button' href='https://github.com/weareroli/mpejs' data-icon='octicon-star' data-style='mega' data-count-href='/weareroli/mpejs/stargazers' data-show-count='true' data-count-aria-label='# stargazers on GitHub' aria-label='Star weareroli/mpejs on GitHub'>Star</a>
         </div>
       </div>
+      <div class='blur' />
     </nav>
     <div class='clearfix md-mxn2 mt3'>
       <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
@@ -38,7 +39,8 @@
               </a>
             </small>
             <a class='black' href='https://github.com/WeAreROLI/mpejs'>
-            <%- options.name %>
+              <%- options.name %>
+              <br><small class='quiet'>View on GitHub</small>
             </a>
           </h1>
           <div id='toc' class='mt1 ml1'>
@@ -65,7 +67,7 @@
                     </ul>
                   <% } %>
                   <% if (doc.members.instance && doc.members.instance.length) { %>
-                    <ul class='list-reset pl1'>
+                    <ul class='list-reset'>
                       <% doc.members.instance.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
@@ -106,12 +108,26 @@
           type='text' />
       </div> */ %>
       <div class='fix-margin-3'>
-        <div class='px2 mt1'>
-          <a href='#What is MPE?' style='color: inherit;'>
+        <div class='px2'>
+          <div id='demo'>
+            <div class='tab-wrapper'>
+              <div class='visualizer-wrapper'>
+                <video id='mpe-video' class='visualizer' src='https://d30pueezughrda.cloudfront.net/mpe.js/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+              </div>
+              <pre class='tab-child' id='midi-input'></pre>
+            </div>
+            <div class='tab-wrapper'>
+              <div id='mpe-visualizer-wrapper' class='visualizer-wrapper'>
+                <canvas class='visualizer' id='mpe-visualizer'></canvas>
+              </div>
+              <pre class='tab-child' id='mpe-output'></pre>
+            </div>
+          </div>
+          <div class='mt4 mb1 top'>
             <h2 class='library-description pb1 quiet inline-block'>
               <%= packageJson.description %>
             </h2>
-          </a>
+          </div>
           <% docs.forEach(function(s) { %>
             <% if (s.kind !== 'note') { %>
               <%= renderSection({
@@ -129,6 +145,11 @@
   </div>
   <script src='assets/anchor.js'></script>
   <script src='assets/site.js'></script>
+  <!-- demo deps -->
+  <script src='assets/mpe.min.js'></script>
+  <script src='assets/waa-clock.js'></script>
+  <!-- demo -->
+  <script src='assets/mpe-demo.js'></script>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

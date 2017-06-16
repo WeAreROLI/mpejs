@@ -2,6 +2,155 @@
   box-sizing: border-box;
 }
 
+.tab-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.tab-child {
+  width: auto;
+  height: 260px;
+  overflow: hidden;
+  font-size: 0.55rem;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  flex: 5;
+}
+
+.visualizer-wrapper {
+  height: 260px;
+  width: 220px;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+#demo {
+  display: flex;
+  flex-direction: column;
+}
+
+#mpe-video {
+  object-fit: fill;
+  border: solid 1px rgba(0,0,0,0.1);
+}
+
+@media (min-width: 601px) {
+  .tab-wrapper + .tab-wrapper {
+    margin-top: 1rem;
+  }
+  .visualizer-wrapper {
+    margin-right: 0.75rem;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .tab-wrapper {
+    justify-content: center;
+    flex: 1 1 auto;
+    height: auto;
+  }
+  .tab-child {
+    display: none;
+  }
+  .visualizer-wrapper {
+    border-radius: 0;
+    box-shadow: none;
+    flex: 1 1 auto;
+    width: 50vw;
+    height: auto;
+  }
+  #demo {
+    flex-direction: row;
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+  }
+  #mpe-video {
+    border: none;
+    width: 50vw;
+    height: auto;
+  }
+  .visualizer {
+    flex: 1 1 auto;
+    width: 50vw !important;
+    height: auto !important;
+  }
+  #mpe-visualizer {
+    margin-top: -6px;
+    height: 70% !important;
+  }
+  .top {
+    margin-top: 36vh;
+  }
+}
+
+#mpe-visualizer-wrapper {
+  background-color: #4f4f4f;
+  box-shadow: inset 0 0 0 1px #303030;
+}
+#mpe-visualizer {
+  height: 185px;
+  width: 220px;
+}
+
+@keyframes fade-text {
+  from { color: rgba(0,0,0,0.9) }
+  to { color: rgba(0,0,0,0) }
+}
+
+#midi-input:before {
+  content: '// MPE input from ROLI Seaboard RISE';
+  color: #535353;
+}
+#mpe-output:before {
+  content: '// Output from mpe.js using mpeInstrument#activeNotes';
+  color: #535353;
+}
+#mpe-output > span {
+  color: rgba(0, 0, 0, 0);
+  animation: fade-text 1s ease-in 1;
+}
+#midi-input > span {
+  color: rgba(0, 0, 0, 0);
+  animation: fade-text 0.5s ease-in 1;
+}
+
+pre.tab-child {
+  padding: 0.5rem;
+}
+
+pre.tab-child > span {
+  display: block;
+  /*position: absolute;*/
+}
+
+.tab-controls {
+  position: absolute;
+  left: 220px;
+  top: 259px;
+  z-index: 1;
+  margin-left: 1px;
+}
+
+.tab-button {
+  color: #ddd;
+  margin-right: 1px;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  float: left;
+  background-color: white;
+}
+
+.tab-button.active {
+  color: inherit;
+}
+
 .documentation {
   font-family: "Fira Sans", "Helvetica Neue", sans-serif;
   color: rgba(0, 0, 0, 0.9);
@@ -21,7 +170,7 @@
 }
 
 .library-name {
-  height: 3rem;
+  height: 4.5rem;
 }
 
 .library-description {
@@ -32,16 +181,13 @@
   padding-bottom: 4px;
 }
 
-.library-description:hover {
-  box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5) inset;
-}
-
 .h1, .h2, .h3, .h4, .h5, .h6,
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
   font-weight: 500;
   margin: 0 0 0.75rem 0;
   line-height: 24px;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 small, .small {
@@ -88,11 +234,22 @@ nav::before {
   display: block;
   width: 100%;
   height: 3rem;
-  background: rgba(0,0,0,.75);
+  background: #3F3F3F;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.blur {
+  display: block;
+  width: 100%;
+  height: 3rem;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
+  background: rgba(250,250,250,0.9);
 }
 
 nav::after {
@@ -132,7 +289,7 @@ h4 {
   margin-top: 3rem;
 }
 
-.mt-top-not:first-child {
+.mt-top-not:nth-child(3) {
   margin-top: 0;
 }
 
@@ -206,6 +363,7 @@ h4:hover .anchorjs-link {
 .pre, pre, code, .code {
   font-family: "Fira Mono",Menlo,Consolas,Liberation Mono,monospace;
   color: rgba(0, 0, 0, 0.9);
+  font-weight: normal;
   margin: 0;
 }
 .pre, pre {
@@ -217,9 +375,10 @@ h2 code, h2 .code {
 }
 
 .note pre, pre {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: #3F3F3F;
   color: rgba(255, 255, 255, 0.95);
   border-radius: 4px;
+  overflow-x: auto;
 }
 
 p > .pre, p > pre, p > code, p > .code {
@@ -295,4 +454,16 @@ table {
 
 .quiet {
   opacity: 0.75;
+}
+
+.section-contents {
+  overflow-x: auto;
+}
+
+h3 {
+  margin-top: 3rem;
+}
+
+h3:nth-of-type(1) {
+  margin-top: 1.5rem;
 }
