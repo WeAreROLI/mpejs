@@ -1,6 +1,6 @@
 {
   "name": "mpe",
-  "version": "0.1.8",
+  "version": "1.0.0-rc.0",
   "description": "Next generation MIDI for the web",
   "keywords": [
     "mpe",
@@ -56,7 +56,6 @@
     "eslint": "2.13.1",
     "git-directory-deploy": "1.5.0",
     "highlight.js": "9.4.0",
-    "html-webpack-plugin": "2.21.0",
     "jsdoc": "3.4.0",
     "lodash": "4.13.1",
     "mocha": "2.5.3",
