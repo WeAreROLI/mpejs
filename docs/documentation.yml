@@ -37,7 +37,7 @@ toc:
       1.0.\n\n
 
       MPE allows individual notes to have independent pitch bend values where
-      MIDI 1.0 only allows these to be set globally for an entire instrument.\n\n
+      MIDI 1.0 only allows these to be set globally for all voices at once.\n\n
 
       Instruments following the [MPE proposed specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
       assign conventional note on/off messages into “note channels”. ROLI’s
