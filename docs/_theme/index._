@@ -112,7 +112,7 @@
           <div id='demo'>
             <div class='tab-wrapper'>
               <div class='visualizer-wrapper'>
-                <video id='mpe-video' class='visualizer' src='assets/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+                <video id='mpe-video' class='visualizer' src='https://d30pueezughrda.cloudfront.net/mpe.js/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
               </div>
               <pre class='tab-child' id='midi-input'></pre>
             </div>
@@ -124,11 +124,9 @@
             </div>
           </div>
           <div class='mt4 mb1 top'>
-            <a href='#What is MPE?' style='color: inherit;'>
-              <h2 class='library-description pb1 quiet inline-block'>
-                <%= packageJson.description %>
-              </h2>
-            </a>
+            <h2 class='library-description pb1 quiet inline-block'>
+              <%= packageJson.description %>
+            </h2>
           </div>
           <% docs.forEach(function(s) { %>
             <% if (s.kind !== 'note') { %>

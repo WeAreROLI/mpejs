@@ -5,7 +5,7 @@ import { normalize, addPitch, convertPitchBendRange } from './utils/activeNoteUt
 import rootReducer from './reducers';
 
 /**
- * Creates a new instance for processing MPE data
+ * Creates a new instrument instance for processing MPE data
  *
  * @kind function
  * @example

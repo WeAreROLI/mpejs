@@ -1,9 +1,7 @@
 toc:
   - name: Installation
     description:
-      "[mpe.js](/) is open source and [available on GitHub](https://github.com/weareroli/mpejs).\n
-
-      To install the latest version of [mpe.js](/):
+      "To install the latest version of [mpe.js](/):
       <pre class='p1 mb1'>npm install --save mpe</pre>\n
 
       To use without a package manager:
@@ -30,13 +28,16 @@ toc:
 
   - mpeInstrument
 
-  - name: What is MPE?
+  - name: FAQs
     description:
-      "MIDI Polyphonic Expression (MPE) is an extension of MIDI 1.0.\n\n
+      "
+      ### What is MPE?\n\n
 
-      MPE allows notes to have independent pitch bend, pressure and timbre
-      values where using previous MIDI these would be set globally for an
-      instrument.\n\n
+      MPE stands for “MIDI Polyphonic Expression” and is an extension of MIDI
+      1.0.\n\n
+
+      MPE allows individual notes to have independent pitch bend values where
+      MIDI 1.0 only allows these to be set globally for an entire instrument.\n\n
 
       Instruments following the [MPE proposed specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
       assign conventional note on/off messages into “note channels”. ROLI’s
@@ -47,4 +48,17 @@ toc:
       Roger Linn Design. MPE is currently implemented in Logic X, Bitwig Studio
       and Cubase, as well as ROLI’s Equator and NOISE software synths.\n\n
 
-      A C++ implementation is included in [JUCE](https://juce.com)."
+      ### Do I have to use this with the Web MIDI API?\n\n
+
+      No.\n\n
+
+      mpe.js can be used to simplify reading recorded MPE data in the browser
+      without depending on [Web MIDI API](https://webaudio.github.io/web-midi-api/)
+      for live input. It can also be used in node.js, either for offline usage,
+      or processing live input via I/O libraries such as
+      [node-midi](https://github.com/justinlatimer/node-midi).
+
+      ### Are there tools to use MPE in other programming languages?\n\n
+
+      Yes! A C++ implementation is included in [JUCE](https://juce.com).\n\n
+      "
