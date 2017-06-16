@@ -1,12 +1,12 @@
 let currentActiveNotes;
 
 /* eslint-disable no-console */
-export const logger = store => next => action => {
+export const logger = formatActiveNotes => store => next => action => {
   let result = next(action);
   let previousActiveNotes = currentActiveNotes;
   currentActiveNotes = store.getState().activeNotes;
   if (currentActiveNotes !== previousActiveNotes) {
-    console.log('active notes:', currentActiveNotes);
+    console.log('active notes:', formatActiveNotes(currentActiveNotes));
   }
   return result;
 };

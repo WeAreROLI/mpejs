@@ -3,7 +3,7 @@ import * as defaults from '../constants/defaults';
 import * as noteStates from '../constants/noteStates';
 import { findActiveNoteIndex, findActiveNoteIndexesByChannel } from '../utils/activeNoteUtils';
 
-export default function activeNotes(state = [], action) {
+const activeNotes = (state = [], action) => {
   if (!types[action.type]) {
     return state;
   }
@@ -20,27 +20,27 @@ export default function activeNotes(state = [], action) {
     case types.CHANNEL_PRESSURE:
     case types.TIMBRE: {
       const noteIndexes = findActiveNoteIndexesByChannel(state, action);
-      noteIndexes.forEach((noteIndex) => {
+      noteIndexes.forEach(noteIndex => {
         state = [...state.slice(0, noteIndex), activeNote(state[noteIndex], action), ...state.slice(noteIndex + 1)];
       });
       return state;
     }
     case types.NOTE_RELEASED:
       return state.length ?
-        state.filter((activeNote) => activeNote.noteState !== noteStates.OFF) :
+        state.filter(activeNote => activeNote.noteState !== noteStates.OFF) :
         state;
     case types.ALL_NOTES_OFF:
       return [];
   }
   return state;
-}
+};
 
-function activeNote(state = defaults.ACTIVE_NOTE, action) {
+const activeNote = (state = defaults.ACTIVE_NOTE, action) => {
   const { noteNumber, channel, channelScope, noteOnVelocity, noteOffVelocity,
-    pitchBend, pressure, timbre } = action;
+    pitch, pitchBend, pressure, timbre } = action;
   switch(action.type) {
     case types.NOTE_ON:
-      return Object.assign({}, state, { noteNumber, channel, noteOnVelocity }, channelScope);
+      return Object.assign({}, state, { noteNumber, channel, noteOnVelocity }, pitch && { pitch }, channelScope);
     case types.NOTE_OFF:
       return Object.assign({}, state, { noteOffVelocity, noteState: noteStates.OFF });
     case types.PITCH_BEND:
@@ -51,4 +51,6 @@ function activeNote(state = defaults.ACTIVE_NOTE, action) {
       return Object.assign({}, state, { timbre });
   }
   return state;
-}
+};
+
+export default activeNotes;

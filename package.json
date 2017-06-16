@@ -1,7 +1,7 @@
 {
   "name": "mpe",
-  "version": "0.1.8",
-  "description": "Next generation MIDI for the web.",
+  "version": "1.0.0-rc.0",
+  "description": "Next generation MIDI for the web",
   "keywords": [
     "mpe",
     "midi",
@@ -29,8 +29,8 @@
     "compile:dev": "WEBPACK_ENV=dev webpack",
     "docs:clean": "rm -rf docs/dist/*",
     "docs:jsdoc": "jsdoc src/*/index.js -d docs",
-    "docs:documentation-js": "documentation build src/*/index.js --config docs/documentation.yml --theme docs/_theme --format html --shallow --github --name mpe.js --output docs/dist",
-    "docs:build": "npm run docs:clean && npm run docs:documentation-js && cp docs/CNAME circle.yml docs/dist/",
+    "docs:documentation-js": "documentation build ./src/*/index.js --config docs/documentation.yml --theme docs/_theme --format html --shallow --github --name mpe.js --output docs/dist",
+    "docs:build": "npm run docs:clean && npm run docs:documentation-js && cp docs/CNAME circle.yml docs/dist/ && cp lib/mpe.min.js docs/dist/assets",
     "docs:serve": "npm run docs:build && pushd docs/dist && python -m SimpleHTTPServer 8001 && popd",
     "docs:deploy": "npm run docs:build && git-directory-deploy --directory docs/dist --branch gh-pages",
     "lint": "eslint src/",
@@ -40,36 +40,38 @@
     "serve": "python -m SimpleHTTPServer 8000"
   },
   "dependencies": {
-    "redux": "^3.5.2"
+    "redux": "3.5.2"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.10.1",
-    "babel-core": "^6.9.1",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "chai": "^3.5.0",
-    "concat-stream": "^1.5.1",
-    "doctrine": "^1.2.2",
-    "documentation": "^4.0.0-beta5",
-    "documentation-theme-utils": "^3.0.0",
-    "eslint": "^2.13.1",
-    "git-directory-deploy": "^1.5.0",
-    "highlight.js": "^9.4.0",
-    "html-webpack-plugin": "^2.21.0",
-    "jsdoc": "^3.4.0",
-    "lodash": "^4.13.1",
-    "mocha": "^2.5.3",
-    "remark": "^5.0.1",
-    "remark-html": "^4.0.0",
-    "sinon": "^1.17.4",
-    "sinon-chai": "^2.8.0",
-    "unist-util-visit": "^1.1.0",
-    "vinyl": "^1.1.1",
-    "vinyl-fs": "^2.4.3",
-    "webpack": "^1.13.1"
+    "babel": "6.5.2",
+    "babel-cli": "6.10.1",
+    "babel-core": "6.9.1",
+    "babel-loader": "6.2.4",
+    "babel-preset-es2015": "6.9.0",
+    "chai": "3.5.0",
+    "concat-stream": "1.5.1",
+    "doctrine": "1.2.2",
+    "documentation": "4.0.0-beta5",
+    "documentation-theme-utils": "3.0.0",
+    "eslint": "2.13.1",
+    "git-directory-deploy": "1.5.0",
+    "highlight.js": "9.4.0",
+    "jsdoc": "3.4.0",
+    "lodash": "4.13.1",
+    "mocha": "2.5.3",
+    "mocha-logger": "1.0.5",
+    "remark": "5.0.1",
+    "remark-html": "4.0.0",
+    "sinon": "1.17.4",
+    "sinon-chai": "2.8.0",
+    "unist-util-visit": "1.1.0",
+    "vinyl": "1.1.1",
+    "vinyl-fs": "2.4.3",
+    "webpack": "1.13.1"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   }
 }

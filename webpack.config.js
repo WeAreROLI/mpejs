@@ -1,23 +1,17 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var LIBRARY_NAME = 'mpe';
 
 // Plugins
-var htmlPlugin = new HtmlWebpackPlugin({
-  filename: 'sandbox.html',
-  title: 'Web MIDI Sandbox',
-  template: './src/sandbox.html',
-});
 var nodeProductionEnvPlugin = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': '"production"'
+  'process.env.NODE_ENV': '"production"',
 });
 var uglifyPlugin = new webpack.optimize.UglifyJsPlugin({
   compress: {
     warnings: false,
-  }
-})
+  },
+});
 
 // Loaders
 var babelLoader = {
@@ -25,8 +19,8 @@ var babelLoader = {
   loader: 'babel-loader',
   query: {
     // Using require.resolve to fix dependency issues when using `npm link`
-    presets: [require.resolve('babel-preset-es2015')]
-  }
+    presets: [require.resolve('babel-preset-es2015')],
+  },
 };
 
 // Env-specific options
@@ -38,7 +32,6 @@ if (env === 'dev') {
     devtool: 'source-map',
     entry: {
       mpe: './src/global.js',
-      sandbox: './src/sandbox.js',
     },
     output: {
       path: path.join(__dirname, 'lib'),
@@ -49,7 +42,6 @@ if (env === 'dev') {
     module: {
       loaders: [babelLoader],
     },
-    plugins: [htmlPlugin],
   };
 }
 if (env === 'build') {
@@ -74,7 +66,6 @@ if (env === 'build') {
       name: 'global',
       entry: {
         mpe: './src/global.js',
-        sandbox: './src/sandbox.js',
       },
       output: {
         path: path.join(__dirname, 'lib'),
@@ -85,7 +76,7 @@ if (env === 'build') {
       module: {
         loaders: [babelLoader],
       },
-      plugins: [htmlPlugin, nodeProductionEnvPlugin],
+      plugins: [nodeProductionEnvPlugin],
     },
     {
       name: 'globalMinified',
@@ -100,8 +91,8 @@ if (env === 'build') {
         loaders: [babelLoader],
       },
       plugins: [uglifyPlugin, nodeProductionEnvPlugin],
-    }
-  ]
+    },
+  ];
 }
 
 module.exports = webpackConfig;

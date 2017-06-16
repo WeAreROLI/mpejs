@@ -4,7 +4,7 @@
  * @param {uint8} input Input 7-bit integer.
  * @returns {uint16} Scaled 14-bit integer.
  */
-export const scale7To14Bit = (input) => {
+export const scale7To14Bit = input => {
   if (input > 127) {
     throw new RangeError(
       `scale7To14Bit takes a 7-bit integer.\n` +
@@ -23,9 +23,9 @@ export const scale7To14Bit = (input) => {
  * @param {uint8} midiDataBytes The encoded data from a standard MIDI message.
  * @returns {uint16} Normalized 14-bit integer representation of the inputs.
  */
-export const dataBytesToUint14 = (midiDataBytes) => {
+export const dataBytesToUint14 = midiDataBytes => {
   // Discard identifier bit.
-  const midiDataByteContents = midiDataBytes.map((dataByte) => 127 & dataByte);
+  const midiDataByteContents = midiDataBytes.map(dataByte => 127 & dataByte);
   switch (midiDataBytes.length) {
     case 1:
       // With one 7-bit value, scale to a 14-bit integer.
@@ -39,3 +39,15 @@ export const dataBytesToUint14 = (midiDataBytes) => {
     `midiDataToMpeValue(${midiDataBytes}) is invalid.`
   );
 };
+
+export const int7ToUnsignedFloat = v => v <= 64
+  ? 0.5 * v / 64
+  : 0.5 + 0.5 * (v - 64) / 63;
+
+export const int14ToUnsignedFloat = v => v <= 8192
+  ? 0.5 * v / 8192
+  : 0.5 + 0.5 * (v - 8192) / 8191;
+
+export const int14ToSignedFloat = v => v <= 8192
+  ? v / 8192 - 1
+  : (v - 8192) / 8191;

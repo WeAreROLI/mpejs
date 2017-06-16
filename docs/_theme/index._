@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title><%- options.name %> <%- packageJson.version %> | Documentation</title>
+  <title><%- options.name %> | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
@@ -16,60 +16,74 @@
   <link href="assets/favicon-57.png" rel="apple-touch-icon" sizes="57x57" />
   <link href="assets/favicon-72.png" rel="apple-touch-icon" sizes="72x72" />
   <link href="assets/favicon-114.png" rel="apple-touch-icon" sizes="114x114" />
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 <body class='documentation fill-light'>
   <div class='max-width-4 mx-auto'>
-    <nav class='px2'>
+    <nav class='px2 relative'>
       <img src="assets/roli-monogram.svg" alt="<%- options.name %>" class="logo" />
+      <div style='position: absolute; z-index: 2; right: 135px; top: 10px; opacity: 0.98;'>
+        <div class='fixed'>
+          <a style='display: none;' class='github-button' href='https://github.com/weareroli/mpejs' data-icon='octicon-star' data-style='mega' data-count-href='/weareroli/mpejs/stargazers' data-show-count='true' data-count-aria-label='# stargazers on GitHub' aria-label='Star weareroli/mpejs on GitHub'>Star</a>
+        </div>
+      </div>
+      <div class='blur' />
     </nav>
     <div class='clearfix md-mxn2 mt3'>
       <div class='fixed sm-hide xs-hide fix-3 overflow-auto max-height-100'>
         <div class='pl2 pb4'>
           <h1 class='library-name stroke-light rounded p1'>
-            <small class="right"><%= packageJson.version %></small>
-            <%- options.name %>
+            <small class="right">
+              <a class='black' href="https://github.com/WeAreROLI/mpejs/commits/master">
+                <%= packageJson.version %>
+              </a>
+            </small>
+            <a class='black' href='https://github.com/WeAreROLI/mpejs'>
+              <%- options.name %>
+              <br><small class='quiet'>View on GitHub</small>
+            </a>
           </h1>
-          <div id='toc' class='mt1'>
+          <div id='toc' class='mt1 ml1'>
             <ul class='list-reset h5'>
               <% docs.forEach(function(doc) { %>
                 <% var hasMembers = doc.members.static.length || doc.members.instance.length %>
-                <li class="<% if (doc.kind === 'note') { %>mt1<% } %>">
+                <li class="<% if (doc.kind === 'note') { %>mt1<% } else { %>ml1 mb2<% } %>">
                   <a
                     href='#<%=doc.namespace%>'
-                    class="block<% if (doc.kind === 'note') { %> bold black caps<% } %>">
+                    class="block<% if (doc.kind === 'note') { %> bold black caps<% } else { %> code<% } %>">
                     <%- doc.name %>
                   </a>
                 <% if (hasMembers) { %>
                 <div>
                   <% if (doc.members.static && doc.members.static.length) { %>
-                  <ul class='list-reset pl2'>
+                  <ul class='list-reset pl1'>
                     <% doc.members.static.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
-                        class='regular pre-open'>
+                        class='regular pre-open code'>
                         .<%- member.name %>
                       </a></li>
                     <% }) %>
                     </ul>
                   <% } %>
                   <% if (doc.members.instance && doc.members.instance.length) { %>
-                    <ul class='list-reset pl2'>
+                    <ul class='list-reset'>
                       <% doc.members.instance.forEach(function(member) { %>
                       <li><a
                         href='#<%=member.namespace%>'
-                        class='regular pre-open'>
+                        class='regular pre-open code'>
                         #<%- member.name %>
                       </a></li>
                       <% }) %>
                     </ul>
                   <% } %>
                   <% if (doc.members.events && doc.members.events.length) { %>
-                    <ul class='list-reset pl2'>
+                    <ul class='list-reset pl1'>
                       <li class='h5'>Events</li>
                       <% doc.members.events.forEach(function(member) { %>
                         <li><a
                           href='#<%=member.namespace%>'
-                          class='regular pre-open'>
+                          class='regular pre-open code'>
                           ⓔ <%- member.name %>
                         </a></li>
                       <% }) %>
@@ -81,23 +95,39 @@
               <% }) %>
             </ul>
           </div>
-          <div class='mt1 quiet xsmall'>
+          <% /* <div class='mt1 quiet xsmall'>
             <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
-          </div>
+          </div> */ %>
         </div>
       </div>
-      <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
+      <% /* <div class="xs-hide sm-hide fixed fix-3 fix-bottom  ml1 p1 fill-light stroke-light">
         <input
           placeholder='Filter'
           id='filter-input'
           class='input stroke-light rounded'
           type='text' />
-      </div>
+      </div> */ %>
       <div class='fix-margin-3'>
-        <div class='px2 mt1'>
-          <h2 class='library-description pb1'>
-            <%= packageJson.description %>
-          </h2>
+        <div class='px2'>
+          <div id='demo'>
+            <div class='tab-wrapper'>
+              <div class='visualizer-wrapper'>
+                <video id='mpe-video' class='visualizer' src='https://d30pueezughrda.cloudfront.net/mpe.js/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+              </div>
+              <pre class='tab-child' id='midi-input'></pre>
+            </div>
+            <div class='tab-wrapper'>
+              <div id='mpe-visualizer-wrapper' class='visualizer-wrapper'>
+                <canvas class='visualizer' id='mpe-visualizer'></canvas>
+              </div>
+              <pre class='tab-child' id='mpe-output'></pre>
+            </div>
+          </div>
+          <div class='mt4 mb1 top'>
+            <h2 class='library-description pb1 quiet inline-block'>
+              <%= packageJson.description %>
+            </h2>
+          </div>
           <% docs.forEach(function(s) { %>
             <% if (s.kind !== 'note') { %>
               <%= renderSection({
@@ -115,6 +145,11 @@
   </div>
   <script src='assets/anchor.js'></script>
   <script src='assets/site.js'></script>
+  <!-- demo deps -->
+  <script src='assets/mpe.min.js'></script>
+  <script src='assets/waa-clock.js'></script>
+  <!-- demo -->
+  <script src='assets/mpe-demo.js'></script>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

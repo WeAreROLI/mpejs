@@ -3,7 +3,11 @@ import * as defaults from './constants/defaults';
 import * as types from './constants/actionTypes';
 import { dataBytesToUint14 } from './utils/dataByteUtils';
 
-export function generateMidiActions(midiMessage, currentStateCallback) {
+export const clearActiveNotes = () => ({
+  type: types.ALL_NOTES_OFF,
+});
+
+export const generateMidiActions = (midiMessage, currentStateCallback) => {
   const channel = statusByteToChannel(midiMessage[0]);
   const dataBytes = midiMessage.slice(1);
 
@@ -16,9 +20,9 @@ export function generateMidiActions(midiMessage, currentStateCallback) {
     return [mainAction, { type: types.NOTE_RELEASED }];
   }
   return [mainAction];
-}
+};
 
-function deriveActionType(midiMessageType, channel, dataBytes) {
+const deriveActionType = (midiMessageType, channel, dataBytes) => {
   switch (midiMessageType) {
     case types.NOTE_ON:
       // A note on with velocity 0 is a treated as a note off
@@ -30,9 +34,9 @@ function deriveActionType(midiMessageType, channel, dataBytes) {
       if (dataBytes[0] === 123 && channel === 1) return types.ALL_NOTES_OFF;
   }
   return midiMessageType;
-}
+};
 
-function deriveTypeSpecificData(baseData, currentStateCallback) {
+const deriveTypeSpecificData = (baseData, currentStateCallback) => {
   const { type, midiMessageType, channel, dataBytes } = baseData;
   switch (type) {
     case types.NOTE_ON: {
@@ -53,4 +57,4 @@ function deriveTypeSpecificData(baseData, currentStateCallback) {
     case types.CHANNEL_PRESSURE:
       return { pressure: dataBytesToUint14(dataBytes) };
   }
-}
+};

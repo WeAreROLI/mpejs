@@ -3,7 +3,8 @@
 var remark = require('remark'),
   html = require('remark-html'),
   visit = require('unist-util-visit'),
-  utils = require('documentation-theme-utils');
+  utils = require('documentation-theme-utils'),
+  packageJson = require('../../../package.json');
 
 function getHref(paths) {
   return function (text) {
@@ -17,6 +18,15 @@ function rerouteLinks(ast) {
   visit(ast, 'link', function (node) {
     if (node.jsdoc && !node.url.match(/^(http|https|\.)/)) {
       node.url = '#' + node.url;
+    }
+  });
+  return ast;
+}
+
+function replaceVersion(ast) {
+  visit(ast, 'text', function (node) {
+    if (node.value.match('{PACKAGE_JSON_VERSION}')) {
+      node.value = node.value.replace('{PACKAGE_JSON_VERSION}', packageJson.version);
     }
   });
   return ast;
@@ -37,7 +47,7 @@ function rerouteLinks(ast) {
  */
 module.exports = function (ast) {
   if (ast) {
-    return remark().use(html).stringify(rerouteLinks(ast));
+    return remark().use(html).stringify(rerouteLinks(replaceVersion(ast)));
   }
 };
 

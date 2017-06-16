@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as library from '../../lib';
+import mpeInstrument from '../../lib';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -39,7 +39,7 @@ describe('mpeInstrument', () => {
   describe('initialization options', () => {
     describe('default', () => {
       beforeEach(() => {
-        instrument = library.mpeInstrument();
+        instrument = mpeInstrument();
         sinon.stub(console, 'log');
       });
       it('doesn\'t log a note creation event by default', () => {
@@ -54,7 +54,7 @@ describe('mpeInstrument', () => {
     });
     describe('log', () => {
       beforeEach(() => {
-        instrument = library.mpeInstrument({ log: true });
+        instrument = mpeInstrument({ log: true });
         sinon.stub(console, 'log');
       });
       it('logs a note creation event', () => {
@@ -79,11 +79,195 @@ describe('mpeInstrument', () => {
         }
       });
     });
+    describe('normalize', () => {
+      beforeEach(() => {
+        instrument = mpeInstrument({ normalize: true, pitchBendRange: null });
+      });
+      it('should have normalized timbre values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes()[0].timbre).to.eq(0.5);
+        expect(instrument.activeNotes()[1].timbre).to.eq(0.5);
+      });
+      it('should have normalized noteOnVelocity values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes()[0].noteOnVelocity).to.eq(1);
+        expect(instrument.activeNotes()[1].noteOnVelocity).to.eq(1);
+      });
+      it('should have normalized pitch bend values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes()[0].pitchBend).to.eq(0);
+        expect(instrument.activeNotes()[1].pitchBend).to.eq(0);
+      });
+      it('should have normalized pressure values', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes()[0].pressure).to.eq(0);
+        expect(instrument.activeNotes()[1].pressure).to.eq(0);
+      });
+      it('should have normalized noteOffVelocity values', () => {
+        let states = [];
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.subscribe(newState => states = [...states, newState]);
+        instrument.processMidiMessage(NOTE_OFF_1);
+        expect(states.length).to.equal(2);
+        expect(states[0][0].noteOffVelocity).to.equal(1);
+      });
+      it('should follow normal note update and removal behaviours', () => {
+        instrument.processMidiMessage(NOTE_ON_1);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes()[0].timbre).to.eq(0.5);
+        expect(instrument.activeNotes()[1].timbre).to.eq(0.5);
+        instrument.processMidiMessage(TIMBRE);
+        expect(instrument.activeNotes().length).to.eq(2);
+        expect(instrument.activeNotes()[1].timbre).to.eq(1);
+        instrument.processMidiMessage(NOTE_OFF_2);
+        expect(instrument.activeNotes().length).to.eq(1);
+        instrument.processMidiMessage(NOTE_OFF_1);
+        expect(instrument.activeNotes().length).to.eq(0);
+      });
+      it('should normalize channel scope midi messages', () => {
+        instrument.processMidiMessage(TIMBRE);
+        instrument.processMidiMessage(PITCH_BEND);
+        instrument.processMidiMessage(NOTE_ON_2);
+        expect(instrument.activeNotes()[0].timbre).to.eq(1);
+        expect(instrument.activeNotes()[0].pitchBend).to.eq(1);
+      });
+    });
+    describe('pitch', () => {
+      const noteOn = noteNumber => new Uint8Array([0x91, noteNumber, 127]);
+      const EXPECTED_PITCH_CONVERSIONS = [
+        { noteNumber: 0,   scientific: 'C-1',  helmholtz: 'C,,,' },
+        { noteNumber: 1,   scientific: 'C#-1', helmholtz: 'C#,,,' },
+        { noteNumber: 60,  scientific: 'C4',   helmholtz: 'c\'' },
+        { noteNumber: 63,  scientific: 'Eb4',  helmholtz: 'eb\'' },
+        { noteNumber: 66,  scientific: 'F#4',  helmholtz: 'f#\'' },
+        { noteNumber: 69,  scientific: 'A4',   helmholtz: 'a\'' },
+        { noteNumber: 127, scientific: 'G9',   helmholtz: 'g\'\'\'\'\'\'' },
+      ];
+      describe('true', () => {
+        beforeEach(() => {
+          instrument = mpeInstrument({ pitch: true });
+        });
+        it('should add pitch string to active notes', () => {
+          instrument.processMidiMessage(NOTE_ON_1);
+          instrument.processMidiMessage(NOTE_ON_2);
+          expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
+        });
+        it('should alias pitch \'scientific\'', () => {
+          const instruments = [instrument, mpeInstrument({ pitch: 'scientific' })];
+          EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, scientific }) => {
+            instruments.forEach(i => i.processMidiMessage(noteOn(noteNumber)));
+            expect(instruments[0].activeNotes()[0].pitch).to.eq(instruments[0].activeNotes()[0].pitch);
+            instruments.forEach(i => i.clear());
+          });
+        });
+      });
+      describe('\'scientific\'', () => {
+        beforeEach(() => {
+          instrument = mpeInstrument({ pitch: 'scientific' });
+        });
+        it('should add pitch string to active notes', () => {
+          instrument.processMidiMessage(NOTE_ON_1);
+          instrument.processMidiMessage(NOTE_ON_2);
+          expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
+        });
+        it('should match expected results', () => {
+          EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, scientific }) => {
+            instrument.processMidiMessage(noteOn(noteNumber));
+            expect(instrument.activeNotes()[0].pitch).to.eq(scientific);
+            instrument.clear();
+          });
+        });
+      });
+      describe('\'helmholtz\'', () => {
+        beforeEach(() => {
+          instrument = mpeInstrument({ pitch: 'helmholtz' });
+        });
+        it('should add pitch string to active notes', () => {
+          instrument.processMidiMessage(NOTE_ON_1);
+          instrument.processMidiMessage(NOTE_ON_2);
+          expect(instrument.activeNotes().every(n => typeof n.pitch === 'string')).to.be.true;
+        });
+        it('should match expected results', () => {
+          EXPECTED_PITCH_CONVERSIONS.forEach(({ noteNumber, helmholtz }) => {
+            instrument.processMidiMessage(noteOn(noteNumber));
+            expect(instrument.activeNotes()[0].pitch).to.eq(helmholtz);
+            instrument.clear();
+          });
+        });
+      });
+      [false, null].forEach(pitch => {
+        describe(pitch, () => {
+          beforeEach(() => {
+            instrument = mpeInstrument({ pitch });
+          });
+          it('should leave active note pitch property undefined', () => {
+            instrument.processMidiMessage(NOTE_ON_1);
+            instrument.processMidiMessage(NOTE_ON_2);
+            expect(instrument.activeNotes().every(n => typeof n.pitch === 'undefined')).to.be.true;
+          });
+        });
+      });
+    });
+    describe('pitchBendRange', () => {
+      const PITCH_BEND_MAX = new Uint8Array([0xe1, 127, 127]);
+      const PITCH_BEND_MIN = new Uint8Array([0xe1, 0, 0]);
+      const PITCH_BEND_MID = new Uint8Array([0xe1, 0, 64]);
+      const NOTE_ON = new Uint8Array([0x91, 60, 127]);
+      const EXPECTED_PITCH_CONVERSIONS = [0.5, 1, 12, 24, '48'];
+      EXPECTED_PITCH_CONVERSIONS.forEach(pitchBendRange => {
+        describe(pitchBendRange, () => {
+          beforeEach(() => {
+            instrument = mpeInstrument({ pitchBendRange });
+          });
+          it(`returns ${pitchBendRange} as max value`, () => {
+            instrument.processMidiMessage(PITCH_BEND_MAX);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(parseFloat(pitchBendRange));
+          });
+          it(`returns -${pitchBendRange} as min value`, () => {
+            instrument.processMidiMessage(PITCH_BEND_MIN);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(-parseFloat(pitchBendRange));
+          });
+          it('returns 0 as center value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MID);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(0);
+          });
+        });
+      });
+      [false, null].forEach(pitchBendRange => {
+        describe(pitchBendRange, () => {
+          beforeEach(() => {
+            instrument = mpeInstrument({ pitchBendRange, normalize: false });
+          });
+          it('returns 16383 as max value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MAX);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(16383);
+          });
+          it('returns 0 as min value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MIN);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(0);
+          });
+          it('returns 8192 as center value', () => {
+            instrument.processMidiMessage(PITCH_BEND_MID);
+            instrument.processMidiMessage(NOTE_ON);
+            expect(instrument.activeNotes()[0].pitchBend).to.equal(8192);
+          });
+        });
+      });
+    });
   });
   /* eslint-enable no-console */
   describe('#activeNotes()', () => {
     beforeEach(() => {
-      instrument = library.mpeInstrument();
+      instrument = mpeInstrument();
     });
     it('returns an empty array on initialization', () => {
       expect(instrument.activeNotes()).to.be.instanceof(Array);
@@ -92,7 +276,7 @@ describe('mpeInstrument', () => {
   });
   describe('#processMidiMessage()', () => {
     beforeEach(() => {
-      instrument = library.mpeInstrument();
+      instrument = mpeInstrument({ normalize: false, pitchBendRange: null });
     });
     it('creates an active note given a note on', () => {
       instrument.processMidiMessage(NOTE_ON_1);
@@ -124,7 +308,7 @@ describe('mpeInstrument', () => {
     it('registers note off velocity', () => {
       let states = [];
       instrument.processMidiMessage(NOTE_ON_1);
-      instrument.subscribe((newState) => states = [...states, newState]);
+      instrument.subscribe(newState => states = [...states, newState]);
       instrument.processMidiMessage(NOTE_OFF_1);
       expect(states.length).to.equal(2);
       expect(states[0][0].noteOffVelocity).to.equal(127);
@@ -132,7 +316,7 @@ describe('mpeInstrument', () => {
     it('treats a zero velocity note on as a middle velocity note off', () => {
       let states = [];
       instrument.processMidiMessage(NOTE_ON_1);
-      instrument.subscribe((newState) => states = [...states, newState]);
+      instrument.subscribe(newState => states = [...states, newState]);
       instrument.processMidiMessage(NOTE_OFF_1_ZERO_VELOCITY);
       expect(states.length).to.equal(2);
       expect(states[1].length).to.equal(0);
@@ -234,9 +418,9 @@ describe('mpeInstrument', () => {
   });
   describe('#subscribe()', () => {
     beforeEach(() => {
-      instrument = library.mpeInstrument();
+      instrument = mpeInstrument();
       states = [];
-      instrument.subscribe((newState) => states = [...states, newState]);
+      instrument.subscribe(newState => states = [...states, newState]);
     });
     it('is triggered by note on and off messages', () => {
       instrument.processMidiMessage(NOTE_ON_1);
@@ -259,6 +443,15 @@ describe('mpeInstrument', () => {
     it('ignores note off messages with no effect', () => {
       instrument.processMidiMessage(NOTE_OFF_1);
       expect(states.length).to.equal(0);
+    });
+  });
+  describe('#clear()', () => {
+    it('clears all active notes', () => {
+      instrument.processMidiMessage(NOTE_ON_1);
+      instrument.processMidiMessage(NOTE_ON_2);
+      expect(instrument.activeNotes().length).to.equal(2);
+      instrument.clear();
+      expect(instrument.activeNotes().length).to.equal(0);
     });
   });
 });

@@ -10,6 +10,10 @@
     "sourceType": "module",
   },
   "rules": {
+    "arrow-parens": [
+      "error",
+      "as-needed",
+    ],
     "comma-dangle": [
       "error",
       "always-multiline",
@@ -30,10 +34,15 @@
     ],
     "valid-jsdoc": [
       "error",
+      { "requireParamDescription": false },
     ],
     "semi": [
       "error",
       "always",
-    ]
+    ],
+    "no-unused-vars": [
+      "error",
+      { "args": "none" },
+    ],
   }
 }

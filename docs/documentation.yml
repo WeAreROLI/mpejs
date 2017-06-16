@@ -1,51 +1,102 @@
 toc:
-  - name: Introduction
+  - name: Installation
     description:
-      "[MPE](#MPE) (Multidimensional Polyphonic Expression) is a widely adopted
-      iteration upon MIDI 1.0.\n\n
+      "To install the latest version of mpe.js:
+      <pre class='p1 mb1'>npm install --save mpe</pre>\n
 
-      By assigning conventional note on/off messages into “note channels”, the
-      [MPE proposed
-      specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
-      enables continuous control parameters to be attached to individual active
-      notes. These parameters can be used to represent continuously changing
-      per-note pitch bend, pressure and timbre.\n\n
+      To use without a package manager:
+      <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe@{PACKAGE_JSON_VERSION}/lib/mpe.min.js'>&lt;/script></pre>"
 
-      The working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
-      Roger Linn Design. It is currently implemented in ROLI’s Equator and NOISE
-      software synthesizers, as well as Logic X, Bitwig Studio and Cubase.\n\n
-
-      A C++ implementation is also available, included in
-      [JUCE](https://juce.com)."
-
-  - name: Getting started
+  - name: Quick start
     description:
-      "To install the latest version of mpe.js:  \n
-      `npm install --save mpe`\n\n
+      "
+      Once installed from npm, mpe.js can be used in any of these ways.
 
-      It is recommended to use mpe.js via [ES2015’s module
-      system](https://developer.mozilla.org/en/docs/web/javascript/reference/statements/import)
-      (via [Babel](http://babeljs.io/) or [Node.js](https://nodejs.org/en/) v6+)
-      or as a CommonJS module (for ES5 users using
-      [webpack](http://webpack.github.io/) or
-      [Browserify](http://browserify.org/)).\n\n
+      * ES2015 module (recommended)
+      <pre class='p1 mb1'>import mpeInstrument from 'mpe';</pre>
 
-      If you don’t use a module bundler, that’s also fine. The `lib` folder of
-      the mpe.js node package also includes a version of the library that can be
-      used directly as a `<script>` tag. Both `mpe.js` and `mpe.min.js` can be
-      used in this way, and will assign the library contents to the global
-      variable `mpe`."
+      * CommonJS module
+      <pre class='p1 mb1'>var mpeInstrument = require('mpe');</pre>
 
-  - name: MPE tools
-    description:
-      "The included [mpeInstrument](#mpeInstrument) function is designed to
-      model MPE compatible instruments."
+      * Script tag
+      <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js'>&lt;/script></pre>
+
+      <small>*Note*: Using `lib/mpe.min.js` or `lib/mpe.min.js` via a script tag will assign
+      module contents to `window.mpe`.</small>"
+
+  - name: API
 
   - mpeInstrument
 
-  - name: Other utilities
+  - name: FAQs
     description:
-      "Alongside, offering JavaScript support for [MPE MIDI](#MPE), mpe.js
-      includes a small number of other music utilities."
+      "
+      ### What is MPE?\n\n
 
-  - recorder
+      MPE stands for “MIDI Polyphonic Expression” and is an extension of MIDI
+      1.0.\n\n
+
+      ### How does MPE differ from MIDI 1.0?\n\n
+
+      MPE allows individual notes to have independent pitch bend values whereas
+      MIDI 1.0 only allows these to be set globally for all voices at once.\n\n
+
+      Instruments following the [MPE proposed specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit)
+      assign conventional note on/off messages into “note channels”.\n\n
+
+      ### What MPE controllers and MPE compatible software is currently available?
+
+      ROLI’s [Seaboard](https://roli.com/products/seaboard) and
+      [BLOCKS](https://roli.com/products/blocks) controllers, the Haken
+      Continuum and the Linnstrument are all MPE compatible.\n\n
+
+      The MPE working group is supported by ROLI, Apple, Bitwig, Moog, Haken and
+      Roger Linn Design. MPE is currently implemented in Logic X, Bitwig Studio
+      and Cubase, as well as ROLI’s Equator and NOISE software synths.\n\n
+
+      ### How does mpe.js help in building an MPE compatible web app?\n\n
+
+      An mpe.js [`mpeInstrument`](#mpeInstrument) instance accepts MPE messages
+      as input and returns a standardized representation of the current touch
+      state described. MPE messages are reduced to a sorted array of “active
+      note” objects with named properties that update in response to new input
+      messages.\n\n
+
+      Without mpe.js, a developer would need to process individual MPE messages,
+      apply bitwise operations to derive the message's meaning (with reference
+      to the [MPE proposed specification](https://docs.google.com/document/d/1vpjxoPHw82X3xyNvE6_hsDeL86vloNQZC83NHD8edow/edit))
+      and then apply the derived instruction to a manually collected
+      representation of the instrument state.\n\n
+
+      ### What's the difference between an MPE message and a standard MIDI message?\n\n
+
+      None. For the purpose of backwards compatibility, MPE only changes the
+      convention by which messages are interpretted rather than MIDI
+      communication protocol itself. An MPE message is a 1–3 byte message that
+      can be sent and received in all the same ways.\n\n
+
+      ### Can I use mpe.js with MIDI 1.0?\n\n
+
+      Yes. Whilst certain parameters won't be relevant – `timbre`, for example –
+      mpe.js's touch state representation is fully backwards compatible
+      with MIDI 1.0 instruments.\n\n
+
+      ### Do I have to use this with the Web MIDI API?\n\n
+
+      No. mpe.js can be used to simplify reading recorded MPE data in the browser
+      without depending on [Web MIDI API](https://webaudio.github.io/web-midi-api/)
+      for live input. It can also be used in node.js, either for offline usage,
+      or processing live input via I/O libraries such as
+      [node-midi](https://github.com/justinlatimer/node-midi).\n\n
+
+      ### Why would I build a synth/visualisation/music web application
+      using browsers or node.js?\n\n
+
+      We've found JavaScript tools to be a convenient medium for prototyping and
+      see potential beyond that for the future. Whilst there is cause for
+      excitement in the area, your mileage may vary.\n\n
+
+      ### Are there tools to use MPE in other programming languages?\n\n
+
+      Yes! A C++ implementation is included in [JUCE](https://juce.com).\n\n
+      "
