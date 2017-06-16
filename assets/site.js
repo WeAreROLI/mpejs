@@ -8,7 +8,7 @@ anchors.add('h3');
 var tocElements = document.getElementById('toc')
   .getElementsByTagName('li');
 
-document.getElementById('filter-input')
+document.getElementById('filter-input') && document.getElementById('filter-input')
   .addEventListener('keyup', function (e) {
 
     var i, element, children;
