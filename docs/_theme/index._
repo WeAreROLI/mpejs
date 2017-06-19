@@ -2,7 +2,13 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title><%- options.name %> | Documentation</title>
+  <title><%- options.name %></title>
+  <meta name='description' content='Next Generation MIDI for the Web'>
+  <meta name='keywords' content='MIDI,MPE,JavaScript,node.js'>
+  <meta name='author' content='ROLI'>
+  <meta property='og:title' content='mpe.js'/>
+  <meta property='og:description' content='Next Generation MIDI for the Web'/>
+  <meta property='og:image' content='https://d30pueezughrda.cloudfront.net/mpe.js/mpe-og-image.jpg'/>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400italic,500|Fira+Mono' rel='stylesheet' type='text/css'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
@@ -112,7 +118,7 @@
           <div id='demo'>
             <div class='tab-wrapper'>
               <div class='visualizer-wrapper'>
-                <video id='mpe-video' class='visualizer' src='https://d30pueezughrda.cloudfront.net/mpe.js/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+                <video id='mpe-video' class='visualizer' muted playsinline loop width='220' height='260'></video>
               </div>
               <pre class='tab-child' id='midi-input'></pre>
             </div>
@@ -145,6 +151,9 @@
   </div>
   <script src='assets/anchor.js'></script>
   <script src='assets/site.js'></script>
+  <script>
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  </script>
   <!-- demo deps -->
   <script src='assets/mpe.min.js'></script>
   <script src='assets/waa-clock.js'></script>
