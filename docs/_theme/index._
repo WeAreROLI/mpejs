@@ -118,7 +118,7 @@
           <div id='demo'>
             <div class='tab-wrapper'>
               <div class='visualizer-wrapper'>
-                <video id='mpe-video' class='visualizer' src='https://d30pueezughrda.cloudfront.net/mpe.js/mpe-demo.mp4' autoplay loop width='220' height='260'></video>
+                <video id='mpe-video' class='visualizer' src='https://d30pueezughrda.cloudfront.net/mpe.js/mpe-demo.mp4' muted autoplay loop width='220' height='260'></video>
               </div>
               <pre class='tab-child' id='midi-input'></pre>
             </div>
@@ -151,6 +151,9 @@
   </div>
   <script src='assets/anchor.js'></script>
   <script src='assets/site.js'></script>
+  <script>
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  </script>
   <!-- demo deps -->
   <script src='assets/mpe.min.js'></script>
   <script src='assets/waa-clock.js'></script>

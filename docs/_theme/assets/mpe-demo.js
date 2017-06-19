@@ -1,4 +1,3 @@
-var AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new AudioContext();
 var clock = new window.WAAClock(context);
 var mpeInstrument = new window.mpe();
@@ -180,20 +179,6 @@ function renderMpeVisualizer() {
     mpeCtx.stroke();
   });
 }
-
-// tabButtons.forEach(function(button) {
-//   button.addEventListener('mouseup', function (e) {
-//     tabButtons.concat(tabChildren).forEach(function(_button) {
-//       _button.classList.remove('active');
-//     });
-//     activeTab = e.target.dataset.tab;
-//     e.target.classList.add('active');
-//     var matchingTab = tabChildren.filter(function(tabChild) {
-//       return tabChild.id === e.target.dataset.tab;
-//     })[0];
-//     if (matchingTab) matchingTab.classList.add('active');
-//   });
-// });
 
 function render(t) {
   if (window.innerWidth > 600) {
