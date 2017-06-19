@@ -460,6 +460,15 @@ h3 {
   margin-top: 3rem;
 }
 
+h3:before {
+  content: '';
+  display: block;
+  position: relative;
+  width: 0;
+  height: 6rem;
+  margin-top: -6rem;
+}
+
 h3:nth-of-type(1) {
   margin-top: 1.5rem;
 }
