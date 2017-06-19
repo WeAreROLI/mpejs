@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.0.1] - 2017-06-109
+### Fixed
+- Fixed documentation browser compatibility issues.
+
 ## [1.0.0] - 2017-06-16
 ### Added
 - Added `normalize` option to `mpeInstrument`.
@@ -18,3 +22,4 @@ scaled rather than raw 14-bit integers.
 - Removed `recorder` class.
 
 [1.0.0]: https://github.com/WeAreRoli/mpejs/compare/v0.1.8...v1.0.0
+[1.0.1]: https://github.com/WeAreRoli/mpejs/compare/v1.0.0...v1.0.1
