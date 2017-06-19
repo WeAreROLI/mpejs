@@ -1,9 +1,12 @@
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .tab-wrapper {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -14,9 +17,12 @@
   font-size: 0.55rem;
   background-color: white;
   color: rgba(0, 0, 0, 0.9);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  flex: 5;
+  -webkit-box-flex: 5;
+      -ms-flex: 5;
+          flex: 5;
 }
 
 .visualizer-wrapper {
@@ -24,17 +30,27 @@
   width: 220px;
   border-radius: 4px;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #demo {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 #mpe-video {
-  object-fit: fill;
+  -o-object-fit: fill;
+     object-fit: fill;
   border: solid 1px rgba(0,0,0,0.1);
 }
 
@@ -49,54 +65,27 @@
 
 
 @media (max-width: 600px) {
-  .tab-wrapper {
-    justify-content: center;
-    flex: 1 1 auto;
-    height: auto;
-  }
-  .tab-child {
+  #demo {
     display: none;
   }
-  .visualizer-wrapper {
-    border-radius: 0;
-    box-shadow: none;
-    flex: 1 1 auto;
-    width: 50vw;
-    height: auto;
-  }
-  #demo {
-    flex-direction: row;
-    position: absolute;
-    top: 48px;
-    left: 0;
-    right: 0;
-  }
-  #mpe-video {
-    border: none;
-    width: 50vw;
-    height: auto;
-  }
-  .visualizer {
-    flex: 1 1 auto;
-    width: 50vw !important;
-    height: auto !important;
-  }
-  #mpe-visualizer {
-    margin-top: -6px;
-    height: 70% !important;
-  }
   .top {
-    margin-top: 36vh;
+    margin-top: 0;
   }
 }
 
 #mpe-visualizer-wrapper {
   background-color: #4f4f4f;
-  box-shadow: inset 0 0 0 1px #303030;
+  -webkit-box-shadow: inset 0 0 0 1px #303030;
+          box-shadow: inset 0 0 0 1px #303030;
 }
 #mpe-visualizer {
   height: 185px;
   width: 220px;
+}
+
+@-webkit-keyframes fade-text {
+  from { color: rgba(0,0,0,0.9) }
+  to { color: rgba(0,0,0,0) }
 }
 
 @keyframes fade-text {
@@ -114,11 +103,13 @@
 }
 #mpe-output > span {
   color: rgba(0, 0, 0, 0);
-  animation: fade-text 1s ease-in 1;
+  -webkit-animation: fade-text 1s ease-in 1;
+          animation: fade-text 1s ease-in 1;
 }
 #midi-input > span {
   color: rgba(0, 0, 0, 0);
-  animation: fade-text 0.5s ease-in 1;
+  -webkit-animation: fade-text 0.5s ease-in 1;
+          animation: fade-text 0.5s ease-in 1;
 }
 
 pre.tab-child {
@@ -162,10 +153,10 @@ pre.tab-child > span {
 
 .caret-right {
   color: rgba(0, 0, 0, 0.6);
-  -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
-  filter: FlipH;
+  -webkit-filter: FlipH;
+          filter: FlipH;
   -ms-filter: "FlipH";
 }
 
@@ -354,7 +345,8 @@ h4:hover .anchorjs-link {
 .note code {
   color: rgba(0, 0, 0, 0.9);
   background-color: white;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   padding: 2px 5px;
   border-radius: 4px;
 }
@@ -390,11 +382,13 @@ p > .pre, p > pre, p > code, p > .code {
 }
 
 .stroke-mid {
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+          box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 .stroke-light {
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .fill-white {
@@ -425,10 +419,12 @@ ul {
   height: 2.25rem;
   padding: .375rem .75rem;
   background-color: rgba(255, 255, 255, 1);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);;
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);;
   border: none;
   font-size: .875rem;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   outline: none !important;
   bottom: 0;
 }
