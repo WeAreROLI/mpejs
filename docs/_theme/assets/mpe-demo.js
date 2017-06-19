@@ -39,6 +39,12 @@ var timedMidi = [[1400,226,0,64],[0,178,74,36],[0,146,62,47],[22,226,16,64],[22,
 function onPlaying() {
   var eventTime = 0;
 
+  if (video.currentTime) {
+    video.pause();
+    video.currentTime = 0;
+    video.play();
+  }
+
   mpeInstrument.clear();
   clock.stop();
   clock.start();
@@ -47,14 +53,21 @@ function onPlaying() {
     var message = event.slice(1);
     eventTime += deltaTime;
     clock.setTimeout(e => {
-      var newSpan = document.createElement('span');
-      newSpan.innerHTML = JSON.stringify(message);
-      newMidiMessages.push(newSpan);
+      if (window.innerWidth > 600) {
+        var newSpan = document.createElement('span');
+        newSpan.innerHTML = JSON.stringify(message);
+        newMidiMessages.push(newSpan);
+      }
       mpeInstrument.processMidiMessage(message);
     }, BEAT_LENGTH_S * eventTime / BEAT_LENGTH_TICKS);
   });
 }
 video.addEventListener('playing', onPlaying);
+window.addEventListener('touchend', function safariFix() {
+  video.play();
+  onPlaying();
+  this.removeEventListener('touchend', safariFix);
+});
 
 function renderMpe() {
   var activeNotes = mpeInstrument.activeNotes();
@@ -182,10 +195,14 @@ function renderMpeVisualizer() {
 
 function render(t) {
   if (window.innerWidth > 600) {
+    if (!video.src) {
+      video.src = 'https://d30pueezughrda.cloudfront.net/mpe.js/mpe-demo.mp4';
+    }
+    video.currentTime === 0 && video.readyState > 2 && video.play();
     renderMpe();
     renderMidi();
+    renderMpeVisualizer();
   }
-  renderMpeVisualizer();
   window.requestAnimationFrame(render);
 }
 render();
