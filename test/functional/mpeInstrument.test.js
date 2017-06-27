@@ -1,9 +1,10 @@
 import { expect } from 'chai';
-import mpeInstrument from '../../lib';
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 chai.use(sinonChai);
+
+import mpeInstrument from '../../lib';
 
 // A c' note on, max velocity, on channel 2.
 const NOTE_ON_1 = new Uint8Array([0x91, 60, 127]);
