@@ -18,7 +18,7 @@ toc:
       * Script tag
       <pre class='p1 mb1'>&lt;script src='path/to/mpe/lib/mpe.min.js'>&lt;/script></pre>
 
-      <small>*Note*: Using `lib/mpe.min.js` or `lib/mpe.min.js` via a script tag will assign
+      <small>*Note*: Using `lib/mpe.js` or `lib/mpe.min.js` via a script tag will assign
       module contents to `window.mpe`.</small>"
 
   - name: API
