@@ -2,18 +2,24 @@ general:
   branches:
     ignore:
       - gh-pages
+dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
 machine:
   environment:
     USER_NAME: odub
     USER_EMAIL: oscardub@gmail.com
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
     version: 8.2.0
 test:
   override:
-    - npm run build
-    - npm run lint
-    - npm run test
-    - npm run docs:build
+    - yarn run build
+    - yarn run lint
+    - yarn run test
+    - yarn run docs:build
 deployment:
   production:
     branch: master
