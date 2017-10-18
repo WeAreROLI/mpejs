@@ -7,7 +7,7 @@ machine:
     USER_NAME: odub
     USER_EMAIL: oscardub@gmail.com
   node:
-    version: 4.2.2
+    version: 8.2.0
 test:
   override:
     - npm run build
