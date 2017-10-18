@@ -14,15 +14,16 @@ import rootReducer from './reducers';
  * // Define `instrument` as an instance of `mpeInstrument`
  * const instrument = mpeInstrument();
  *
- * // 1) Request MIDI device access from the Web MIDI API
- * // 2) Take the first `MIDIInput` from the available MIDI `inputMap`
- * // 3) Send input messages from this input to `instrument`
+ * // Request MIDI device access from the Web MIDI API
  * navigator.requestMIDIAccess().then(access => {
- *   const midiInput = access.inputMap.values().next();
- *   midiInput.addEventListener(
- *     'midimessage',
- *     (event) => instrument.processMidiMessage(event.data)
- *   );
+ *   // Iterate over the list of inputs returned
+ *   access.inputs.forEach(midiInput => {
+ *     // Send 'midimessage' events to the mpe.js `instrument` instance
+ *     midiInput.addEventListener(
+ *       'midimessage',
+ *       (event) => instrument.processMidiMessage(event.data)
+ *     );
+ *   });
  * });
  * @param {Object} options
  * @param {Boolean} [options.log=false] Log instrument state to the console on

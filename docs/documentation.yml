@@ -4,6 +4,9 @@ toc:
       "To install the latest version of mpe.js:
       <pre class='p1 mb1'>npm install --save mpe</pre>\n
 
+      Or using yarn:
+      <pre class='p1 mb1'>yarn add mpe</pre>\n
+
       To use without a package manager:
       <pre class='p1 mb1'>&lt;script src='//unpkg.com/mpe@{PACKAGE_JSON_VERSION}/lib/mpe.min.js'>&lt;/script></pre>"
 
