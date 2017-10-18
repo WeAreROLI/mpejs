@@ -41,7 +41,7 @@
           <h1 class='library-name stroke-light rounded p1'>
             <small class="right">
               <a class='black' href="https://github.com/WeAreROLI/mpejs/commits/master">
-                1.0.2
+                1.0.3
               </a>
             </small>
             <a class='black' href='https://github.com/WeAreROLI/mpejs'>
@@ -173,7 +173,8 @@
 
   
     <p>To install the latest version of mpe.js: <pre class='p1 mb1'>npm install --save mpe</pre></p>
-<p>To use without a package manager: <pre class='p1 mb1'>&#x3C;script src=&#x27;//unpkg.com/mpe@1.0.2/lib/mpe.min.js&#x27;&#x3E;&#x3C;/script&#x3E;</pre></p>
+<p>Or using yarn: <pre class='p1 mb1'>yarn add mpe</pre></p>
+<p>To use without a package manager: <pre class='p1 mb1'>&#x3C;script src=&#x27;//unpkg.com/mpe@1.0.3/lib/mpe.min.js&#x27;&#x3E;&#x3C;/script&#x3E;</pre></p>
 
   
 </section>
@@ -224,7 +225,7 @@
         (options)
       </span>
       
-        <a class='right round small' href='https://github.com/WeAreROLI/mpejs/blob/e96580da1dab6d21faad772e31d0d7a5257d0a89/./src/mpeInstrument/index.js#L40-L169'>
+        <a class='right round small' href='https://github.com/WeAreROLI/mpejs/blob/96bf86f2b3e9e6eccddfab1a7cc91d0e5f1cf81e/./src/mpeInstrument/index.js#L41-L170'>
           <span>./src/mpeInstrument/index.js</span>
         </a>
       
@@ -364,15 +365,16 @@ range specified, overriding
 <span class="hljs-comment">// Define `instrument` as an instance of `mpeInstrument`</span>
 <span class="hljs-keyword">const</span> instrument = mpeInstrument();
 
-<span class="hljs-comment">// 1) Request MIDI device access from the Web MIDI API</span>
-<span class="hljs-comment">// 2) Take the first `MIDIInput` from the available MIDI `inputMap`</span>
-<span class="hljs-comment">// 3) Send input messages from this input to `instrument`</span>
+<span class="hljs-comment">// Request MIDI device access from the Web MIDI API</span>
 navigator.requestMIDIAccess().then(access =&gt; {
-  <span class="hljs-keyword">const</span> midiInput = access.inputMap.values().next();
-  midiInput.addEventListener(
-    <span class="hljs-string">'midimessage'</span>,
-    (event) =&gt; instrument.processMidiMessage(event.data)
-  );
+  <span class="hljs-comment">// Iterate over the list of inputs returned</span>
+  access.inputs.forEach(midiInput =&gt; {
+    <span class="hljs-comment">// Send 'midimessage' events to the mpe.js `instrument` instance</span>
+    midiInput.addEventListener(
+      <span class="hljs-string">'midimessage'</span>,
+      (event) =&gt; instrument.processMidiMessage(event.data)
+    );
+  });
 });</pre>
         
       
