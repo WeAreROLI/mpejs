@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.0.3] - 2017-10-18
+### Fixed
+- Fixed error in docs usage example.
+
 ## [1.0.2] - 2017-06-27
 ### Added
 - Added ISC license.
