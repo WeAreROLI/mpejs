@@ -47,7 +47,7 @@ const deriveTypeSpecificData = (baseData, currentStateCallback) => {
       return { noteNumber: dataBytes[0], noteOnVelocity: dataBytes[1], channelScope };
     }
     case types.NOTE_OFF:
-      // A note on with velocity 0 is treated as a note off with velocity 64
+      // A Note On with velocity 0 is treated as a note off with velocity 64
       return midiMessageType === types.NOTE_ON ?
         { noteNumber: dataBytes[0], noteOffVelocity: defaults.NOTE_OFF_VELOCITY } :
         { noteNumber: dataBytes[0], noteOffVelocity: dataBytes[1] };
