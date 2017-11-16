@@ -27,11 +27,13 @@ const deriveActionType = (midiMessageType, channel, dataBytes) => {
     case types.NOTE_ON:
       // A note on with velocity 0 is a treated as a note off
       if (dataBytes[1] === 0) return types.NOTE_OFF;
+      break;
     case types.CONTROL_CHANGE:
       // CC 74 is used for timbre messages
       if (dataBytes[0] === 74) return types.TIMBRE;
       // CC 123 on the master channel is an all notes off message
       if (dataBytes[0] === 123 && channel === 1) return types.ALL_NOTES_OFF;
+      break;
   }
   return midiMessageType;
 };
@@ -45,7 +47,7 @@ const deriveTypeSpecificData = (baseData, currentStateCallback) => {
       return { noteNumber: dataBytes[0], noteOnVelocity: dataBytes[1], channelScope };
     }
     case types.NOTE_OFF:
-      // A note on with velocity 0 is treated as a note off with velocity 64
+      // A Note On with velocity 0 is treated as a note off with velocity 64
       return midiMessageType === types.NOTE_ON ?
         { noteNumber: dataBytes[0], noteOffVelocity: defaults.NOTE_OFF_VELOCITY } :
         { noteNumber: dataBytes[0], noteOffVelocity: dataBytes[1] };
