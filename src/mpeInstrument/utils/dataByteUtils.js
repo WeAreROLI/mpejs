@@ -51,3 +51,15 @@ export const int14ToUnsignedFloat = v => v <= 8192
 export const int14ToSignedFloat = v => v <= 8192
   ? v / 8192 - 1
   : (v - 8192) / 8191;
+
+export const unsignedFloatToInt7 = v => v <= 0.5
+  ? v * 64 / 0.5
+  : (v - 0.5) * 63 / 0.5 + 64;
+
+export const unsignedFloatToInt14 = v => v <= 0.5
+  ? v * 8192 / 0.5
+  : (v - 0.5) * 8191 / 0.5 + 8192;
+
+export const signedFloatToInt14 = v => v <= 0.5
+  ? (v + 1) * 8192
+  : v * 8191 +8192;

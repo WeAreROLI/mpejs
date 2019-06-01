@@ -1,5 +1,8 @@
 import { expect } from 'chai';
-import { int7ToUnsignedFloat, int14ToUnsignedFloat, int14ToSignedFloat } from '../../src/mpeInstrument/utils/dataByteUtils';
+import { 
+  int7ToUnsignedFloat, int14ToUnsignedFloat, int14ToSignedFloat, 
+  unsignedFloatToInt7, unsignedFloatToInt14, signedFloatToInt14,
+} from '../../src/mpeInstrument/utils/dataByteUtils';
 import { chain, range, zip } from 'lodash';
 
 const int7s = [
@@ -63,6 +66,27 @@ describe('dataByteUtils', () => {
           .thru(ds => Array.from(new Set(ds)))
           .value()
           .every(v => expect(v).to.be.closeTo(0.00012, 0.00001));
+      });
+    });
+  });
+  describe('unsignedFloatToInt7', () => {
+    int7s.forEach(({ int7, unsigned }) => {
+      it(`should convert ${unsigned} to ${int7}`, () => {
+        expect(unsignedFloatToInt7(unsigned)).to.eq(int7);
+      });
+    });
+  });
+  describe('unsignedFloatToInt14', () => {
+    int14s.forEach(({ int14, unsigned }) => {
+      it(`should convert ${unsigned} to ${int14}`, () => {
+        expect(unsignedFloatToInt14(unsigned)).to.eq(int14);
+      });
+    });
+  });
+  describe('signedFloatToInt14', () => {
+    int14s.forEach(({ int14, signed }) => {
+      it(`should convert ${signed} to ${int14}`, () => {
+        expect(signedFloatToInt14(signed)).to.eq(int14);
       });
     });
   });
