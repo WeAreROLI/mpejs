@@ -1,6 +1,9 @@
 import { compose } from 'redux';
 import { transformObject } from './objectUtils';
-import { int7ToUnsignedFloat, int14ToUnsignedFloat, int14ToSignedFloat } from './dataByteUtils';
+import { 
+  int7ToUnsignedFloat, int14ToUnsignedFloat, int14ToSignedFloat, 
+  unsignedFloatToInt7, unsignedFloatToInt14, signedFloatToInt14,
+} from './dataByteUtils';
 import { toScientificPitch, toHelmholtzPitch } from './noteNumberUtils';
 
 const NORMALIZE_NOTE_TRANSFORMATIONS = {
@@ -11,8 +14,19 @@ const NORMALIZE_NOTE_TRANSFORMATIONS = {
   timbre: int14ToUnsignedFloat,
 };
 
+const UNNORMALIZE_NOTE_TRANSFORMATIONS = {
+  noteOnVelocity: unsignedFloatToInt7,
+  noteOffVelocity: unsignedFloatToInt7,
+  pitchBend: signedFloatToInt14,
+  pressure: unsignedFloatToInt14,
+  timbre: unsignedFloatToInt14,
+};
+
 export const normalize = note =>
   transformObject(note, NORMALIZE_NOTE_TRANSFORMATIONS);
+
+export const unnormalize = note =>
+  transformObject(note, UNNORMALIZE_NOTE_TRANSFORMATIONS);
 
 export const addScientificPitch = action =>
   typeof action.noteNumber === 'undefined'
@@ -29,20 +43,50 @@ export const addPitch = ({ pitch }) =>
     ? addHelmholtzPitch
     : addScientificPitch;
 
-export const createPitchBendConverter = (pitchBendRange, normalize) => {
+const pick = (inObj, properties) => properties.reduce((acc, key) => {
+  acc[key] = inObj[key];
+}, {});
+
+export const pickRequiredProperty = note =>
+  pick(note, ['noteNumber', 'channel', 'noteOnVelocity', 'pitchBend', 'timbre', 'pressure']);
+
+
+//  Actual pitch which has been applied pitch bend is `noteNumber + deltaPitch`
+// -pitchBendRange <= deltaPitch <= pitchBendRange
+export const int14ToDeltaPitch = (pitchBendRange, normalize, int14) => {
   const conversionFunctions = [
     pitchBendRange && (v => v * parseFloat(pitchBendRange)),
     !normalize && int14ToSignedFloat,
   ].filter(f => f);
-  return compose(...conversionFunctions);
+  return compose(...conversionFunctions)(int14);
+};
+
+export const deltaPitchToInt14 = (pitchBendRange, normalize, deltaPitch) => {
+  const conversionFunctions = [
+    !normalize && signedFloatToInt14,
+    pitchBendRange && (v => v / parseFloat(pitchBendRange)),
+  ].filter(f => f);
+  return compose(...conversionFunctions)(deltaPitch);
 };
 
 export const convertPitchBendRange = ({ pitchBendRange, normalize }) => action =>
   Object.assign(
     {},
     action,
-    { pitchBend: createPitchBendConverter(pitchBendRange, normalize)(action.pitchBend) }
+    { pitchBend: int14ToDeltaPitch(pitchBendRange, normalize, action.pitchBend) }
   );
+
+export const revertPitchBendRange = ({ pitchBendRange, normalize }) => action =>
+  Object.assign(
+    {},
+    action,
+    { pitchBend: deltaPitchToInt14(pitchBendRange, normalize, action.pitchBend) }
+  );
+
+export const createThresholdFunction = ({pitchBendRange, normalize}) => action => {
+  // TODO: Apply threshold pitchbend which is out of range
+  return action;
+};
 
 export const findActiveNoteIndex = (state, action) => {
   const { channel, noteNumber } = action;
