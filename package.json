@@ -57,7 +57,7 @@
     "git-directory-deploy": "1.5.0",
     "highlight.js": "9.4.0",
     "jsdoc": "3.4.0",
-    "lodash": "4.13.1",
+    "lodash": "4.17.21",
     "mocha": "2.5.3",
     "mocha-logger": "1.0.5",
     "remark": "5.0.1",
