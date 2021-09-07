@@ -61,7 +61,7 @@
     "mocha": "2.5.3",
     "mocha-logger": "1.0.5",
     "remark": "5.0.1",
-    "remark-html": "4.0.0",
+    "remark-html": "13.0.2",
     "sinon": "1.17.4",
     "sinon-chai": "2.8.0",
     "unist-util-visit": "1.1.0",
